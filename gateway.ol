@@ -63,28 +63,40 @@ service Gateway( params:Params ) {
         interfaces: PageInterface
     }
 
-    define buildService {
-        exists@File(ServicesDirectory + path)(serviceExists)
-
-        if(serviceExists) {
-            synchronized(compile) {
-                println@Console("Recompiling " + path)()
-                file.filename = ContentDirectory + path
-                readFile@File(file)(contents)
-                // compile@Josep(contents)(code)
-
-                writefile.content = code;
-                writefile.filename = ServicesDirectory + path
-                writeFile@File(writefile)()
-            }
-        }
+    outputPort Nuxt {
+        interfaces: NuxtInterface
     }
 
     define loadNuxt {
         loadEmbeddedService@Runtime( {
             filepath = "nuxt.runtime.Compiler"
             type = "Java"
-        } )( NuxtInterface.location )
+        } )( Nuxt.location )
+    }
+
+    define buildService {
+        println@Console("Building... " + path)()
+
+        exists@File(params.servicesDir + path)(serviceExists)
+
+        println@Console("Could find... " + serviceExists)()
+
+        if( ! serviceExists) {
+            synchronized(compile) {
+                println@Console("Recompiling " + path)()
+                file.filename = params.contentDir + path
+                readFile@File(file)(contents)
+
+                println@Console("Contents " + contents)()
+                compile@Nuxt(contents)(code)
+
+                println@Console("Code " + code)()
+
+                writefile.content = code
+                writefile.filename = params.servicesDir + path
+                writeFile@File(writefile)()
+            }
+        }
     }
 
     init {
@@ -92,17 +104,53 @@ service Gateway( params:Params ) {
     }
 
     main {
-        [ default( request )( result ) {
+        [ default(request)(response) {
 
-            println@Console( request.file )()
+            scope( computeResponse ) {
+                install(FileNotFound =>
+                    println@Console("File not found: " + file.filename)()
+                )
+                
+                s = request.operation
+                s.regex = "\\?"
+                split@StringUtils(s)(s)
+                
+                // Default page
+                path = s.result[0]
+                if (path == "") {
+                    path = DefaultPage
+                }
 
-            //Generate@JolieNuxtOutputPort( request )( jolieFile )
+                // Check file ending
+                endsWithReq = path
+                endsWithReq.suffix = ".ol"
+                endsWith@StringUtils(endsWithReq)(isService)
 
-            // Render@JolieNuxtOutputPort( request )( response )
+                if(isService) {
+                    buildService
 
-            //println@Console( response )()
+                    service.type = "jolie"
+                    service.filepath = params.servicesDir + path
+                    loadEmbeddedService@Runtime(service)(Page.location)
 
-            result.file = "somefile.ol"
+                    getDocument@Page(request.data)(response)
+                    format = "html"
+                } else {
+                    file.filename = params.contentDir + path
+
+                    getMimeType@File(file.filename)(mime)
+                    mime.regex = "/"
+                    split@StringUtils(mime)(s)
+                    if (s.result[0] == "text") {
+                        file.format = "text"
+                        format = "html"
+                    } else {
+                        file.format = format = "binary"
+                    }
+
+                    readFile@File(file)(response)
+                }
+            }
         }]
     }
 }

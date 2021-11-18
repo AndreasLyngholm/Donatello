@@ -8,5 +8,5 @@ type GatewayResponse: void {
 
 interface GatewayInterface {
   RequestResponse:
-    default( GatewayRequest )( GatewayResponse )
+    default(undefined)(undefined)
 }

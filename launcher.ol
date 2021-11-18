@@ -7,8 +7,8 @@ service Launcher {
 
 	main {
 		config.location = "socket://localhost:8000"
-		config.contentDir = "www/"
-		config.servicesDir = "services/"
+		config.contentDir = "../new_demo/www/"
+		config.servicesDir = "../new_demo/services/"
 		config.defaultPage = "index.ol"
 
 		getRealServiceDirectory@file()( home )
