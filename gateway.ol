@@ -10,8 +10,9 @@ from string_utils import StringUtils
 /// Configuration parameters
 type Params {
     location:string
-    contentDir?:string
-    servicesDir?:string
+    contentDir:string
+    servicesDir:string
+    defaultPage:string
 
     /// configuration parameters for the HTTP input port
     httpConfig? {

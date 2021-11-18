@@ -7,6 +7,9 @@ service Launcher {
 
 	main {
 		config.location = "socket://localhost:8000"
+		config.contentDir = "www/"
+		config.servicesDir = "services/"
+		config.defaultPage = "index.ol"
 
 		getRealServiceDirectory@file()( home )
 		getFileSeparator@file()( sep )
