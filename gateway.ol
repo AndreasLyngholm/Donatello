@@ -49,6 +49,7 @@ service Gateway( params:Params ) {
 
             default = "default"
         }
+        // protocol: http { format = "json", default = "default" }
         location: params.location
         interfaces: GatewayInterface
     }
@@ -67,30 +68,41 @@ service Gateway( params:Params ) {
         interfaces: NuxtInterface
     }
 
+    outputPort FileUtils {
+        interfaces: NuxtInterface
+    }
+
     define loadNuxt {
         loadEmbeddedService@Runtime( {
             filepath = "nuxt.runtime.Compiler"
             type = "Java"
         } )( Nuxt.location )
+
+        loadEmbeddedService@Runtime( {
+            filepath = "nuxt.runtime.FileUtils"
+            type = "Java"
+        } )( FileUtils.location )
     }
 
     define buildService {
-        println@Console("Building... " + path)()
+        isUpdated = false
 
         exists@File(params.servicesDir + path)(serviceExists)
+        if(serviceExists) {
+            getLastModified@FileUtils(params.contentDir + path)(pageModified)
+            getLastModified@FileUtils(params.servicesDir + path)(serviceModified)
 
-        println@Console("Could find... " + serviceExists)()
+            if(serviceModified >= pageModified) {
+                isUpdated = true
+            }
+        }
 
-        if( ! serviceExists) {
+        if(isUpdated == false) {
             synchronized(compile) {
                 println@Console("Recompiling " + path)()
                 file.filename = params.contentDir + path
                 readFile@File(file)(contents)
-
-                println@Console("Contents " + contents)()
                 compile@Nuxt(contents)(code)
-
-                println@Console("Code " + code)()
 
                 writefile.content = code
                 writefile.filename = params.servicesDir + path
@@ -133,6 +145,7 @@ service Gateway( params:Params ) {
                     service.filepath = params.servicesDir + path
                     loadEmbeddedService@Runtime(service)(Page.location)
 
+                    // response.file = service.filepath
                     getDocument@Page(request.data)(response)
                     format = "html"
                 } else {
