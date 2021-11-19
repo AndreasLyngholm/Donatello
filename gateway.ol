@@ -145,22 +145,20 @@ service Gateway( params:Params ) {
 
                     getDocument@Page(request.data)(response)
                     format = "html"
-                    // response.file = service.filepath
                 } else {
                     response.file = params.contentDir + path
 
-                    // getMimeType@File(file.filename)(mime)
-                    // mime.regex = "/"
-                    // split@StringUtils(mime)(s)
-                    // if (s.result[0] == "text") {
-                    //     file.format = "text"
-                    //     format = "html"
-                    // } else {
-                    //     file.format = format = "binary"
-                    // }
+                    getMimeType@File(file.filename)(mime)
+                    mime.regex = "/"
+                    split@StringUtils(mime)(s)
+                    if (s.result[0] == "text") {
+                        file.format = "text"
+                        format = "html"
+                    } else {
+                        file.format = format = "binary"
+                    }
 
-                    // readFile@File(file)(response)
-                    // response.file = file.filename
+                    readFile@File(file)(response)
                 }
             }
         }]
