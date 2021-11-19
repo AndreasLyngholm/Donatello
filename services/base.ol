@@ -1,8 +1,14 @@
 from runtime import Runtime
 from PageInterfaceModule import PageInterface
+@includes
 
-service Base {
+service Main {
 	embed Runtime as Runtime
+	@embedings
+
+	define operations {
+		@operations
+	}
 
 	execution { single }
 

@@ -54,12 +54,6 @@ service Gateway( params:Params ) {
         interfaces: GatewayInterface
     }
 
-    // inputPort GatewayPort {
-    //     location: "socket://localhost:8000"
-    //     protocol: http { format = "json" }
-    //     interfaces: GatewayInterface
-    // }
-
     outputPort Page {
         interfaces: PageInterface
     }
@@ -101,8 +95,11 @@ service Gateway( params:Params ) {
             synchronized(compile) {
                 println@Console("Recompiling " + path)()
                 file.filename = params.contentDir + path
-                readFile@File(file)(contents)
-                compile@Nuxt(contents)(code)
+                readFile@File(file)(data.contents)
+
+                base.filename = "services/base.ol"
+                readFile@File(base)(data.base)
+                compile@Nuxt(data)(code)
 
                 writefile.content = code
                 writefile.filename = params.servicesDir + path
@@ -141,27 +138,29 @@ service Gateway( params:Params ) {
                 if(isService) {
                     buildService
 
-                    service.type = "jolie"
-                    service.filepath = params.servicesDir + path
-                    loadEmbeddedService@Runtime(service)(Page.location)
+                    loadEmbeddedService@Runtime({
+                        filepath = params.servicesDir + path
+                        service = "Main"
+                    })(Page.location)
 
-                    // response.file = service.filepath
                     getDocument@Page(request.data)(response)
                     format = "html"
+                    // response.file = service.filepath
                 } else {
-                    file.filename = params.contentDir + path
+                    response.file = params.contentDir + path
 
-                    getMimeType@File(file.filename)(mime)
-                    mime.regex = "/"
-                    split@StringUtils(mime)(s)
-                    if (s.result[0] == "text") {
-                        file.format = "text"
-                        format = "html"
-                    } else {
-                        file.format = format = "binary"
-                    }
+                    // getMimeType@File(file.filename)(mime)
+                    // mime.regex = "/"
+                    // split@StringUtils(mime)(s)
+                    // if (s.result[0] == "text") {
+                    //     file.format = "text"
+                    //     format = "html"
+                    // } else {
+                    //     file.format = format = "binary"
+                    // }
 
-                    readFile@File(file)(response)
+                    // readFile@File(file)(response)
+                    // response.file = file.filename
                 }
             }
         }]
