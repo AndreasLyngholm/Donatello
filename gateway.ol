@@ -10,6 +10,7 @@ from string_utils import StringUtils
 /// Configuration parameters
 type Params {
     location:string
+    root:string
     contentDir:string
     servicesDir:string
     defaultPage:string
@@ -127,7 +128,7 @@ service Gateway( params:Params ) {
                 // Default page
                 path = s.result[0]
                 if (path == "") {
-                    path = DefaultPage
+                    path = params.defaultPage
                 }
 
                 // Check file ending
@@ -141,12 +142,13 @@ service Gateway( params:Params ) {
                     loadEmbeddedService@Runtime({
                         filepath = params.servicesDir + path
                         service = "Main"
+                        params -> params
                     })(Page.location)
 
                     getDocument@Page(request.data)(response)
                     format = "html"
                 } else {
-                    response.file = params.contentDir + path
+                    file.filename = params.contentDir + path
 
                     getMimeType@File(file.filename)(mime)
                     mime.regex = "/"

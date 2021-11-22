@@ -7,8 +7,9 @@ service Launcher {
 
 	main {
 		config.location = "socket://localhost:8000"
-		config.contentDir = "../new_demo/www/"
-		config.servicesDir = "../new_demo/services/"
+		config.root = "/home/vagrant/Coding/thesis/new_demo/"
+		config.contentDir = "/home/vagrant/Coding/thesis/new_demo/www/"
+		config.servicesDir = "/home/vagrant/Coding/thesis/new_demo/services/"
 		config.defaultPage = "index.ol"
 
 		getRealServiceDirectory@file()( home )

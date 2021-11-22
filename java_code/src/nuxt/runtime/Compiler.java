@@ -7,14 +7,11 @@ import java.util.regex.Matcher;
 import java.util.ArrayList;
 
 public class Compiler extends JavaService {
-	//private static final String TAG_PATTERN = "\\s*\\<%\\s*([^%]*?)\\s*%\\>\\s*";
 	private static final String TAG_PATTERN = "\\s*\\$\\{\\s*([^%]*?)\\s*\\}\\s*";
 	private static final String INCLUDE_PATTERN = "\\s*use service (\\S+)\\s*";
+	private static final String DATAPROVIDER_PATTERN = "\\s*use (json|xml) (\\S+) as (\\S+)\\s*";
 
-	//private static final String HEADER = "include \"services/base.ol\"\ndefine operations {\n";
-	//private static final String FOOTER = "\tnullProcess\n}";
-
-	private StringBuilder output, code;
+	private StringBuilder output, code, dataproviders;
 	private ArrayList<String> includes;
 
 	public String compile(Value request) {
@@ -24,6 +21,7 @@ public class Compiler extends JavaService {
 		includes = new ArrayList<String>();
 		output = new StringBuilder();
 		code = new StringBuilder();
+		dataproviders = new StringBuilder();
 
 		Pattern pattern = Pattern.compile(TAG_PATTERN);
 		Matcher matcher = pattern.matcher(contents);
@@ -47,13 +45,11 @@ public class Compiler extends JavaService {
 			formatedIncludes += String.format("from %s import %s \n", include, capitalize(include));
 			formatedEmbeddings += String.format("embed %s as %s \n", capitalize(include), capitalize(include));
 		}
-		//output.append(HEADER);
-		//output.append(code.toString());
 		
 		base = base.replace("@includes", formatedIncludes);
 		base = base.replace("@embedings", formatedEmbeddings);
+		base = base.replace("@dataproviders", dataproviders.toString());
 		base = base.replace("@operations", code.toString());
-		//output.append(FOOTER);
 		
 		output.append(base);
 
@@ -85,7 +81,18 @@ public class Compiler extends JavaService {
 			includes.add(matcher.group(1));
 		}
 		
-		return text.replaceAll(INCLUDE_PATTERN, "");
+		return parseDataproviders(text.replaceAll(INCLUDE_PATTERN, ""));
+	}
+	
+	private String parseDataproviders(String text) {
+		Pattern pattern = Pattern.compile(DATAPROVIDER_PATTERN);
+		Matcher matcher = pattern.matcher(text);
+
+		while(matcher.find()) {
+			dataproviders.append(String.format("readFile@File( {filename = params.root + \"%s.%s\", format = \"%s\"} )( %s ) \n", matcher.group(2), matcher.group(1), matcher.group(1), matcher.group(3)));
+		}
+		
+		return text.replaceAll(DATAPROVIDER_PATTERN, "");
 	}
 	
 	public static String capitalize(String str)

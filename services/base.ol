@@ -1,9 +1,19 @@
 from runtime import Runtime
 from PageInterfaceModule import PageInterface
+from file import File
 @includes
 
-service Main {
+type Params {
+    location:string
+    root:string
+    contentDir:string
+    servicesDir:string
+    defaultPage:string
+}
+
+service Main( params:Params ) {
 	embed Runtime as Runtime
+	embed File as File
 	@embedings
 
 	define operations {
@@ -28,6 +38,9 @@ service Main {
 
 	main {
 		getDocument(request)(response) {
+
+			@dataproviders
+
 			operations
 			response = document
 		}
