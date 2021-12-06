@@ -8,11 +8,11 @@ ANY: ~(' ');
 PRINT: '@print';
 
 prog
-    :   '${' WS? (statement|code|print) WS? '}'
+    :   ('${' (statement|code|print) '}' NEWLINE)*
     ;
 
 print
-    :   PRINT WS? (ANY|WS|VARIABLE|'/')+
+    :   PRINT (ANY|WS|VARIABLE|'/')+
     ;
 
 code
@@ -50,7 +50,7 @@ DIGIT
     ;
 
 NEWLINE
-    :   '\r'? '\n'
+    :   [\r\n]+
     ;
 
 WS
