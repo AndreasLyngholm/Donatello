@@ -8,11 +8,12 @@ ANY: ~(' ');
 PRINT: '@print';
 
 prog
-    :   ('${' (statement|code|print) '}' NEWLINE)*
+    :   ('${' (statement|code|print) '}' NEWLINE?|html)*
+    |   EOF
     ;
 
 print
-    :   PRINT (ANY|WS|VARIABLE|'/')+
+    :   PRINT (ANY|WS|VARIABLE|CODE|'/')+
     ;
 
 code
@@ -35,6 +36,10 @@ resource
 
 as
     :   VARIABLE
+    ;
+
+html
+    :   ANYTHING
     ;
 
 VARIABLE
@@ -61,3 +66,6 @@ CODE
     :   [a-zA-Z]([0-9A-Za-z]|'@'|'('|')'|'.')+
     ;
 
+ANYTHING
+    :   ~[${}@]+ NEWLINE
+    ;

@@ -14,6 +14,7 @@ DIGIT=13
 NEWLINE=14
 WS=15
 CODE=16
+ANYTHING=17
 '${'=1
 '}'=2
 '/'=3

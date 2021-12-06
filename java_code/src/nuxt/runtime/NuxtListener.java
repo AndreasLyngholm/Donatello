@@ -1,5 +1,6 @@
 // Generated from Nuxt.g4 by ANTLR 4.9.3
-package nuxt.runtime;
+
+    package nuxt.runtime;
 
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -18,6 +19,16 @@ public interface NuxtListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitProg(NuxtParser.ProgContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NuxtParser#unknowns}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnknowns(NuxtParser.UnknownsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NuxtParser#unknowns}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnknowns(NuxtParser.UnknownsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link NuxtParser#print}.
 	 * @param ctx the parse tree

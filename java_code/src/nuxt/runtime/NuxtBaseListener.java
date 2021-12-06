@@ -1,5 +1,7 @@
 // Generated from Nuxt.g4 by ANTLR 4.9.3
-package nuxt.runtime;
+
+    package nuxt.runtime;
+
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -23,6 +25,18 @@ public class NuxtBaseListener implements NuxtListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitProg(NuxtParser.ProgContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnknowns(NuxtParser.UnknownsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnknowns(NuxtParser.UnknownsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -94,6 +94,18 @@ public class NuxtBaseListener implements NuxtListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAs(NuxtParser.AsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHtml(NuxtParser.HtmlContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHtml(NuxtParser.HtmlContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

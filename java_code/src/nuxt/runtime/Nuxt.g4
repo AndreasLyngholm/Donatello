@@ -1,5 +1,9 @@
 grammar Nuxt;
 
+@header {
+    package nuxt.runtime;
+}
+
 USE: 'use';
 SERVICE: 'service';
 JSON: 'json';
@@ -8,8 +12,15 @@ ANY: ~(' ');
 PRINT: '@print';
 
 prog
-    :   '${' WS? (statement|code|print) WS? '}'
+    :   ('${' WS? (statement|code|print) WS? '}'|unknowns|WS|NEWLINE)+
     ;
+
+unknowns
+	:	Unknown+ ;
+	
+Unknown
+	:	.
+	;
 
 print
     :   PRINT WS? (ANY|WS|VARIABLE|'/')+

@@ -76,4 +76,14 @@ public interface NuxtListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAs(NuxtParser.AsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NuxtParser#html}.
+	 * @param ctx the parse tree
+	 */
+	void enterHtml(NuxtParser.HtmlContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NuxtParser#html}.
+	 * @param ctx the parse tree
+	 */
+	void exitHtml(NuxtParser.HtmlContext ctx);
 }
