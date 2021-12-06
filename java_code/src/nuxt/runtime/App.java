@@ -2,7 +2,9 @@ package nuxt.runtime;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -11,16 +13,19 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 
 public class App
 {
+	public static StringBuilder stringBuilder = new StringBuilder();
+	public static Map<String, String> data = new HashMap<String, String>();
+	
     public static void main( String[] args )
-    {    	
-    	CharStream cs = CharStreams.fromString("${use service time}");  //load the file
+    {
+    	CharStream cs = CharStreams.fromString("${use service data/users as users}");  //load the file
         NuxtLexer lexer = new NuxtLexer(cs);  //instantiate a lexer
         CommonTokenStream tokens = new CommonTokenStream(lexer); //scan stream for tokens
         NuxtParser parser = new NuxtParser(tokens);  //parse the tokens
 
         ParseTree tree = parser.prog(); // parse the content and get the tree
         
-        System.out.println(tree.toStringTree(parser));
+        //System.out.println(tree.toStringTree(parser));
         
         
         Mylistener listener = new Mylistener(parser.getRuleNames());
@@ -32,6 +37,8 @@ public class App
         //inOrderTraversal(tokensTest, tree);
         
         //System.out.println(tokensTest);
+        
+        System.out.println(data.toString());
         
     	
     	

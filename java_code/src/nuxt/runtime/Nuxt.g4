@@ -20,7 +20,7 @@ code
     ;
 
 statement
-    :   USE WS type WS resource WS? as? WS?
+    :   USE WS type WS resource WS? ('as' WS as)? WS?
     ;
 
 type
@@ -30,12 +30,11 @@ type
     ;
 
 resource
-    :   resource ('/') resource
-    |   VARIABLE
+    :   VARIABLE ('/' VARIABLE)*
     ;
 
 as
-    :   'as' WS VARIABLE
+    :   VARIABLE
     ;
 
 VARIABLE
@@ -61,3 +60,4 @@ WS
 CODE
     :   [a-zA-Z]([0-9A-Za-z]|'@'|'('|')'|'.')+
     ;
+

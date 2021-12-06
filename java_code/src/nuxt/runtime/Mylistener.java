@@ -21,6 +21,12 @@ public class Mylistener extends NuxtBaseListener {
     	//String Rule = this.ruleNames[ctx.getRuleIndex()];
     	System.out.println("-- " + ctx.getRuleContext().getText() + "\n");
     	
+    	//App.stringBuilder.append(ctx.getRuleContext().getText());
+    	
+    	String rule = this.ruleNames[ctx.getRuleIndex()];
+    	if( ! rule.equals("prog"))
+    		App.data.put(rule, ctx.getRuleContext().getText());
+    	
     	//System.out.println("-- " + ctx.parent);	
     	
     	//if(ctx.children != null) {
@@ -28,17 +34,5 @@ public class Mylistener extends NuxtBaseListener {
     	//}
     	
               //code that executes per rule
-    }
-    
-    @Override public void visitTerminal(TerminalNode node) {
-    	//System.out.println("-- " + node.);
-    }
-    
-    @Override public void enterStatement(NuxtParser.StatementContext ctx) {
-    	//System.out.println("Got into statement: " + ctx.getText());
-    }
-    
-    @Override public void enterType(NuxtParser.TypeContext ctx) {
-    	//System.out.println("Type: " + ctx.getText());
     }
 }
