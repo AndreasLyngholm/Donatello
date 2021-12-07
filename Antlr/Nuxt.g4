@@ -8,12 +8,12 @@ ANY: ~(' ');
 PRINT: '@print';
 
 prog
-    :   ('${' (statement|code|print) '}' NEWLINE?|html)*
+    :   ('${' (statement|print|code) '}'|html)*
     |   EOF
     ;
 
 print
-    :   PRINT (ANY|WS|VARIABLE|CODE|'/')+
+    :   PRINT (ANY|VARIABLE|CODE|'/')+
     ;
 
 code
@@ -21,7 +21,7 @@ code
     ;
 
 statement
-    :   USE WS type WS resource WS? ('as' WS as)? WS?
+    :   USE type resource ('as' as)?
     ;
 
 type
@@ -54,16 +54,18 @@ DIGIT
     :   [0-9]
     ;
 
+
+CODE
+    :   ([0-9A-Za-z]|'@'|'('|')'|'.')+ WS? '=' WS? ~[{}]+
+    |   ([0-9A-Za-z]|'@'|'('|')'|'.')+
+    ;
+
 NEWLINE
-    :   [\r\n]+
+    :   [\r\n]+ -> skip
     ;
 
 WS
-    :   (' '|'\t'|'\n'|'\r')+
-    ;
-
-CODE
-    :   [a-zA-Z]([0-9A-Za-z]|'@'|'('|')'|'.')+
+    :   [ \t\n\r]+ -> skip
     ;
 
 ANYTHING

@@ -30,18 +30,6 @@ public class NuxtBaseListener implements NuxtListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUnknowns(NuxtParser.UnknownsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitUnknowns(NuxtParser.UnknownsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterPrint(NuxtParser.PrintContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -109,6 +97,18 @@ public class NuxtBaseListener implements NuxtListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAs(NuxtParser.AsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHtml(NuxtParser.HtmlContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHtml(NuxtParser.HtmlContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

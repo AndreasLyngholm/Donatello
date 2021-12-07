@@ -20,16 +20,6 @@ public interface NuxtListener extends ParseTreeListener {
 	 */
 	void exitProg(NuxtParser.ProgContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link NuxtParser#unknowns}.
-	 * @param ctx the parse tree
-	 */
-	void enterUnknowns(NuxtParser.UnknownsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link NuxtParser#unknowns}.
-	 * @param ctx the parse tree
-	 */
-	void exitUnknowns(NuxtParser.UnknownsContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link NuxtParser#print}.
 	 * @param ctx the parse tree
 	 */
@@ -89,4 +79,14 @@ public interface NuxtListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAs(NuxtParser.AsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NuxtParser#html}.
+	 * @param ctx the parse tree
+	 */
+	void enterHtml(NuxtParser.HtmlContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NuxtParser#html}.
+	 * @param ctx the parse tree
+	 */
+	void exitHtml(NuxtParser.HtmlContext ctx);
 }

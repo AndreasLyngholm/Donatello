@@ -17,7 +17,7 @@ public class NuxtParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, USE=5, SERVICE=6, JSON=7, XML=8, ANY=9, 
-		PRINT=10, VARIABLE=11, ALPHA=12, DIGIT=13, NEWLINE=14, WS=15, CODE=16, 
+		PRINT=10, VARIABLE=11, ALPHA=12, DIGIT=13, CODE=14, NEWLINE=15, WS=16, 
 		ANYTHING=17;
 	public static final int
 		RULE_prog = 0, RULE_print = 1, RULE_code = 2, RULE_statement = 3, RULE_type = 4, 
@@ -39,7 +39,7 @@ public class NuxtParser extends Parser {
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, "USE", "SERVICE", "JSON", "XML", "ANY", 
-			"PRINT", "VARIABLE", "ALPHA", "DIGIT", "NEWLINE", "WS", "CODE", "ANYTHING"
+			"PRINT", "VARIABLE", "ALPHA", "DIGIT", "CODE", "NEWLINE", "WS", "ANYTHING"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -106,21 +106,17 @@ public class NuxtParser extends Parser {
 		public StatementContext statement(int i) {
 			return getRuleContext(StatementContext.class,i);
 		}
-		public List<CodeContext> code() {
-			return getRuleContexts(CodeContext.class);
-		}
-		public CodeContext code(int i) {
-			return getRuleContext(CodeContext.class,i);
-		}
 		public List<PrintContext> print() {
 			return getRuleContexts(PrintContext.class);
 		}
 		public PrintContext print(int i) {
 			return getRuleContext(PrintContext.class,i);
 		}
-		public List<TerminalNode> NEWLINE() { return getTokens(NuxtParser.NEWLINE); }
-		public TerminalNode NEWLINE(int i) {
-			return getToken(NuxtParser.NEWLINE, i);
+		public List<CodeContext> code() {
+			return getRuleContexts(CodeContext.class);
+		}
+		public CodeContext code(int i) {
+			return getRuleContext(CodeContext.class,i);
 		}
 		public TerminalNode EOF() { return getToken(NuxtParser.EOF, 0); }
 		public ProgContext(ParserRuleContext parent, int invokingState) {
@@ -142,18 +138,18 @@ public class NuxtParser extends Parser {
 		enterRule(_localctx, 0, RULE_prog);
 		int _la;
 		try {
-			setState(33);
+			setState(31);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(29);
+				setState(27);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==T__0 || _la==ANYTHING) {
 					{
-					setState(27);
+					setState(25);
 					_errHandler.sync(this);
 					switch (_input.LA(1)) {
 					case T__0:
@@ -169,16 +165,16 @@ public class NuxtParser extends Parser {
 							statement();
 							}
 							break;
-						case CODE:
-							{
-							setState(18);
-							code();
-							}
-							break;
 						case PRINT:
 							{
-							setState(19);
+							setState(18);
 							print();
+							}
+							break;
+						case CODE:
+							{
+							setState(19);
+							code();
 							}
 							break;
 						default:
@@ -186,21 +182,11 @@ public class NuxtParser extends Parser {
 						}
 						setState(22);
 						match(T__1);
-						setState(24);
-						_errHandler.sync(this);
-						_la = _input.LA(1);
-						if (_la==NEWLINE) {
-							{
-							setState(23);
-							match(NEWLINE);
-							}
-						}
-
 						}
 						break;
 					case ANYTHING:
 						{
-						setState(26);
+						setState(24);
 						html();
 						}
 						break;
@@ -208,7 +194,7 @@ public class NuxtParser extends Parser {
 						throw new NoViableAltException(this);
 					}
 					}
-					setState(31);
+					setState(29);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -217,7 +203,7 @@ public class NuxtParser extends Parser {
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(32);
+				setState(30);
 				match(EOF);
 				}
 				break;
@@ -239,10 +225,6 @@ public class NuxtParser extends Parser {
 		public List<TerminalNode> ANY() { return getTokens(NuxtParser.ANY); }
 		public TerminalNode ANY(int i) {
 			return getToken(NuxtParser.ANY, i);
-		}
-		public List<TerminalNode> WS() { return getTokens(NuxtParser.WS); }
-		public TerminalNode WS(int i) {
-			return getToken(NuxtParser.WS, i);
 		}
 		public List<TerminalNode> VARIABLE() { return getTokens(NuxtParser.VARIABLE); }
 		public TerminalNode VARIABLE(int i) {
@@ -273,17 +255,17 @@ public class NuxtParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(35);
+			setState(33);
 			match(PRINT);
-			setState(37); 
+			setState(35); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(36);
+				setState(34);
 				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ANY) | (1L << VARIABLE) | (1L << WS) | (1L << CODE))) != 0)) ) {
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ANY) | (1L << VARIABLE) | (1L << CODE))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -293,10 +275,10 @@ public class NuxtParser extends Parser {
 				}
 				}
 				}
-				setState(39); 
+				setState(37); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ANY) | (1L << VARIABLE) | (1L << WS) | (1L << CODE))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ANY) | (1L << VARIABLE) | (1L << CODE))) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -332,7 +314,7 @@ public class NuxtParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(41);
+			setState(39);
 			match(CODE);
 			}
 		}
@@ -349,10 +331,6 @@ public class NuxtParser extends Parser {
 
 	public static class StatementContext extends ParserRuleContext {
 		public TerminalNode USE() { return getToken(NuxtParser.USE, 0); }
-		public List<TerminalNode> WS() { return getTokens(NuxtParser.WS); }
-		public TerminalNode WS(int i) {
-			return getToken(NuxtParser.WS, i);
-		}
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
@@ -383,47 +361,21 @@ public class NuxtParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(43);
+			setState(41);
 			match(USE);
-			setState(44);
-			match(WS);
-			setState(45);
+			setState(42);
 			type();
-			setState(46);
-			match(WS);
-			setState(47);
+			setState(43);
 			resource();
-			setState(49);
-			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
-			case 1:
-				{
-				setState(48);
-				match(WS);
-				}
-				break;
-			}
-			setState(54);
+			setState(46);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==T__3) {
 				{
-				setState(51);
+				setState(44);
 				match(T__3);
-				setState(52);
-				match(WS);
-				setState(53);
+				setState(45);
 				as();
-				}
-			}
-
-			setState(57);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==WS) {
-				{
-				setState(56);
-				match(WS);
 				}
 			}
 
@@ -465,7 +417,7 @@ public class NuxtParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(59);
+			setState(48);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << SERVICE) | (1L << JSON) | (1L << XML))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -514,21 +466,21 @@ public class NuxtParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(61);
+			setState(50);
 			match(VARIABLE);
-			setState(66);
+			setState(55);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__2) {
 				{
 				{
-				setState(62);
+				setState(51);
 				match(T__2);
-				setState(63);
+				setState(52);
 				match(VARIABLE);
 				}
 				}
-				setState(68);
+				setState(57);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -567,7 +519,7 @@ public class NuxtParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(69);
+			setState(58);
 			match(VARIABLE);
 			}
 		}
@@ -604,7 +556,7 @@ public class NuxtParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(71);
+			setState(60);
 			match(ANYTHING);
 			}
 		}
@@ -620,26 +572,23 @@ public class NuxtParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\23L\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\23A\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\3\2\3\2\3\2\5\2"+
-		"\27\n\2\3\2\3\2\5\2\33\n\2\3\2\7\2\36\n\2\f\2\16\2!\13\2\3\2\5\2$\n\2"+
-		"\3\3\3\3\6\3(\n\3\r\3\16\3)\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\5\5\5\64\n\5"+
-		"\3\5\3\5\3\5\5\59\n\5\3\5\5\5<\n\5\3\6\3\6\3\7\3\7\3\7\7\7C\n\7\f\7\16"+
-		"\7F\13\7\3\b\3\b\3\t\3\t\3\t\2\2\n\2\4\6\b\n\f\16\20\2\4\6\2\5\5\13\13"+
-		"\r\r\21\22\3\2\b\n\2N\2#\3\2\2\2\4%\3\2\2\2\6+\3\2\2\2\b-\3\2\2\2\n=\3"+
-		"\2\2\2\f?\3\2\2\2\16G\3\2\2\2\20I\3\2\2\2\22\26\7\3\2\2\23\27\5\b\5\2"+
-		"\24\27\5\6\4\2\25\27\5\4\3\2\26\23\3\2\2\2\26\24\3\2\2\2\26\25\3\2\2\2"+
-		"\27\30\3\2\2\2\30\32\7\4\2\2\31\33\7\20\2\2\32\31\3\2\2\2\32\33\3\2\2"+
-		"\2\33\36\3\2\2\2\34\36\5\20\t\2\35\22\3\2\2\2\35\34\3\2\2\2\36!\3\2\2"+
-		"\2\37\35\3\2\2\2\37 \3\2\2\2 $\3\2\2\2!\37\3\2\2\2\"$\7\2\2\3#\37\3\2"+
-		"\2\2#\"\3\2\2\2$\3\3\2\2\2%\'\7\f\2\2&(\t\2\2\2\'&\3\2\2\2()\3\2\2\2)"+
-		"\'\3\2\2\2)*\3\2\2\2*\5\3\2\2\2+,\7\22\2\2,\7\3\2\2\2-.\7\7\2\2./\7\21"+
-		"\2\2/\60\5\n\6\2\60\61\7\21\2\2\61\63\5\f\7\2\62\64\7\21\2\2\63\62\3\2"+
-		"\2\2\63\64\3\2\2\2\648\3\2\2\2\65\66\7\6\2\2\66\67\7\21\2\2\679\5\16\b"+
-		"\28\65\3\2\2\289\3\2\2\29;\3\2\2\2:<\7\21\2\2;:\3\2\2\2;<\3\2\2\2<\t\3"+
-		"\2\2\2=>\t\3\2\2>\13\3\2\2\2?D\7\r\2\2@A\7\5\2\2AC\7\r\2\2B@\3\2\2\2C"+
-		"F\3\2\2\2DB\3\2\2\2DE\3\2\2\2E\r\3\2\2\2FD\3\2\2\2GH\7\r\2\2H\17\3\2\2"+
-		"\2IJ\7\23\2\2J\21\3\2\2\2\f\26\32\35\37#)\638;D";
+		"\27\n\2\3\2\3\2\3\2\7\2\34\n\2\f\2\16\2\37\13\2\3\2\5\2\"\n\2\3\3\3\3"+
+		"\6\3&\n\3\r\3\16\3\'\3\4\3\4\3\5\3\5\3\5\3\5\3\5\5\5\61\n\5\3\6\3\6\3"+
+		"\7\3\7\3\7\7\78\n\7\f\7\16\7;\13\7\3\b\3\b\3\t\3\t\3\t\2\2\n\2\4\6\b\n"+
+		"\f\16\20\2\4\6\2\5\5\13\13\r\r\20\20\3\2\b\n\2@\2!\3\2\2\2\4#\3\2\2\2"+
+		"\6)\3\2\2\2\b+\3\2\2\2\n\62\3\2\2\2\f\64\3\2\2\2\16<\3\2\2\2\20>\3\2\2"+
+		"\2\22\26\7\3\2\2\23\27\5\b\5\2\24\27\5\4\3\2\25\27\5\6\4\2\26\23\3\2\2"+
+		"\2\26\24\3\2\2\2\26\25\3\2\2\2\27\30\3\2\2\2\30\31\7\4\2\2\31\34\3\2\2"+
+		"\2\32\34\5\20\t\2\33\22\3\2\2\2\33\32\3\2\2\2\34\37\3\2\2\2\35\33\3\2"+
+		"\2\2\35\36\3\2\2\2\36\"\3\2\2\2\37\35\3\2\2\2 \"\7\2\2\3!\35\3\2\2\2!"+
+		" \3\2\2\2\"\3\3\2\2\2#%\7\f\2\2$&\t\2\2\2%$\3\2\2\2&\'\3\2\2\2\'%\3\2"+
+		"\2\2\'(\3\2\2\2(\5\3\2\2\2)*\7\20\2\2*\7\3\2\2\2+,\7\7\2\2,-\5\n\6\2-"+
+		"\60\5\f\7\2./\7\6\2\2/\61\5\16\b\2\60.\3\2\2\2\60\61\3\2\2\2\61\t\3\2"+
+		"\2\2\62\63\t\3\2\2\63\13\3\2\2\2\649\7\r\2\2\65\66\7\5\2\2\668\7\r\2\2"+
+		"\67\65\3\2\2\28;\3\2\2\29\67\3\2\2\29:\3\2\2\2:\r\3\2\2\2;9\3\2\2\2<="+
+		"\7\r\2\2=\17\3\2\2\2>?\7\23\2\2?\21\3\2\2\2\t\26\33\35!\'\609";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

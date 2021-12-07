@@ -1,5 +1,5 @@
 ${use service time}
-${use service testing}
+${use service test}
 <!DOCTYPE html>
 <html>
 	<head>
