@@ -8,12 +8,12 @@ ANY: ~(' ');
 PRINT: '@print';
 
 prog
-    :   ('${' (statement|print|code) '}'|html)*
+    :   ('${' (statement|PRINT print|code) '}'|html)*
     |   EOF
     ;
 
 print
-    :   PRINT (ANY|VARIABLE|CODE|'/')+
+    :   (ANY|VARIABLE|CODE|'/')+
     ;
 
 code

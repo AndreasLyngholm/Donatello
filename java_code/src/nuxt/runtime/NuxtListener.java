@@ -1,6 +1,6 @@
 // Generated from Nuxt.g4 by ANTLR 4.9.3
 
-    package nuxt.runtime;
+package nuxt.runtime;
 
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 

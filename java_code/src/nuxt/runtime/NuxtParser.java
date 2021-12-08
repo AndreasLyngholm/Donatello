@@ -1,6 +1,6 @@
 // Generated from Nuxt.g4 by ANTLR 4.9.3
 
-    package nuxt.runtime;
+package nuxt.runtime;
 
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -109,6 +109,10 @@ public class NuxtParser extends Parser {
 		public StatementContext statement(int i) {
 			return getRuleContext(StatementContext.class,i);
 		}
+		public List<TerminalNode> PRINT() { return getTokens(NuxtParser.PRINT); }
+		public TerminalNode PRINT(int i) {
+			return getToken(NuxtParser.PRINT, i);
+		}
 		public List<PrintContext> print() {
 			return getRuleContexts(PrintContext.class);
 		}
@@ -141,25 +145,25 @@ public class NuxtParser extends Parser {
 		enterRule(_localctx, 0, RULE_prog);
 		int _la;
 		try {
-			setState(31);
+			setState(32);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(27);
+				setState(28);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==T__0 || _la==ANYTHING) {
 					{
-					setState(25);
+					setState(26);
 					_errHandler.sync(this);
 					switch (_input.LA(1)) {
 					case T__0:
 						{
 						setState(16);
 						match(T__0);
-						setState(20);
+						setState(21);
 						_errHandler.sync(this);
 						switch (_input.LA(1)) {
 						case USE:
@@ -171,25 +175,27 @@ public class NuxtParser extends Parser {
 						case PRINT:
 							{
 							setState(18);
+							match(PRINT);
+							setState(19);
 							print();
 							}
 							break;
 						case CODE:
 							{
-							setState(19);
+							setState(20);
 							code();
 							}
 							break;
 						default:
 							throw new NoViableAltException(this);
 						}
-						setState(22);
+						setState(23);
 						match(T__1);
 						}
 						break;
 					case ANYTHING:
 						{
-						setState(24);
+						setState(25);
 						html();
 						}
 						break;
@@ -197,7 +203,7 @@ public class NuxtParser extends Parser {
 						throw new NoViableAltException(this);
 					}
 					}
-					setState(29);
+					setState(30);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -206,7 +212,7 @@ public class NuxtParser extends Parser {
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(30);
+				setState(31);
 				match(EOF);
 				}
 				break;
@@ -224,7 +230,6 @@ public class NuxtParser extends Parser {
 	}
 
 	public static class PrintContext extends ParserRuleContext {
-		public TerminalNode PRINT() { return getToken(NuxtParser.PRINT, 0); }
 		public List<TerminalNode> ANY() { return getTokens(NuxtParser.ANY); }
 		public TerminalNode ANY(int i) {
 			return getToken(NuxtParser.ANY, i);
@@ -258,8 +263,6 @@ public class NuxtParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(33);
-			match(PRINT);
 			setState(35); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -576,22 +579,22 @@ public class NuxtParser extends Parser {
 
 	public static final String _serializedATN =
 		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\23A\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\3\2\3\2\3\2\5\2"+
-		"\27\n\2\3\2\3\2\3\2\7\2\34\n\2\f\2\16\2\37\13\2\3\2\5\2\"\n\2\3\3\3\3"+
-		"\6\3&\n\3\r\3\16\3\'\3\4\3\4\3\5\3\5\3\5\3\5\3\5\5\5\61\n\5\3\6\3\6\3"+
-		"\7\3\7\3\7\7\78\n\7\f\7\16\7;\13\7\3\b\3\b\3\t\3\t\3\t\2\2\n\2\4\6\b\n"+
-		"\f\16\20\2\4\6\2\5\5\13\13\r\r\20\20\3\2\b\n\2@\2!\3\2\2\2\4#\3\2\2\2"+
-		"\6)\3\2\2\2\b+\3\2\2\2\n\62\3\2\2\2\f\64\3\2\2\2\16<\3\2\2\2\20>\3\2\2"+
-		"\2\22\26\7\3\2\2\23\27\5\b\5\2\24\27\5\4\3\2\25\27\5\6\4\2\26\23\3\2\2"+
-		"\2\26\24\3\2\2\2\26\25\3\2\2\2\27\30\3\2\2\2\30\31\7\4\2\2\31\34\3\2\2"+
-		"\2\32\34\5\20\t\2\33\22\3\2\2\2\33\32\3\2\2\2\34\37\3\2\2\2\35\33\3\2"+
-		"\2\2\35\36\3\2\2\2\36\"\3\2\2\2\37\35\3\2\2\2 \"\7\2\2\3!\35\3\2\2\2!"+
-		" \3\2\2\2\"\3\3\2\2\2#%\7\f\2\2$&\t\2\2\2%$\3\2\2\2&\'\3\2\2\2\'%\3\2"+
-		"\2\2\'(\3\2\2\2(\5\3\2\2\2)*\7\20\2\2*\7\3\2\2\2+,\7\7\2\2,-\5\n\6\2-"+
-		"\60\5\f\7\2./\7\6\2\2/\61\5\16\b\2\60.\3\2\2\2\60\61\3\2\2\2\61\t\3\2"+
-		"\2\2\62\63\t\3\2\2\63\13\3\2\2\2\649\7\r\2\2\65\66\7\5\2\2\668\7\r\2\2"+
-		"\67\65\3\2\2\28;\3\2\2\29\67\3\2\2\29:\3\2\2\2:\r\3\2\2\2;9\3\2\2\2<="+
-		"\7\r\2\2=\17\3\2\2\2>?\7\23\2\2?\21\3\2\2\2\t\26\33\35!\'\609";
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\3\2\3\2\3\2\3\2"+
+		"\5\2\30\n\2\3\2\3\2\3\2\7\2\35\n\2\f\2\16\2 \13\2\3\2\5\2#\n\2\3\3\6\3"+
+		"&\n\3\r\3\16\3\'\3\4\3\4\3\5\3\5\3\5\3\5\3\5\5\5\61\n\5\3\6\3\6\3\7\3"+
+		"\7\3\7\7\78\n\7\f\7\16\7;\13\7\3\b\3\b\3\t\3\t\3\t\2\2\n\2\4\6\b\n\f\16"+
+		"\20\2\4\6\2\5\5\13\13\r\r\20\20\3\2\b\n\2@\2\"\3\2\2\2\4%\3\2\2\2\6)\3"+
+		"\2\2\2\b+\3\2\2\2\n\62\3\2\2\2\f\64\3\2\2\2\16<\3\2\2\2\20>\3\2\2\2\22"+
+		"\27\7\3\2\2\23\30\5\b\5\2\24\25\7\f\2\2\25\30\5\4\3\2\26\30\5\6\4\2\27"+
+		"\23\3\2\2\2\27\24\3\2\2\2\27\26\3\2\2\2\30\31\3\2\2\2\31\32\7\4\2\2\32"+
+		"\35\3\2\2\2\33\35\5\20\t\2\34\22\3\2\2\2\34\33\3\2\2\2\35 \3\2\2\2\36"+
+		"\34\3\2\2\2\36\37\3\2\2\2\37#\3\2\2\2 \36\3\2\2\2!#\7\2\2\3\"\36\3\2\2"+
+		"\2\"!\3\2\2\2#\3\3\2\2\2$&\t\2\2\2%$\3\2\2\2&\'\3\2\2\2\'%\3\2\2\2\'("+
+		"\3\2\2\2(\5\3\2\2\2)*\7\20\2\2*\7\3\2\2\2+,\7\7\2\2,-\5\n\6\2-\60\5\f"+
+		"\7\2./\7\6\2\2/\61\5\16\b\2\60.\3\2\2\2\60\61\3\2\2\2\61\t\3\2\2\2\62"+
+		"\63\t\3\2\2\63\13\3\2\2\2\649\7\r\2\2\65\66\7\5\2\2\668\7\r\2\2\67\65"+
+		"\3\2\2\28;\3\2\2\29\67\3\2\2\29:\3\2\2\2:\r\3\2\2\2;9\3\2\2\2<=\7\r\2"+
+		"\2=\17\3\2\2\2>?\7\23\2\2?\21\3\2\2\2\t\27\34\36\"\'\609";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -1,11 +1,3 @@
-/MarkupLexer.java
-/MarkupLexer.tokens
-/MarkupParser.java
-/MarkupParser.tokens
-/MarkupParserBaseListener.java
-/MarkupParserListener.java
-/MarkupParserBaseVisitor.java
-/MarkupParserVisitor.java
 /Nuxt.tokens
 /NuxtBaseListener.java
 /NuxtLexer.java
