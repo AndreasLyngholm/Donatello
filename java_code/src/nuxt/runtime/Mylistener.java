@@ -2,7 +2,7 @@ package nuxt.runtime;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 
-public class Mylistener extends NuxtBaseListener {
+public class Mylistener extends NuxtParserBaseListener {
 	
 	String[] ruleNames;
 	
@@ -26,7 +26,7 @@ public class Mylistener extends NuxtBaseListener {
 			resource = null;
     	}
     	
-		if(rule.equals("html")) {
+		if(rule.equals("other")) {
 			
 			Compiler.code.append("document += \"");
 			String text = ctx.getRuleContext().getText();
@@ -43,9 +43,10 @@ public class Mylistener extends NuxtBaseListener {
 			Compiler.code.append(text);
 			Compiler.code.append("\n");
 			
-		} else if(rule.equals("code")) {
+		} else if(rule.equals("code_tag")) {
 			
-			Compiler.code.append(ctx.getRuleContext().getText() + "\n");
+			String code = ctx.getRuleContext().getText();
+			Compiler.code.append(code.substring(2, code.length()-1) + "\n");
 			
 		} else if(rule.equals("type")) {
 			

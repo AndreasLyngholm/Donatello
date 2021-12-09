@@ -19,6 +19,7 @@ public class Compiler extends JavaService {
 
 	public static String compile(Value request) {
 //    	String contents = ( "${use service time}\r\n"
+//    			+ "${use json data/users as users}\r\n"
 //    			+ "<!DOCTYPE html>\r\n"
 //    			+ "<html>\r\n"
 //    			+ "	<head>\r\n"
@@ -27,12 +28,11 @@ public class Compiler extends JavaService {
 //    			+ "	<body>\r\n"
 //    			+ "		<h1>Title</h1>\r\n"
 //    			+ "		${getCurrentDateTime@Time()(x)}\r\n"
-//    			+ "		${@print \"<p>The time is \" + x + \"</p>\\n\"}\r\n"
 //    			+ "\r\n"
 //    			+ "		${a = 1}\r\n"
 //    			+ "		${b = 5}\r\n"
 //    			+ "		${c = a + b + b}\r\n"
-//    			+ "		${@print c}\r\n"
+//    			+ "		<h1>{{ c }}</h1>\r\n"
 //    			+ "	</body>\r\n"
 //    			+ "</html>" );
 //    	
@@ -112,7 +112,7 @@ public class Compiler extends JavaService {
 		/*
 		 * get the top node of the AST. This corresponds to the topmost rule of equation.q4, "equation"
 		 */
-		ParseTree tree = parser.prog();
+		ParseTree tree = parser.parse();
 		
 		Mylistener listener = new Mylistener(parser.getRuleNames());
 		

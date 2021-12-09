@@ -4,3 +4,6 @@
 /NuxtLexer.tokens
 /NuxtListener.java
 /NuxtParser.java
+/NuxtParser.tokens
+/NuxtParserBaseListener.java
+/NuxtParserListener.java
