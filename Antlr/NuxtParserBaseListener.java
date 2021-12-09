@@ -207,6 +207,18 @@ public class NuxtParserBaseListener implements NuxtParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterOther_than_tag_start_and_ifs(NuxtParser.Other_than_tag_start_and_ifsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOther_than_tag_start_and_ifs(NuxtParser.Other_than_tag_start_and_ifsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterIf_tag(NuxtParser.If_tagContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -219,13 +231,13 @@ public class NuxtParserBaseListener implements NuxtParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterElsif_tag(NuxtParser.Elsif_tagContext ctx) { }
+	@Override public void enterElseif_tag(NuxtParser.Elseif_tagContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitElsif_tag(NuxtParser.Elsif_tagContext ctx) { }
+	@Override public void exitElseif_tag(NuxtParser.Elseif_tagContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

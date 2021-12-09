@@ -38,7 +38,6 @@ atom
 
 tag
  : use_tag
- | code_tag
  | raw_tag
  | comment_tag
  | if_tag
@@ -50,6 +49,7 @@ tag
  | capture_tag
  | include_tag
  | continue_tag
+ | code_tag
  | other_tag
  ;
 
@@ -58,7 +58,7 @@ tag
  ;
 
 code_tag
- : tagStart other_than_tag_start TagEnd
+ : tagStart other_than_tag_start_and_ifs TagEnd
  ;
 
 other_tag
@@ -89,12 +89,16 @@ other_than_tag_start
  : ~( TagStart | TagStart2 )*
  ;
 
-if_tag
- : tagStart IfStart expr TagEnd block elsif_tag* else_tag? tagStart IfEnd TagEnd
+other_than_tag_start_and_ifs
+ : ~( TagStart | TagStart2 | IfStart | Elseif | Else )*
  ;
 
-elsif_tag
- : tagStart Elsif expr TagEnd block
+if_tag
+ : tagStart IfStart expr TagEnd block elseif_tag* else_tag? tagStart IfEnd TagEnd
+ ;
+
+elseif_tag
+ : tagStart Elseif expr TagEnd block
  ;
 
 else_tag
@@ -250,7 +254,7 @@ id
  | RawStart
  | RawEnd
  | IfStart
- | Elsif
+ | Elseif
  | IfEnd
  | UnlessStart
  | UnlessEnd

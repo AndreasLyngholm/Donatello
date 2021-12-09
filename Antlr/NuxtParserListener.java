@@ -175,6 +175,16 @@ public interface NuxtParserListener extends ParseTreeListener {
 	 */
 	void exitOther_than_tag_start(NuxtParser.Other_than_tag_startContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link NuxtParser#other_than_tag_start_and_ifs}.
+	 * @param ctx the parse tree
+	 */
+	void enterOther_than_tag_start_and_ifs(NuxtParser.Other_than_tag_start_and_ifsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NuxtParser#other_than_tag_start_and_ifs}.
+	 * @param ctx the parse tree
+	 */
+	void exitOther_than_tag_start_and_ifs(NuxtParser.Other_than_tag_start_and_ifsContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link NuxtParser#if_tag}.
 	 * @param ctx the parse tree
 	 */
@@ -185,15 +195,15 @@ public interface NuxtParserListener extends ParseTreeListener {
 	 */
 	void exitIf_tag(NuxtParser.If_tagContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link NuxtParser#elsif_tag}.
+	 * Enter a parse tree produced by {@link NuxtParser#elseif_tag}.
 	 * @param ctx the parse tree
 	 */
-	void enterElsif_tag(NuxtParser.Elsif_tagContext ctx);
+	void enterElseif_tag(NuxtParser.Elseif_tagContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link NuxtParser#elsif_tag}.
+	 * Exit a parse tree produced by {@link NuxtParser#elseif_tag}.
 	 * @param ctx the parse tree
 	 */
-	void exitElsif_tag(NuxtParser.Elsif_tagContext ctx);
+	void exitElseif_tag(NuxtParser.Elseif_tagContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link NuxtParser#else_tag}.
 	 * @param ctx the parse tree

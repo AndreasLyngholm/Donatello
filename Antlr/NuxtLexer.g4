@@ -139,7 +139,7 @@ mode IN_TAG;
   CommentEnd   : 'endcomment';
   RawStart     : 'raw' WhitespaceChar* '}' -> pushMode(IN_RAW);
   IfStart      : 'if';
-  Elsif        : 'elsif';
+  Elseif       : 'elseif';
   IfEnd        : 'endif';
   UnlessStart  : 'unless';
   UnlessEnd    : 'endunless';
