@@ -63,9 +63,9 @@ service Gateway( params:Params ) {
         interfaces: NuxtInterface
     }
 
-    // outputPort FileUtils {
-    //     interfaces: NuxtInterface
-    // }
+    outputPort FileUtils {
+        interfaces: NuxtInterface
+    }
 
     define loadNuxt {
         loadEmbeddedService@Runtime( {
@@ -73,10 +73,10 @@ service Gateway( params:Params ) {
             type = "Java"
         } )( Nuxt.location )
 
-        // loadEmbeddedService@Runtime( {
-        //     filepath = "nuxt.runtime.FileUtils"
-        //     type = "Java"
-        // } )( FileUtils.location )
+        loadEmbeddedService@Runtime( {
+            filepath = "nuxt.runtime.FileUtils"
+            type = "Java"
+        } )( FileUtils.location )
     }
 
     define buildService {
@@ -84,8 +84,8 @@ service Gateway( params:Params ) {
 
         exists@File(params.servicesDir + path)(serviceExists)
         if(serviceExists) {
-            // getLastModified@FileUtils(params.contentDir + path)(pageModified)
-            // getLastModified@FileUtils(params.servicesDir + path)(serviceModified)
+            getLastModified@FileUtils(params.contentDir + path)(pageModified)
+            getLastModified@FileUtils(params.servicesDir + path)(serviceModified)
 
             if(serviceModified >= pageModified) {
                 isUpdated = true
