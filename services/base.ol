@@ -1,3 +1,4 @@
+from GatewayInterfaceModule import GatewayInterface
 from runtime import Runtime
 from PageInterfaceModule import PageInterface
 from file import File
@@ -26,6 +27,12 @@ service Main( params:Params ) {
 		location: "local"
 		interfaces: PageInterface
 	}
+
+	outputPort Gateway {
+        location: "socket://localhost:8000"
+        protocol: http { format = "json" }
+        interfaces: GatewayInterface
+    }
 
 	outputPort Page {
 		interfaces: PageInterface

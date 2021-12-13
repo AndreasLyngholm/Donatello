@@ -101,7 +101,7 @@ public class Mylistener extends NuxtParserBaseListener {
 	
 	@Override public void enterInclude_tag(NuxtParser.Include_tagContext ctx) {
 		String to_include = ctx.getChild(2).getText();
-		Compiler.dataproviders.append((String.format("readFile@File( {filename = params.root + \"%s\"} )( %s ) \n", to_include, to_include.replace("/", "_"))));
+		Compiler.dataproviders.append((String.format("default@Gateway( {operation = \"%s\"} )( %s ) \n", to_include, to_include.replace("/", "_"))));
 		Compiler.code.append(String.format("document += %s \n", to_include.replace("/", "_")));
 	}
 	
