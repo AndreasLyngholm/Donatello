@@ -89,6 +89,22 @@ public class Mylistener extends NuxtParserBaseListener {
 		Compiler.code.append("} \n");
 	}
 	
+	@Override public void enterFor_array(NuxtParser.For_arrayContext ctx) {
+		System.out.println("Entered for tag; Open brackets");
+		Compiler.code.append(String.format("for ( %s in %s ) { \n", ctx.getChild(2).getText(), ctx.getChild(4).getText()));
+	}
+	
+	@Override public void exitFor_array(NuxtParser.For_arrayContext ctx) {
+		System.out.println("Exited for tag; Close brackets");
+		Compiler.code.append("} \n");
+	}
+	
+	@Override public void enterInclude_tag(NuxtParser.Include_tagContext ctx) {
+		String to_include = ctx.getChild(2).getText();
+		Compiler.dataproviders.append((String.format("readFile@File( {filename = params.root + \"%s\"} )( %s ) \n", to_include, to_include.replace("/", "_"))));
+		Compiler.code.append(String.format("document += %s \n", to_include.replace("/", "_")));
+	}
+	
 	private String capitalize(String str)
 	{
 	    if(str == null) return str;
