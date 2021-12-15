@@ -15,7 +15,7 @@ public class Mylistener extends NuxtParserBaseListener {
 
 	@Override public void enterEveryRule(ParserRuleContext ctx) {  //see gramBaseListener for allowed functions
     	    			
-    	System.out.println("Rule: " + this.ruleNames[ctx.getRuleIndex()]);
+    	//System.out.println("Rule: " + this.ruleNames[ctx.getRuleIndex()]);
     	
     	String rule = this.ruleNames[ctx.getRuleIndex()];
 
@@ -70,32 +70,32 @@ public class Mylistener extends NuxtParserBaseListener {
 	}
 	
 	@Override public void enterIf_tag(NuxtParser.If_tagContext ctx) {
-		System.out.println("Entered if tag; Open brackets");
+		//System.out.println("Entered if tag; Open brackets");
 		Compiler.code.append(String.format("if (%s) { \n", ctx.getChild(2).getText()));
 	}
 	
 	@Override public void enterElseif_tag(NuxtParser.Elseif_tagContext ctx) {
-		System.out.println("Else if tag; Continue brackets");
+		//System.out.println("Else if tag; Continue brackets");
 		Compiler.code.append(String.format("} else if (%s) { \n", ctx.getChild(2).getText()));
 	}
 	
 	@Override public void enterElse_tag(NuxtParser.Else_tagContext ctx) {
-		System.out.println("Else tag; Continue brackets");
+		//System.out.println("Else tag; Continue brackets");
 		Compiler.code.append("} else { \n");
 	}
 	
 	@Override public void exitIf_tag(NuxtParser.If_tagContext ctx) {
-		System.out.println("Exited if tag; Close brackets");
+		//System.out.println("Exited if tag; Close brackets");
 		Compiler.code.append("} \n");
 	}
 	
 	@Override public void enterFor_array(NuxtParser.For_arrayContext ctx) {
-		System.out.println("Entered for tag; Open brackets");
+		//System.out.println("Entered for tag; Open brackets");
 		Compiler.code.append(String.format("for ( %s in %s ) { \n", ctx.getChild(2).getText(), ctx.getChild(4).getText()));
 	}
 	
 	@Override public void exitFor_array(NuxtParser.For_arrayContext ctx) {
-		System.out.println("Exited for tag; Close brackets");
+		//System.out.println("Exited for tag; Close brackets");
 		Compiler.code.append("} \n");
 	}
 	
