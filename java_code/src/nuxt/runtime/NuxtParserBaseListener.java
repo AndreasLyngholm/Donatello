@@ -114,6 +114,18 @@ public class NuxtParserBaseListener implements NuxtParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterParam_tag(NuxtParser.Param_tagContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParam_tag(NuxtParser.Param_tagContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterCode_tag(NuxtParser.Code_tagContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -462,13 +474,13 @@ public class NuxtParserBaseListener implements NuxtParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterJekyll_include_params(NuxtParser.Jekyll_include_paramsContext ctx) { }
+	@Override public void enterInclude_params(NuxtParser.Include_paramsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitJekyll_include_params(NuxtParser.Jekyll_include_paramsContext ctx) { }
+	@Override public void exitInclude_params(NuxtParser.Include_paramsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -841,6 +853,18 @@ public class NuxtParserBaseListener implements NuxtParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitResource(NuxtParser.ResourceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParam_type(NuxtParser.Param_typeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParam_type(NuxtParser.Param_typeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

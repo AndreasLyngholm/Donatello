@@ -49,12 +49,17 @@ tag
  | capture_tag
  | include_tag
  | continue_tag
+ | param_tag
  | code_tag
  | other_tag
  ;
 
  use_tag
  : tagStart Use type resource (As as)? TagEnd
+ ;
+
+param_tag
+ : tagStart Param param_type TagEnd
  ;
 
 code_tag
@@ -167,8 +172,8 @@ capture_tag
  ;
 
 include_tag
- : {isLiquid()}? tagStart liquid=Include expr (With Str)? TagEnd
- | {isJekyll()}? tagStart jekyll=Include file_name_or_output (jekyll_include_params)* TagEnd
+ : {isLiquid()}? tagStart liquid=Include expr (include_params)* TagEnd
+ | {isJekyll()}? tagStart jekyll=Include file_name_or_output (include_params)* TagEnd
  ;
 
 // only valid for Flavor.JEKYLL
@@ -178,7 +183,7 @@ file_name_or_output
  ;
 
 // only valid for Flavor.JEKYLL
-jekyll_include_params
+include_params
  : id '=' expr
  ;
 
@@ -277,6 +282,7 @@ id
  | Offset
  | Continue
  | Reversed
+ | Type
  | EndId
  ;
 
@@ -294,6 +300,10 @@ id2
 
 resource
  : Id
+ ;
+
+param_type
+ : Type
  ;
 
 index

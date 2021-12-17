@@ -131,6 +131,7 @@ mode IN_TAG;
   WS : WhitespaceChar+ -> channel(HIDDEN);
 
   Use          : 'use';
+  Param        : 'param';
   Service      : 'service';
   Json         : 'json';
   Xml          : 'xml';
@@ -178,6 +179,7 @@ mode IN_TAG;
    ;
 
   Id : ( Letter | '_' ) (Letter | '_' | '-' | '/' | Digit)*;
+  Type : [a-z] [a-zA-Z_0-9]* Col [a-z] [a-zA-Z_0-9]*;
 
 mode IN_RAW;
 

@@ -136,6 +136,13 @@ service Gateway( params:Params ) {
                 endsWithReq.suffix = ".ol"
                 endsWith@StringUtils(endsWithReq)(isService)
 
+                // Go though request and find custom params.
+                foreach ( param : request ) {
+                    if(param != "data" && param != "requestUri" && param != "operation" && param != "cookies" && param != "userAgent") {
+                        params.(param) = request.(param)
+                    }
+                }
+
                 if(isService) {
                     buildService
 

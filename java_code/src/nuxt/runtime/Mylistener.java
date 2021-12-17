@@ -1,6 +1,7 @@
 package nuxt.runtime;
 
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.tree.ParseTree;
 
 public class Mylistener extends NuxtParserBaseListener {
 	
@@ -101,8 +102,25 @@ public class Mylistener extends NuxtParserBaseListener {
 	
 	@Override public void enterInclude_tag(NuxtParser.Include_tagContext ctx) {
 		String to_include = ctx.getChild(2).getText();
-		Compiler.dataproviders.append((String.format("default@Gateway( {operation = \"%s\"} )( %s ) \n", to_include, to_include.replace("/", "_"))));
+		
+		String params = "";
+		
+		for (ParseTree param : ctx.children) {
+			if(param.getText().contains("=")) {
+				params += ", " + param.getText();
+			}
+		}
+		
+		Compiler.dataproviders.append((String.format("default@Gateway( {operation = \"%s\"%s} )( %s ) \n", to_include, params, to_include.replace("/", "_"))));
 		Compiler.code.append(String.format("document += %s \n", to_include.replace("/", "_")));
+	}
+	
+	@Override public void enterParam_type(NuxtParser.Param_typeContext ctx) {
+		String param = ctx.getText();
+		Compiler.params.append(param + "\n    ");
+		
+		String[] init_param = param.split(":");
+		Compiler.init_params.append(String.format("%s = params.%s \n", init_param[0], init_param[0]));
 	}
 	
 	private String capitalize(String str)

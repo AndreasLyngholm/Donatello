@@ -10,6 +10,7 @@ type Params {
     contentDir:string
     servicesDir:string
     defaultPage:string
+    @params
 }
 
 service Main( params:Params ) {
@@ -47,6 +48,7 @@ service Main( params:Params ) {
 		getDocument(request)(response) {
 
 			@dataproviders
+			@init_params
 
 			operations
 			response = document

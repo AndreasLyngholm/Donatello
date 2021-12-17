@@ -98,6 +98,16 @@ public interface NuxtParserListener extends ParseTreeListener {
 	 */
 	void exitUse_tag(NuxtParser.Use_tagContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link NuxtParser#param_tag}.
+	 * @param ctx the parse tree
+	 */
+	void enterParam_tag(NuxtParser.Param_tagContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NuxtParser#param_tag}.
+	 * @param ctx the parse tree
+	 */
+	void exitParam_tag(NuxtParser.Param_tagContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link NuxtParser#code_tag}.
 	 * @param ctx the parse tree
 	 */
@@ -396,15 +406,15 @@ public interface NuxtParserListener extends ParseTreeListener {
 	 */
 	void exitJekyll_include_filename(NuxtParser.Jekyll_include_filenameContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link NuxtParser#jekyll_include_params}.
+	 * Enter a parse tree produced by {@link NuxtParser#include_params}.
 	 * @param ctx the parse tree
 	 */
-	void enterJekyll_include_params(NuxtParser.Jekyll_include_paramsContext ctx);
+	void enterInclude_params(NuxtParser.Include_paramsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link NuxtParser#jekyll_include_params}.
+	 * Exit a parse tree produced by {@link NuxtParser#include_params}.
 	 * @param ctx the parse tree
 	 */
-	void exitJekyll_include_params(NuxtParser.Jekyll_include_paramsContext ctx);
+	void exitInclude_params(NuxtParser.Include_paramsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link NuxtParser#output}.
 	 * @param ctx the parse tree
@@ -757,6 +767,16 @@ public interface NuxtParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitResource(NuxtParser.ResourceContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NuxtParser#param_type}.
+	 * @param ctx the parse tree
+	 */
+	void enterParam_type(NuxtParser.Param_typeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NuxtParser#param_type}.
+	 * @param ctx the parse tree
+	 */
+	void exitParam_type(NuxtParser.Param_typeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link NuxtParser#index}.
 	 * @param ctx the parse tree
