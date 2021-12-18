@@ -379,30 +379,6 @@ public interface NuxtParserListener extends ParseTreeListener {
 	 */
 	void exitInclude_tag(NuxtParser.Include_tagContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code jekyll_include_output}
-	 * labeled alternative in {@link NuxtParser#file_name_or_output}.
-	 * @param ctx the parse tree
-	 */
-	void enterJekyll_include_output(NuxtParser.Jekyll_include_outputContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code jekyll_include_output}
-	 * labeled alternative in {@link NuxtParser#file_name_or_output}.
-	 * @param ctx the parse tree
-	 */
-	void exitJekyll_include_output(NuxtParser.Jekyll_include_outputContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code jekyll_include_filename}
-	 * labeled alternative in {@link NuxtParser#file_name_or_output}.
-	 * @param ctx the parse tree
-	 */
-	void enterJekyll_include_filename(NuxtParser.Jekyll_include_filenameContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code jekyll_include_filename}
-	 * labeled alternative in {@link NuxtParser#file_name_or_output}.
-	 * @param ctx the parse tree
-	 */
-	void exitJekyll_include_filename(NuxtParser.Jekyll_include_filenameContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link NuxtParser#include_params}.
 	 * @param ctx the parse tree
 	 */

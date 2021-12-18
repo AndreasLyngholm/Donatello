@@ -4,23 +4,6 @@ options {
   tokenVocab=NuxtLexer;
 }
 
-@members {
-    private boolean isLiquid = true;
-    private boolean isLiquid(){
-        return isLiquid;
-    }
-
-    private boolean isJekyll(){
-        return !isLiquid;
-    }
-
-    public NuxtParser(TokenStream input, boolean isLiquid) {
-        this(input);
-        this.isLiquid = isLiquid;
-    }
-
-}
-
 parse
  : block EOF
  ;
@@ -172,24 +155,12 @@ capture_tag
  ;
 
 include_tag
- : {isLiquid()}? tagStart liquid=Include expr (include_params)* TagEnd
- | {isJekyll()}? tagStart jekyll=Include file_name_or_output (include_params)* TagEnd
+ : tagStart Include expr (include_params)* TagEnd
  ;
 
-// only valid for Flavor.JEKYLL
-file_name_or_output
- : output   #jekyll_include_output
- | filename #jekyll_include_filename
- ;
-
-// only valid for Flavor.JEKYLL
 include_params
  : id '=' expr
  ;
-
-//output
-// : outStart expr filter* OutEnd
-// ;
 
 output
  : outStart print filter* OutEnd

@@ -447,30 +447,6 @@ public class NuxtParserBaseListener implements NuxtParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterJekyll_include_output(NuxtParser.Jekyll_include_outputContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitJekyll_include_output(NuxtParser.Jekyll_include_outputContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterJekyll_include_filename(NuxtParser.Jekyll_include_filenameContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitJekyll_include_filename(NuxtParser.Jekyll_include_filenameContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterInclude_params(NuxtParser.Include_paramsContext ctx) { }
 	/**
 	 * {@inheritDoc}
