@@ -5,6 +5,7 @@ You can use Nuxt as is, to host dynamic content in the Nuxt Templating language 
 
 Nuxt uses plain HTTP for serving content. To add encryption (HTTPS), we recommend combining it with a reverse proxy (for example, we like linuxserver/letsencrypt).
 
+<!--
 # Quickstart guide (Docker)
 With Docker, you can get started very quickly. First, pull the latest image: `docker pull lyngholm/nuxt`.
 
@@ -12,6 +13,7 @@ With Docker, you can get started very quickly. First, pull the latest image: `do
 docker run -it --rm -v "$(pwd)"/myWWW:/web -e LEONARDO_WWW=/web -p 8080:8080 lyngholm/nuxt
 ```
 Browse to <a href="">http://localhost:8080/</a>.
+-->
 
 # Quickstart guide (Linux)
 For this part, we assume that you have <a href="https://www.jolie-lang.org/">Jolie</a> installed on you machine.
