@@ -10,6 +10,7 @@ type Params {
     contentDir:string
     servicesDir:string
     defaultPage:string
+    user:string
     
 }
 
@@ -19,19 +20,8 @@ service Main( params:Params ) {
 	
 
 	define operations {
-		document += "\n<!DOCTYPE html>\n<html>\n\t<head>\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n\t</head>\n\t<body>\n\t\t"
-document += layout_header.html 
-document += "\n\n\t\t<h1>List of all users...</h1>\n\n\t\t"
-for ( user in data.users ) { 
-document += "\n\n\t\t<p>Hi, "
-document += user.name
-document += " your age is "
-document += user.age
-document += "</p>\n\n\t\t"
-} 
-document += "\n\n\t\t"
-document += layout_footer.html 
-document += "\n\t</body>\n</html>"
+		document += "\nTest menu, param user = "
+document += user
 
 	}
 
@@ -60,11 +50,9 @@ document += "\n\t</body>\n</html>"
 	main {
 		getDocument(request)(response) {
 
-			readFile@File( {filename = params.root + "data/users.json", format = "json"} )( data ) 
-default@Gateway( {operation = "layout/header.html"} )( layout_header.html ) 
-default@Gateway( {operation = "layout/footer.html"} )( layout_footer.html ) 
-
 			
+			user = params.user 
+
 
 			operations
 			response = document

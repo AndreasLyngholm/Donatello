@@ -1,3 +1,4 @@
+from GatewayInterfaceModule import GatewayInterface
 from runtime import Runtime
 from PageInterfaceModule import PageInterface
 from file import File
@@ -10,6 +11,7 @@ type Params {
     contentDir:string
     servicesDir:string
     defaultPage:string
+    
 }
 
 service Main( params:Params ) {
@@ -23,7 +25,7 @@ service Main( params:Params ) {
 document += "\n<!DOCTYPE html>\n<html>\n\t<head>\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n\t</head>\n\t<body>\n\t\t<!-- Testing comment... -->\n\t\t\n\t\t"
 getCurrentDateTime@Time()(time)
 document += "\n\t\t<h1>Welcome, "
-document += users.name
+document += user.name
 document += "</h1>\n\n\t\t"
 a=7
 document += "\n\t\t"
@@ -65,6 +67,12 @@ document += "</p>\n\t</body>\n</html>"
 		interfaces: PageInterface
 	}
 
+	outputPort Gateway {
+        location: "socket://localhost:8000"
+        protocol: http { format = "json" }
+        interfaces: GatewayInterface
+    }
+
 	outputPort Page {
 		interfaces: PageInterface
 	}
@@ -77,8 +85,9 @@ document += "</p>\n\t</body>\n</html>"
 	main {
 		getDocument(request)(response) {
 
-			readFile@File( {filename = params.root + "data/users.json", format = "json"} )( users ) 
+			readFile@File( {filename = params.root + "data/user.json", format = "json"} )( user ) 
 
+			
 
 			operations
 			response = document

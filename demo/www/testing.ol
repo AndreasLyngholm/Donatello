@@ -1,5 +1,5 @@
 ${use service time}
-${use json data/users as users}
+${use json data/user as user}
 <!DOCTYPE html>
 <html>
 	<head>
@@ -9,7 +9,7 @@ ${use json data/users as users}
 		<!-- Testing comment... -->
 		
 		${getCurrentDateTime@Time()(time)}
-		<h1>Welcome, {{ users.name }}</h1>
+		<h1>Welcome, {{ user.name }}</h1>
 
 		${a = 7}
 		${b = 3}

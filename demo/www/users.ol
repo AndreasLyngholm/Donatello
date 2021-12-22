@@ -1,13 +1,20 @@
-${use service time}
-${use json data/users as users}
+${use json data/users as data}
 <!DOCTYPE html>
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="style.css" />
 	</head>
 	<body>
-		${getCurrentDateTime@Time()(time.test)}
-		${@print "<p>My name is " + users.name + " and I am " + users.age + " years old.</p>" }
-		${@print "<p>The time right now is " + time + "</p>"}
+		${ include layout/header.html }
+
+		<h1>List of all users...</h1>
+
+		${ for user in data.users }
+
+		<p>Hi, {{ user.name }} your age is {{ user.age }}</p>
+
+		${ endfor }
+
+		${ include layout/footer.html }
 	</body>
 </html>

@@ -1,4 +1,16 @@
 {
-    "name":"John",
-    "age":22
+    "users": [
+        {
+            "name":"John",
+            "age":22
+        },
+        {
+            "name":"Peter",
+            "age":25
+        },
+        {
+            "name":"Hans",
+            "age":39
+        }
+    ]
 }
