@@ -21,8 +21,14 @@ public class Mylistener extends NuxtParserBaseListener {
     	String rule = this.ruleNames[ctx.getRuleIndex()];
 
     	if(! rule.equals("as") && type != null && resource != null) {
-			Compiler.includes.append( String.format("from %s import %s \n", resource, capitalize(resource)) );
-			Compiler.embeddings.append( String.format("embed %s as %s \n", capitalize(resource), capitalize(resource)) );
+    		String resource_name = "";
+            
+            for(String name : resource.split("_")) {
+                resource_name += capitalize(name);
+            }
+    		
+			Compiler.includes.append( String.format("from %s import %s \n", resource, resource_name) );
+			Compiler.embeddings.append( String.format("embed %s as %s \n", resource_name, resource_name) );
 			
 			type = null;
 			resource = null;
