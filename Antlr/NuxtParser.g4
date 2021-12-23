@@ -167,11 +167,11 @@ output
  ;
 
 print
- : ~( TagStart | TagStart2 | OutEnd )*
+ : ~( TagStart | TagStart2 | OutEnd | Pipe )*
  ;
 
 filter
- : Pipe Id params?
+ : Pipe Filter params?
  ;
 
 params

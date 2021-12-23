@@ -2,6 +2,7 @@ package nuxt.runtime;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
+import java.util.UUID;
 
 public class Mylistener extends NuxtParserBaseListener {
 	
@@ -11,7 +12,7 @@ public class Mylistener extends NuxtParserBaseListener {
 		this.ruleNames = ruleNames;
 	}
     
-    String type, resource, as;
+    String type, resource, as, print;
     Boolean ifstatement = false;
 
 	@Override public void enterEveryRule(ParserRuleContext ctx) {  //see gramBaseListener for allowed functions
@@ -47,21 +48,21 @@ public class Mylistener extends NuxtParserBaseListener {
 	}
 	
 	@Override public void enterResource(NuxtParser.ResourceContext ctx) {
-		resource = ctx.getRuleContext().getText();
+		resource = ctx.getText();
 	}
 	
 	@Override public void enterType(NuxtParser.TypeContext ctx) {
-		type = ctx.getRuleContext().getText();
+		type = ctx.getText();
 	}
 	
 	@Override public void enterCode_tag(NuxtParser.Code_tagContext ctx) {
-		String code = ctx.getRuleContext().getText();
+		String code = ctx.getText();
 		Compiler.code.append(code.substring(2, code.length()-1) + "\n");
 	}
 	
 	@Override public void enterOther(NuxtParser.OtherContext ctx) {
 		Compiler.code.append("document += \"");
-		String text = ctx.getRuleContext().getText();
+		String text = ctx.getText();
 		text = text.replaceAll("\\n", "\\\\n");
 		text = text.replaceAll("\\t", "\\\\t");
 		text = text.replaceAll("\"", "\\\\\"");
@@ -70,10 +71,14 @@ public class Mylistener extends NuxtParserBaseListener {
 	}
 	
 	@Override public void enterPrint(NuxtParser.PrintContext ctx) {
-		Compiler.code.append("document += ");
-		String text = ctx.getRuleContext().getText();
-		Compiler.code.append(text);
-		Compiler.code.append("\n");
+		if(ctx.getParent().getText().contains("|")) {
+			print = ctx.getText();
+		} else {
+			Compiler.code.append("document += ");
+			String text = ctx.getText();
+			Compiler.code.append(text);
+			Compiler.code.append("\n");
+		}
 	}
 	
 	@Override public void enterIf_tag(NuxtParser.If_tagContext ctx) {
@@ -129,9 +134,22 @@ public class Mylistener extends NuxtParserBaseListener {
 		Compiler.init_params.append(String.format("%s = params.%s \n", init_param[0], init_param[0]));
 	}
 	
+	@Override public void enterFilter(NuxtParser.FilterContext ctx) {
+		String uuid = uuid();
+		Compiler.code.append(String.format("%s(%s)(%s) \n", ctx.getChild(1).getText(), print, uuid));
+		Compiler.code.append(String.format("document += %s \n", uuid));
+		
+		print = null;
+	}
+	
 	private String capitalize(String str)
 	{
 	    if(str == null) return str;
 	    return str.substring(0, 1).toUpperCase() + str.substring(1);
 	}
+	
+	private String uuid() { 
+	    UUID randomUUID = UUID.randomUUID();
+	    return "print" + randomUUID.toString().replaceAll("-", "").substring(0, 4);
+	  } 
 }
