@@ -4,7 +4,6 @@ from file import File
 type NUXTConfig: void {
   location?: string
   root?: string
-  dataDir?: string
   contentDir?: string
   servicesDir?: string
   defaultPage?: string
@@ -23,7 +22,6 @@ service Launcher (config : NUXTConfig ) {
 		if( !is_defined( config.root        ) ) config.root        = home
 		if( !is_defined( config.contentDir  ) ) config.contentDir  = config.root + "www" + sep
 		if( !is_defined( config.servicesDir ) ) config.servicesDir = config.root + "services" + sep
-		if( !is_defined( config.dataDir     ) ) config.dataDir     = config.root + "data" + sep
 		if( !is_defined( config.defaultPage ) ) config.defaultPage = "index.ol"
 
 		loadEmbeddedService@runtime( {
