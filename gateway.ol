@@ -1,6 +1,7 @@
 from GatewayInterfaceModule import GatewayInterface
 from PageInterfaceModule import PageInterface
 from NuxtInterfaceModule import NuxtInterface
+from types.Binding import Binding
 
 from runtime import Runtime
 from file import File
@@ -22,22 +23,18 @@ type Params {
             showContent?:bool //< default = false
         }
     }
-    /// Redirections to sub-services
-    // redirection* {
-    //     name:string //< name of the service
-    //     binding:LeonardoBinding //< Binding to the target service
-    // }
 }
 
 service Gateway( params:Params ) {
+    execution: concurrent
+
     embed Runtime as Runtime
     embed File as File
     embed Console as Console
     embed StringUtils as StringUtils
 
-    execution: concurrent
-
     inputPort GatewayPort {
+        location: params.location
         protocol: http {
             keepAlive = true // Keep connections open
             debug = is_defined( params.httpConfig.debug ) && params.httpConfig.debug
@@ -50,8 +47,6 @@ service Gateway( params:Params ) {
 
             default = "default"
         }
-        // protocol: http { format = "json", default = "default" }
-        location: params.location
         interfaces: GatewayInterface
     }
 
@@ -77,6 +72,29 @@ service Gateway( params:Params ) {
             filepath = "nuxt.runtime.FileUtils"
             type = "Java"
         } )( FileUtils.location )
+    }
+
+    define setCacheHeaders {
+        shouldCache = false
+        if( s.result[0] == "image" ) {
+            shouldCache = true
+        } else {
+            e = file.filename
+            e.suffix = ".js"
+            endsWith@StringUtils( e )( shouldCache )
+            if( !shouldCache ) {
+                e.suffix = ".css"
+                endsWith@StringUtils( e )( shouldCache )
+                if( !shouldCache ) {
+                        e.suffix = ".woff"
+                        endsWith@StringUtils( e )( shouldCache )
+                }
+            }
+        }
+
+        if( shouldCache ) {
+            cacheMaxAge = 60 * 60 * 2 // 2 hours
+        }
     }
 
     define buildService {
@@ -111,14 +129,23 @@ service Gateway( params:Params ) {
 
     init {
         loadNuxt
+
+        getServiceParentPath@File()( dir )
+        setMimeTypeFile@File( dir + "/internal/" + "mime.types" )()
+
+        format = "ol"
     }
 
     main {
         [ default(request)(response) {
 
             scope( computeResponse ) {
-                install(FileNotFound =>
-                    println@Console("File not found: " + file.filename)()
+                install(
+                    FileNotFound =>
+                        println@Console( "File not found: " + file.filename )()
+                        statusCode = 404,
+                    MovedPermanently =>
+                        statusCode = 301
                 )
                 
                 s = request.operation
@@ -146,6 +173,8 @@ service Gateway( params:Params ) {
                 if(isService) {
                     buildService
 
+                    println@Console( path )()
+
                     loadEmbeddedService@Runtime({
                         filepath = params.servicesDir + path
                         service = "Main"
@@ -157,19 +186,38 @@ service Gateway( params:Params ) {
                 } else {
                     file.filename = params.contentDir + path
 
-                    // getMimeType@File(file.filename)(mime)
-                    // mime.regex = "/"
-                    // split@StringUtils(mime)(s)
-                    // if (s.result[0] == "text") {
-                    //     file.format = "text"
-                    //     format = "html"
-                    // } else {
-                    //     file.format = format = "binary"
-                    // }
+                    if(request.compile == false) {
+                        readFile@File( file )( response )
+                    } else {
+                        isDirectory@File( file.filename )( isDirectory )
+                        if( isDirectory ) {
+                            redirect = requestPath + "/"
+                            throw( MovedPermanently )
+                        }
 
-                    readFile@File(file)(response)
+                        getMimeType@File( file.filename )( mime )
+
+                        split@StringUtils( mime { .regex = "/" } )( s )
+                        if( s.result[0] == "text" ) {
+                            file.format = "text"
+                            format = "html"
+                        } else {
+                            file.format = format = "binary"
+                        }
+
+                        readFile@File( file )( response )
+
+                        with( decoratedResponse ) {
+                            .config.wwwDir = params.wwwDir;
+                            .request.path = requestPath;
+                            if ( file.format == "text" ) {
+                                .content -> response
+                            }
+                        }
+                    }
+                    
                 }
             }
-        }]
+        } ]
     }
 }

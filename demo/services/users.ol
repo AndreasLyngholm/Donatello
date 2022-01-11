@@ -27,7 +27,7 @@ service Main( params:Params ) {
 \n\t</head>
 \n\t<body>
 \n\t\t"
-document += layout_header.html
+document += layout_header.html 
 document += "
 \n
 \n\t\t<h1>List of all users...</h1>
@@ -80,8 +80,8 @@ document += "
 		getDocument(request)(response) {
 
 			readFile@File( {filename = params.root + "data/users.json", format = "json"} )( data ) 
-default@Gateway( {operation = "layout/header.html"} )( layout_header.html ) 
-default@Gateway( {operation = "layout/footer.html"} )( layout_footer.html ) 
+default@Gateway( {operation = "layout/header.html", compile = false} )( layout_header.html ) 
+default@Gateway( {operation = "layout/footer.html", compile = false} )( layout_footer.html ) 
 
 			
 

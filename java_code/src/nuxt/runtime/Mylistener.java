@@ -122,7 +122,7 @@ public class Mylistener extends NuxtParserBaseListener {
 			}
 		}
 		
-		Compiler.dataproviders.append((String.format("default@Gateway( {operation = \"%s\"%s} )( %s ) \n", to_include, params, to_include.replace("/", "_"))));
+		Compiler.dataproviders.append((String.format("default@Gateway( {operation = \"%s\"%s, compile = false} )( %s ) \n", to_include, params, to_include.replace("/", "_"))));
 		Compiler.code.append(String.format("document += %s \n", to_include.replace("/", "_")));
 	}
 	
