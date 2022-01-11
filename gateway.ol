@@ -157,15 +157,15 @@ service Gateway( params:Params ) {
                 } else {
                     file.filename = params.contentDir + path
 
-                    getMimeType@File(file.filename)(mime)
-                    mime.regex = "/"
-                    split@StringUtils(mime)(s)
-                    if (s.result[0] == "text") {
-                        file.format = "text"
-                        format = "html"
-                    } else {
-                        file.format = format = "binary"
-                    }
+                    // getMimeType@File(file.filename)(mime)
+                    // mime.regex = "/"
+                    // split@StringUtils(mime)(s)
+                    // if (s.result[0] == "text") {
+                    //     file.format = "text"
+                    //     format = "html"
+                    // } else {
+                    //     file.format = format = "binary"
+                    // }
 
                     readFile@File(file)(response)
                 }

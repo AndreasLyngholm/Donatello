@@ -1,3 +1,5 @@
 { 
- "root": "/home/lyngholm/jolie-dw/demo/"
+ "root": "/home/vagrant/Coding/thesis/jolie-dw/demo/",
+ "contentDir": "/home/vagrant/Coding/thesis/jolie-dw/demo/www/",
+ "servicesDir": "/home/vagrant/Coding/thesis/jolie-dw/demo/services/"
 }

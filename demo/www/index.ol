@@ -9,5 +9,9 @@
 		<a href="testing.ol">Goto "Testing"</a>
 		<br>
 		<a href="user.ol">Goto "User"</a>
+		<br>
+		<a href="users.ol">Goto "Users"</a>
+		<br>
+		<a href="conditional.ol">Goto "Conditional"</a>
 	</body>
 </html>

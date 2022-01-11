@@ -2,7 +2,6 @@ from GatewayInterfaceModule import GatewayInterface
 from runtime import Runtime
 from PageInterfaceModule import PageInterface
 from file import File
-from string_utils import StringUtils 
 
 
 type Params {
@@ -17,19 +16,20 @@ type Params {
 service Main( params:Params ) {
 	embed Runtime as Runtime
 	embed File as File
-	embed StringUtils as StringUtils 
-
+	
 
 	define operations {
-		document += "\n"
-document += "\n<!DOCTYPE html>\n<html>\n\t<head>\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n\t</head>\n\t<body>\n\t\t"
-document += menu.ol 
+		document += "\n<!DOCTYPE html>\n<html>\n\t<head>\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n\t</head>\n\t<body>\n\t\t"
+if (request.x>5) { 
 document += "\n\t\t\n\t\t<h1>Welcome, "
-toUpperCase@StringUtils(user.name)(print2978) 
-document += print2978 
-document += "</h1>\n\n\t\t<p>Your age is "
-document += user.age
-document += "</p>\n\t</body>\n</html>"
+document += user.name
+document += "</h1>\n\t\t\n\t\t"
+} else { 
+document += "\n\t    \n\t    <h1>Bye, "
+document += user.name
+document += "</h1>\n\n\t    "
+} 
+document += "\n\t</body>\n</html>"
 
 	}
 
@@ -59,7 +59,6 @@ document += "</p>\n\t</body>\n</html>"
 		getDocument(request)(response) {
 
 			readFile@File( {filename = params.root + "data/user.json", format = "json"} )( user ) 
-default@Gateway( {operation = "menu.ol", user=user.name} )( menu.ol ) 
 
 			
 
