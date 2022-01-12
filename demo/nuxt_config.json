@@ -1,5 +1,6 @@
 { 
  "root": "/home/vagrant/Coding/thesis/jolie-dw/demo/",
  "contentDir": "/home/vagrant/Coding/thesis/jolie-dw/demo/www/",
- "servicesDir": "/home/vagrant/Coding/thesis/jolie-dw/demo/services/"
+ "servicesDir": "/home/vagrant/Coding/thesis/jolie-dw/demo/services/",
+ "routes" : "/home/vagrant/Coding/thesis/jolie-dw/demo/routes.json"
 }

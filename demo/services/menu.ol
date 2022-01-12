@@ -10,6 +10,7 @@ type Params {
     contentDir:string
     servicesDir:string
     defaultPage:string
+    routes:string
     user:string
     
 }

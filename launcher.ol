@@ -7,6 +7,7 @@ type NUXTConfig: void {
   contentDir?: string
   servicesDir?: string
   defaultPage?: string
+  routes?: string
 }
 
 service Launcher (config : NUXTConfig ) {
@@ -23,6 +24,7 @@ service Launcher (config : NUXTConfig ) {
 		if( !is_defined( config.contentDir  ) ) config.contentDir  = config.root + "www" + sep
 		if( !is_defined( config.servicesDir ) ) config.servicesDir = config.root + "services" + sep
 		if( !is_defined( config.defaultPage ) ) config.defaultPage = "index.ol"
+		if( !is_defined( config.routes      ) ) config.routes      = config.root + "routes.json"
 
 		loadEmbeddedService@runtime( {
 			filepath = home + sep + "gateway.ol"

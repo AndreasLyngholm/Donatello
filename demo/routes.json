@@ -1,0 +1,6 @@
+{
+	"users": "users.ol",
+	"users/.*": "user.ol",
+	"index": "index.ol",
+	"testing": "testing.ol"
+}

@@ -15,6 +15,7 @@ type Params {
     contentDir:string
     servicesDir:string
     defaultPage:string
+    routes:string
 
     /// configuration parameters for the HTTP input port
     httpConfig? {
@@ -136,11 +137,35 @@ service Gateway( params:Params ) {
         }
     }
 
+    define findRoute {
+        foreach (route : routes) {
+            f = s.result[0]
+            f.regex = route
+            match@StringUtils( f )( response )
+
+            if(response) {
+                path = routes.(route)
+            }
+        }
+
+        if (path == null) {
+            path = s.result[0]
+        }
+    }
+
+    init {
+        readFile@File( {
+            filename = params.routes
+            format = "json"
+        } )( routes )
+    }
+
     init {
         loadNuxt
 
+        getFileSeparator@File()( sep )
         getServiceParentPath@File()( dir )
-        setMimeTypeFile@File( dir + "/internal/" + "mime.types" )()
+        setMimeTypeFile@File( dir + sep + "internal" + sep + "mime.types" )()
 
         format = "ol"
     }
@@ -160,12 +185,10 @@ service Gateway( params:Params ) {
                 s = request.operation
                 s.regex = "\\?"
                 split@StringUtils(s)(s)
-                
-                // Default page
-                path = s.result[0]
-                if (path == "") {
-                    path = params.defaultPage
-                }
+
+                findRoute
+
+                println@Console( "Path: " + path )()
 
                 // Check file ending
                 endsWithReq = path
@@ -179,7 +202,7 @@ service Gateway( params:Params ) {
 
                 // Go though request and find custom params.
                 foreach ( param : request ) {
-                    if(param != "data" && param != "requestUri" && param != "operation" && param != "cookies" && param != "userAgent") {
+                    if(param != "data" && param != "requestUri" && param != "operation" && param != "cookies" && param != "userAgent" && param != "compile") {
                         params.(param) = request.(param)
                     }
                 }

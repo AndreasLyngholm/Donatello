@@ -11,6 +11,7 @@ type Params {
     contentDir:string
     servicesDir:string
     defaultPage:string
+    routes:string
     
 }
 
@@ -21,42 +22,64 @@ service Main( params:Params ) {
 
 
 	define operations {
-		document += "\n"
-document += "\n<!DOCTYPE html>\n<html>\n\t<head>\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n\t</head>\n\t<body>\n\t\t<!-- Testing comment... -->\n\t\t\n\t\t"
+		document += "
+\n"
+document += "
+\n<!DOCTYPE html>
+\n<html>
+\n\t<head>
+\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />
+\n\t</head>
+\n\t<body>
+\n\t\t<!-- Testing comment... -->
+\n\t\t
+\n\t\t"
 getCurrentDateTime@Time()(time)
-document += "\n\t\t<h1>Welcome, "
+document += "
+\n\t\t<h1>Welcome, "
 document += user.name
-document += "</h1>\n\n\t\t"
+document += "</h1>
+\n
+\n\t\t"
 a=7
-document += "\n\t\t"
+document += "
+\n\t\t"
 b=3
-document += "\n\t\t<h1>"
+document += "
+\n\t\t<h1>"
 document += a
 document += " + "
 document += b
 document += " = "
 document += a+b
-document += "</h1>\n\t\t<h1>"
+document += "</h1>
+\n\t\t<h1>"
 document += a
 document += " / "
 document += b
 document += " = "
 document += a/b
-document += "</h1>\n\t\t<h1>"
+document += "</h1>
+\n\t\t<h1>"
 document += a
 document += " * "
 document += b
 document += " = "
 document += a*b
-document += "</h1>\n\t\t<h1>"
+document += "</h1>
+\n\t\t<h1>"
 document += a
 document += " - "
 document += b
 document += " = "
 document += a-b
-document += "</h1>\n\n\t\t<p>The time is: "
+document += "</h1>
+\n
+\n\t\t<p>The time is: "
 document += time
-document += "</p>\n\t</body>\n</html>"
+document += "</p>
+\n\t</body>
+\n</html>"
 
 	}
 
