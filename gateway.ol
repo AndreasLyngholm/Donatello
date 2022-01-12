@@ -113,11 +113,20 @@ service Gateway( params:Params ) {
         if(isUpdated == false) {
             synchronized(compile) {
                 println@Console("Recompiling " + path)()
+
                 file.filename = params.contentDir + path
                 readFile@File(file)(data.contents)
 
-                base.filename = "services/base.ol"
-                readFile@File(base)(data.base)
+                if(isService) {
+                    base.filename = "services/base.ol"
+                    readFile@File(base)(data.base)
+
+                    data.type = "service"
+                } else if(isMarkdown) {
+                    data.type = "markdown"
+                    data.base = "none"
+                }
+
                 compile@Nuxt(data)(code)
 
                 writefile.content = code
@@ -163,6 +172,11 @@ service Gateway( params:Params ) {
                 endsWithReq.suffix = ".ol"
                 endsWith@StringUtils(endsWithReq)(isService)
 
+                // Check file ending
+                endsWithReq = path
+                endsWithReq.suffix = ".markdown"
+                endsWith@StringUtils(endsWithReq)(isMarkdown)
+
                 // Go though request and find custom params.
                 foreach ( param : request ) {
                     if(param != "data" && param != "requestUri" && param != "operation" && param != "cookies" && param != "userAgent") {
@@ -183,6 +197,25 @@ service Gateway( params:Params ) {
 
                     getDocument@Page(request.data)(response)
                     format = "html"
+                } else if (isMarkdown) {
+                    buildService
+                    
+                    println@Console( path )()
+
+                    file.filename = params.servicesDir + path
+                    file.format = "text"
+                    format = "html"
+
+                    readFile@File( file )( response )
+
+                    with( decoratedResponse ) {
+                        .config.wwwDir = params.wwwDir;
+                        .request.path = requestPath;
+                        if ( file.format == "text" ) {
+                            .content -> response
+                        }
+                    }
+
                 } else {
                     file.filename = params.contentDir + path
 

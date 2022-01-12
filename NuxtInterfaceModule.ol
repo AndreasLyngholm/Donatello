@@ -1,6 +1,7 @@
 type CompileRequest: void {
   contents: string
   base: string
+  type: string
 }
 
 interface NuxtInterface {

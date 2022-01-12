@@ -8,5 +8,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Jolie/jolie.jar"/>
 	<classpathentry kind="lib" path="C:/Users/lyngh/Downloads/antlr-4.9.3-complete.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lyngh/Downloads/txtmark-0.13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

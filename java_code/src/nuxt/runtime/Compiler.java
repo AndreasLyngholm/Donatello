@@ -10,14 +10,14 @@ import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
+import com.github.rjeschke.txtmark.Processor;
+
 public class Compiler extends JavaService {
 
 	public static StringBuilder output, code, dataproviders, includes, embeddings, params, init_params;
 
 	public static String compile(Value request) {
-//    	String contents = ( "${param user:any}\r\n"
-//    			+ "${param test:any}\r\n"
-//    			+ "{{ user.name }}" );
+//    	String contents = ("{{ user.name | toUpperCase@StringUtils }}" );
 //    	
 //    	String base = ( "from GatewayInterfaceModule import GatewayInterface\r\n"
 //    			+ "from runtime import Runtime\r\n"
@@ -79,6 +79,13 @@ public class Compiler extends JavaService {
 		
 		String contents = request.getFirstChild( "contents" ).strValue();
 		String base = request.getFirstChild( "base" ).strValue();
+		String type = request.getFirstChild( "type" ).strValue();
+		
+		if (type == "markdown") {
+			String html = Processor.process(contents);
+			
+			return html;
+		}
 
     	params = new StringBuilder();
     	init_params = new StringBuilder();
