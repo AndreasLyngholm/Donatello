@@ -139,6 +139,7 @@ mode IN_TAG;
   CommentStart : 'comment';
   CommentEnd   : 'endcomment';
   RawStart     : 'raw' WhitespaceChar* '}' -> pushMode(IN_RAW);
+  ParamStart   : 'param' WhitespaceChar* Type WhitespaceChar* '{' -> pushMode(IN_PARAM);
   IfStart      : 'if';
   Elseif       : 'elseif';
   IfEnd        : 'endif';
@@ -175,7 +176,8 @@ mode IN_TAG;
    ;
 
   Id : ( Letter | '_' ) (Letter | '_' | '-' | '/' | Digit)*;
-  Type : [a-z] [a-zA-Z_0-9]* Col [a-z] [a-zA-Z_0-9]*;
+  Type : [a-z] [a-zA-Z_0-9]*;
+  ParamVar : [a-z] [a-zA-Z_0-9]* Col [a-z] [a-zA-Z_0-9]*;
   Filter : [a-z] [a-zA-Z_0-9]* Add [a-zA-Z_0-9]+;
 
 mode IN_RAW;
@@ -183,3 +185,9 @@ mode IN_RAW;
   RawEnd : '${' WhitespaceChar* 'endraw' -> popMode;
 
   OtherRaw : . ;
+
+mode IN_PARAM;
+
+  ParamEnd : '}' -> popMode;
+
+  OtherParam : . ;

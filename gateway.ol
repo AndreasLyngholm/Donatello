@@ -7,6 +7,7 @@ from runtime import Runtime
 from file import File
 from console import Console
 from string_utils import StringUtils
+from uri_templates import UriTemplates
 
 /// Configuration parameters
 type Params {
@@ -19,9 +20,8 @@ type Params {
 
     /// configuration parameters for the HTTP input port
     httpConfig? {
-        /// default = false
         debug?:bool { 
-            showContent?:bool //< default = false
+            showContent?:bool
         }
     }
 }
@@ -33,6 +33,7 @@ service Gateway( params:Params ) {
     embed File as File
     embed Console as Console
     embed StringUtils as StringUtils
+    embed UriTemplates as UriTemplates
 
     inputPort GatewayPort {
         location: params.location
@@ -138,19 +139,53 @@ service Gateway( params:Params ) {
     }
 
     define findRoute {
-        foreach (route : routes) {
-            f = s.result[0]
-            f.regex = route
-            match@StringUtils( f )( response )
+        foreach( route : routes ) {
+
+            t.template = route
+            t.uri = s.result[0]
+            match@UriTemplates( t )( response )
 
             if(response) {
-                path = routes.(route)
+                path = routes.(route).service
+
+                f.template = route
+                expand@UriTemplates(f)(expansion)
+
+                replaceFirst@StringUtils(request.operation {.regex = expansion, .replacement = ""})(id)
+
+                if(is_defined(routes.(route).data)) {
+                    foreach( p : routes.(route).data ) {
+
+                        readFile@File( {
+                            filename = params.root + routes.(route).data.(p)
+                            format = "json"
+                        } )( jd )
+
+                        foreach( d : jd ) {
+                            for( u in jd.(d) ) {
+                                if(u.id == id) {
+                                    params.(p) << u
+                                }
+                            }
+                        }
+                        
+                    }
+                }
             }
         }
 
         if (path == null) {
             path = s.result[0]
         }
+    }
+
+    define unsetParams {
+        undef(params.data)
+        undef(params.requestUri)
+        undef(params.operation)
+        undef(params.cookies)
+        undef(params.userAgent)
+        undef(params.compile)
     }
 
     init {
@@ -188,8 +223,6 @@ service Gateway( params:Params ) {
 
                 findRoute
 
-                println@Console( "Path: " + path )()
-
                 // Check file ending
                 endsWithReq = path
                 endsWithReq.suffix = ".ol"
@@ -200,17 +233,12 @@ service Gateway( params:Params ) {
                 endsWithReq.suffix = ".markdown"
                 endsWith@StringUtils(endsWithReq)(isMarkdown)
 
-                // Go though request and find custom params.
-                foreach ( param : request ) {
-                    if(param != "data" && param != "requestUri" && param != "operation" && param != "cookies" && param != "userAgent" && param != "compile") {
-                        params.(param) = request.(param)
-                    }
-                }
+                params << request
+                
+                unsetParams
 
                 if(isService) {
                     buildService
-
-                    println@Console( path )()
 
                     loadEmbeddedService@Runtime({
                         filepath = params.servicesDir + path
@@ -222,8 +250,6 @@ service Gateway( params:Params ) {
                     format = "html"
                 } else if (isMarkdown) {
                     buildService
-                    
-                    println@Console( path )()
 
                     file.filename = params.servicesDir + path
                     file.format = "text"

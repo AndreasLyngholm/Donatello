@@ -17,7 +17,8 @@ public class Compiler extends JavaService {
 	public static StringBuilder output, code, dataproviders, includes, embeddings, params, init_params;
 
 	public static String compile(Value request) {
-//    	String contents = ("{{ user.name | toUpperCase@StringUtils }}" );
+//    	String contents = ("${param user {?}}"
+//    			+ "${param user:string}" );
 //    	
 //    	String base = ( "from GatewayInterfaceModule import GatewayInterface\r\n"
 //    			+ "from runtime import Runtime\r\n"
@@ -31,6 +32,7 @@ public class Compiler extends JavaService {
 //    			+ "    contentDir:string\r\n"
 //    			+ "    servicesDir:string\r\n"
 //    			+ "    defaultPage:string\r\n"
+//    			+ "    routes:string\r\n"
 //    			+ "    @params\r\n"
 //    			+ "}\r\n"
 //    			+ "\r\n"
@@ -68,8 +70,8 @@ public class Compiler extends JavaService {
 //    			+ "	main {\r\n"
 //    			+ "		getDocument(request)(response) {\r\n"
 //    			+ "\r\n"
-//    			+ "			@dataproviders\r\n"
 //    			+ "			@init_params\r\n"
+//    			+ "			@dataproviders\r\n"
 //    			+ "\r\n"
 //    			+ "			operations\r\n"
 //    			+ "			response = document\r\n"

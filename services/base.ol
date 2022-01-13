@@ -48,8 +48,8 @@ service Main( params:Params ) {
 	main {
 		getDocument(request)(response) {
 
-			@dataproviders
 			@init_params
+			@dataproviders
 
 			operations
 			response = document

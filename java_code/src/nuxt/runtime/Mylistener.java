@@ -118,7 +118,7 @@ public class Mylistener extends NuxtParserBaseListener {
 		
 		for (ParseTree param : ctx.children) {
 			if(param.getText().contains("=")) {
-				params += ", " + param.getText();
+				params += ", " + param.getText().replace("=", " << ");
 			}
 		}
 		
@@ -142,14 +142,20 @@ public class Mylistener extends NuxtParserBaseListener {
 		print = null;
 	}
 	
-	private String capitalize(String str)
-	{
+	@Override public void enterParam_body(NuxtParser.Param_bodyContext ctx) {
+		String param = ctx.getParent().getChild(1).getText().replace("param ", "").replace("{", "");
+		
+		Compiler.params.append(param + "{" + ctx.getText() + "} \n");
+		Compiler.init_params.append(String.format("%s << params.%s \n", param, param));
+	}
+	
+	private String capitalize(String str) {
 	    if(str == null) return str;
 	    return str.substring(0, 1).toUpperCase() + str.substring(1);
 	}
 	
-	private String uuid() { 
+	private String uuid() {
 	    UUID randomUUID = UUID.randomUUID();
 	    return "print" + randomUUID.toString().replaceAll("-", "").substring(0, 4);
-	  } 
+	} 
 }

@@ -1,12 +1,12 @@
-${use json data/user as user}
+${param user{?}}
 ${use service string_utils}
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="style.css" />
+		<link rel="stylesheet" type="text/css" href="../style.css" />
 	</head>
 	<body>
-		${ include menu.ol user=user.name }
+		${ include menu.ol user=user }
 		
 		<h1>Welcome, {{ user.name | toUpperCase@StringUtils }}</h1>
 

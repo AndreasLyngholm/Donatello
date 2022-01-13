@@ -47,6 +47,11 @@ tag
 
 param_tag
  : tagStart Param param_type TagEnd
+ | tagStart ParamStart param_body ParamEnd TagEnd
+ ;
+
+param_body
+ : OtherParam*
  ;
 
 code_tag
@@ -231,6 +236,8 @@ id
  | CaptureEnd
  | CommentStart
  | CommentEnd
+ | ParamStart
+ | ParamEnd
  | RawStart
  | RawEnd
  | IfStart
@@ -258,6 +265,7 @@ id
  | Continue
  | Reversed
  | Type
+ | ParamVar
  | EndId
  ;
 
@@ -278,7 +286,7 @@ resource
  ;
 
 param_type
- : Type
+ : ParamVar
  ;
 
 index

@@ -1,6 +1,17 @@
 {
-	"users": "users.ol",
-	"users/.*": "user.ol",
-	"index": "index.ol",
-	"testing": "testing.ol"
+	"users": {
+		"service": "users.ol"
+	},
+	"users/{id}": {
+		"service": "user.ol",
+		"data": {
+			"user": "data/users.json"
+		}
+	},
+	"index": {
+		"service": "index.ol"
+	},
+	"testing": {
+		"service": "testing.ol"
+	},
 }

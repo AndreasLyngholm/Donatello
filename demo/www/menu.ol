@@ -1,2 +1,4 @@
-${param user:string}
-Test menu, param user = {{ user }}
+${use service console}
+${param user{?}}
+
+<h4>Test menu, param user = {{ user.name }}</h4>

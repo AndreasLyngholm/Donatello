@@ -2,6 +2,7 @@ from GatewayInterfaceModule import GatewayInterface
 from runtime import Runtime
 from PageInterfaceModule import PageInterface
 from file import File
+from console import Console 
 
 
 type Params {
@@ -11,18 +12,21 @@ type Params {
     servicesDir:string
     defaultPage:string
     routes:string
-    user:string
-    
+    user{?} 
+
 }
 
 service Main( params:Params ) {
 	embed Runtime as Runtime
 	embed File as File
-	
+	embed Console as Console 
+
 
 	define operations {
-		document += "\nTest menu, param user = "
-document += user
+		document += "\n"
+document += "\n\n<h4>Test menu, param user = "
+document += user.name
+document += "</h4>"
 
 	}
 
@@ -51,9 +55,9 @@ document += user
 	main {
 		getDocument(request)(response) {
 
-			
-			user = params.user 
+			user << params.user 
 
+			
 
 			operations
 			response = document

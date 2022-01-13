@@ -22,15 +22,15 @@ service Main( params:Params ) {
 	define operations {
 		document += "\n<!DOCTYPE html>\n<html>\n\t<head>\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n\t</head>\n\t<body>\n\t\t"
 document += layout_header.html 
-document += "\n\n\t\t<h1>List of all users...</h1>\n\n\t\t"
+document += "\n\t\t<hr>\n\n\t\t<h1>List of all users...</h1>\n\n\t\t"
 for ( user in data.users ) { 
-document += "\n\n\t\t<p>Hi, "
+document += "\n\n\t\tGo to <a href=\"users/"
+document += user.id
+document += "\">"
 document += user.name
-document += " your age is "
-document += user.age
-document += "</p>\n\n\t\t"
+document += "</a>\n\t\t<br>\n\n\t\t"
 } 
-document += "\n\n\t\t"
+document += "\n\n\t\t<hr>\n\t\t"
 document += layout_footer.html 
 document += "\n\t</body>\n</html>"
 
@@ -61,11 +61,11 @@ document += "\n\t</body>\n</html>"
 	main {
 		getDocument(request)(response) {
 
+			
 			readFile@File( {filename = params.root + "data/users.json", format = "json"} )( data ) 
 default@Gateway( {operation = "layout/header.html", compile = false} )( layout_header.html ) 
 default@Gateway( {operation = "layout/footer.html", compile = false} )( layout_footer.html ) 
 
-			
 
 			operations
 			response = document
