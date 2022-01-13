@@ -23,29 +23,15 @@ service Main( params:Params ) {
 
 
 	define operations {
-		document += "
-\n"
-document += "
-\n<!DOCTYPE html>
-\n<html>
-\n\t<head>
-\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"../style.css\" />
-\n\t</head>
-\n\t<body>
-\n\t\t"
+		document += "\n"
+document += "\n<!DOCTYPE html>\n<html>\n\t<head>\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"../style.css\" />\n\t</head>\n\t<body>\n\t\t"
 document += menu.ol 
-document += "
-\n\t\t
-\n\t\t<h1>Welcome, "
-toUpperCase@StringUtils(user.name)(print3016) 
-document += print3016 
-document += "</h1>
-\n
-\n\t\t<p>Your age is "
+document += "\n\t\t\n\t\t<h1>Welcome, "
+toUpperCase@StringUtils(user.name)(print74c0) 
+document += print74c0 
+document += "</h1>\n\n\t\t<p>Your age is "
 document += user.age
-document += "</p>
-\n\t</body>
-\n</html>"
+document += "</p>\n\t</body>\n</html>"
 
 	}
 

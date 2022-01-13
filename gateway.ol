@@ -154,21 +154,18 @@ service Gateway( params:Params ) {
                 replaceFirst@StringUtils(request.operation {.regex = expansion, .replacement = ""})(id)
 
                 if(is_defined(routes.(route).data)) {
-                    foreach( p : routes.(route).data ) {
 
-                        readFile@File( {
-                            filename = params.root + routes.(route).data.(p)
-                            format = "json"
-                        } )( jd )
+                    readFile@File( {
+                        filename = params.root + routes.(route).data.source
+                        format = "json"
+                    } )( jd )
 
-                        foreach( d : jd ) {
-                            for( u in jd.(d) ) {
-                                if(u.id == id) {
-                                    params.(p) << u
-                                }
+                    foreach( d : jd ) {
+                        for( u in jd.(d) ) {
+                            if(u.(routes.(route).data.identifier) == id) {
+                                params.(routes.(route).data.variable) << u
                             }
                         }
-                        
                     }
                 }
             }

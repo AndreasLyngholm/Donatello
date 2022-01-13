@@ -5,8 +5,10 @@
 	"users/{id}": {
 		"service": "user.ol",
 		"data": {
-			"user": "data/users.json"
-		}
+			"identifier": "id",
+			"source": "data/users.json",
+			"variable": "user"
+		},
 	},
 	"index": {
 		"service": "index.ol"
