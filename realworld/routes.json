@@ -1,0 +1,23 @@
+{
+	"": {
+		"service": "home.ol"
+	},
+	"article/create": {
+		"service": "create_article.ol"
+	},
+	"settings": {
+		"service": "settings.ol"
+	},
+	"article": {
+		"service": "article.ol"
+	},
+	"profile": {
+		"service": "profile.ol"
+	},
+	"login": {
+		"service": "login.ol"
+	},
+	"signup": {
+		"service": "signup.ol"
+	}
+}
