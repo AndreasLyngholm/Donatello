@@ -1,7 +1,7 @@
 from runtime import Runtime
 from file import File
 
-type NUXTConfig: void {
+type DonatelloConfig: void {
   location?: string
   root?: string
   contentDir?: string
@@ -10,7 +10,7 @@ type NUXTConfig: void {
   routes?: string
 }
 
-service Launcher (config : NUXTConfig ) {
+service Launcher (config : DonatelloConfig ) {
 	embed Runtime as runtime
 	embed File as file
 

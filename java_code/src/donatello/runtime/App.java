@@ -1,4 +1,4 @@
-package nuxt.runtime;
+package donatello.runtime;
 
 public class App
 {

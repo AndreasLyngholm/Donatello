@@ -10,10 +10,13 @@
 			"variable": "user"
 		},
 	},
-	"index": {
+	"": {
 		"service": "index.ol"
 	},
 	"testing": {
 		"service": "testing.ol"
+	},
+	"conditional": {
+		"service": "conditional.ol"
 	},
 }

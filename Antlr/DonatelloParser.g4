@@ -1,4 +1,4 @@
-parser grammar NuxtParser;
+parser grammar DonatelloParser;
 
 options {
   tokenVocab=NuxtLexer;

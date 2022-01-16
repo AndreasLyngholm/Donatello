@@ -4,11 +4,11 @@ type CompileRequest: void {
   type: string
 }
 
-interface NuxtInterface {
+interface DonatelloInterface {
 	RequestResponse: compile(CompileRequest)(string),
 	RequestResponse: getLastModified(string)(long)
 }
 
-outputPort Nuxt {
-	interfaces: NuxtInterface
+outputPort Donatello {
+	interfaces: DonatelloInterface
 }

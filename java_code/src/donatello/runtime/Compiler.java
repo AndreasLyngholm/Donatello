@@ -1,4 +1,4 @@
-package nuxt.runtime;
+package donatello.runtime;
 
 import jolie.runtime.JavaService;
 import jolie.runtime.Value;
@@ -100,7 +100,7 @@ public class Compiler extends JavaService {
 		/*
 		 * make Lexer
 		 */
-		Lexer lexer = new NuxtLexer(CharStreams.fromString(contents));
+		Lexer lexer = new DonatelloLexer(CharStreams.fromString(contents));
 		
 		/*
 		 * get a TokenStream on the Lexer
@@ -110,7 +110,7 @@ public class Compiler extends JavaService {
 		/*
 		 * make a Parser on the token stream
 		 */
-		NuxtParser parser = new NuxtParser(tokenStream);
+		DonatelloParser parser = new DonatelloParser(tokenStream);
 		
 		/*
 		 * get the top node of the AST. This corresponds to the topmost rule of equation.q4, "equation"

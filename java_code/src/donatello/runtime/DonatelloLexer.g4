@@ -1,14 +1,18 @@
-lexer grammar NuxtLexer;
+lexer grammar DonatelloLexer;
+
+@header {
+package donatello.runtime;
+}
 
 @lexer::members {
   private boolean stripSpacesAroundTags = false;
   private boolean stripSingleLine = false;
   private java.util.LinkedList<Token> tokens = new java.util.LinkedList<>();
-  public NuxtLexer(CharStream charStream, boolean stripSpacesAroundTags) {
+  public DonatelloLexer(CharStream charStream, boolean stripSpacesAroundTags) {
     this(charStream, stripSpacesAroundTags, false);
   }
 
-  public NuxtLexer(CharStream charStream, boolean stripSpacesAroundTags, boolean stripSingleLine) {
+  public DonatelloLexer(CharStream charStream, boolean stripSpacesAroundTags, boolean stripSingleLine) {
     this(charStream);
     this.stripSpacesAroundTags = stripSpacesAroundTags;
     this.stripSingleLine = stripSingleLine;

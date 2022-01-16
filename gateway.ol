@@ -1,6 +1,6 @@
 from GatewayInterfaceModule import GatewayInterface
 from PageInterfaceModule import PageInterface
-from NuxtInterfaceModule import NuxtInterface
+from DonatelloInterfaceModule import DonatelloInterface
 from types.Binding import Binding
 
 from runtime import Runtime
@@ -56,22 +56,22 @@ service Gateway( params:Params ) {
         interfaces: PageInterface
     }
 
-    outputPort Nuxt {
-        interfaces: NuxtInterface
+    outputPort Donatello {
+        interfaces: DonatelloInterface
     }
 
     outputPort FileUtils {
-        interfaces: NuxtInterface
+        interfaces: DonatelloInterface
     }
 
-    define loadNuxt {
+    define loadDonatello {
         loadEmbeddedService@Runtime( {
-            filepath = "nuxt.runtime.Compiler"
+            filepath = "donatello.runtime.Compiler"
             type = "Java"
-        } )( Nuxt.location )
+        } )( Donatello.location )
 
         loadEmbeddedService@Runtime( {
-            filepath = "nuxt.runtime.FileUtils"
+            filepath = "donatello.runtime.FileUtils"
             type = "Java"
         } )( FileUtils.location )
     }
@@ -129,7 +129,7 @@ service Gateway( params:Params ) {
                     data.base = "none"
                 }
 
-                compile@Nuxt(data)(code)
+                compile@Donatello(data)(code)
 
                 writefile.content = code
                 writefile.filename = params.servicesDir + path
@@ -193,7 +193,7 @@ service Gateway( params:Params ) {
     }
 
     init {
-        loadNuxt
+        loadDonatello
 
         getFileSeparator@File()( sep )
         getServiceParentPath@File()( dir )

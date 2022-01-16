@@ -1,11 +1,11 @@
-parser grammar NuxtParser;
+parser grammar DonatelloParser;
 
 @header {
-package nuxt.runtime;
+package donatello.runtime;
 }
 
 options {
-  tokenVocab=NuxtLexer;
+  tokenVocab=DonatelloLexer;
 }
 
 parse
