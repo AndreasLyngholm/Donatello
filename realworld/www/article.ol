@@ -1,21 +1,22 @@
 ${ include layouts/header.html }
+${param article{?}}
 <div class="article-page">
 
     <div class="banner">
         <div class="container">
 
-            <h1>How to build webapps that scale</h1>
+            <h1>{{ article.title }}</h1>
 
             <div class="article-meta">
-                <a href=""><img src="http://i.imgur.com/Qr71crq.jpg"/></a>
+                <a href="/profiles/{{ article.author.id }}"><img src="{{ article.author.image }}"/></a>
                 <div class="info">
-                    <a href="" class="author">Eric Simons</a>
-                    <span class="date">January 20th</span>
+                    <a href="/profiles/{{ article.author.id }}"></a>
+                    <span class="date">{{ article.date }}</span>
                 </div>
                 <button class="btn btn-sm btn-outline-secondary">
                     <i class="ion-plus-round"></i>
                     &nbsp;
-                    Follow Eric Simons <span class="counter">(10)</span>
+                    Follow {{ article.author.name }} <span class="counter">(10)</span>
                 </button>
                 &nbsp;&nbsp;
                 <button class="btn btn-sm btn-outline-primary">
@@ -33,10 +34,8 @@ ${ include layouts/header.html }
         <div class="row article-content">
             <div class="col-md-12">
                 <p>
-                    Web development technologies have evolved at an incredible clip over the past few years.
+                    {{ article.content }}
                 </p>
-                <h2 id="introducing-ionic">Introducing RealWorld.</h2>
-                <p>It's a great solution for learning how other frameworks work.</p>
             </div>
         </div>
 
@@ -44,10 +43,10 @@ ${ include layouts/header.html }
 
         <div class="article-actions">
             <div class="article-meta">
-                <a href="profile.html"><img src="http://i.imgur.com/Qr71crq.jpg"/></a>
+                <a href="/profiles/{{ article.author.id }}"><img src="{{ article.author.image }}"/></a>
                 <div class="info">
-                    <a href="" class="author">Eric Simons</a>
-                    <span class="date">January 20th</span>
+                    <a href="/profiles/{{ article.author.id }}" class="author">{{ article.author.name }}</a>
+                    <span class="date">{{ article.date }}</span>
                 </div>
 
                 <button class="btn btn-sm btn-outline-secondary">

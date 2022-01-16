@@ -2,17 +2,27 @@
 	"": {
 		"service": "home.ol"
 	},
-	"article/create": {
+	"articles/create": {
 		"service": "create_article.ol"
 	},
 	"settings": {
 		"service": "settings.ol"
 	},
-	"article": {
-		"service": "article.ol"
+	"articles/{id}": {
+		"service": "article.ol",
+		"data": {
+			"identifier": "id",
+			"source": "data/articles.json",
+			"variable": "article"
+		},
 	},
-	"profile": {
-		"service": "profile.ol"
+	"profiles/{id}": {
+		"service": "profile.ol",
+		"data": {
+			"identifier": "id",
+			"source": "data/users.json",
+			"variable": "user"
+		},
 	},
 	"login": {
 		"service": "login.ol"

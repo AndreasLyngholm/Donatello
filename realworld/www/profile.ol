@@ -1,4 +1,5 @@
 ${ include layouts/header.html }
+${param user{?}}
 <div class="profile-page">
 
     <div class="user-info">
@@ -6,16 +7,15 @@ ${ include layouts/header.html }
             <div class="row">
 
                 <div class="col-xs-12 col-md-10 offset-md-1">
-                    <img src="http://i.imgur.com/Qr71crq.jpg" class="user-img"/>
-                    <h4>Eric Simons</h4>
+                    <img src="{{ user.image }}" class="user-img"/>
+                    <h4>{{ user.name }}</h4>
                     <p>
-                        Cofounder @GoThinkster, lived in Aol's HQ for a few months, kinda looks like Peeta from the
-                        Hunger Games
+                        {{ user.motto }}
                     </p>
                     <button class="btn btn-sm btn-outline-secondary action-btn">
                         <i class="ion-plus-round"></i>
                         &nbsp;
-                        Follow Eric Simons
+                        Follow {{ user.name }}
                     </button>
                 </div>
 

@@ -1,0 +1,16 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Eric Simons",
+            "image": "http://i.imgur.com/Qr71crq.jpg",
+            "motto": "Cofounder @GoThinkster, lived in Aol's HQ for a few months, kinda looks like Peeta from the Hunger Games"
+        },
+        {
+            "id": 2,
+            "name": "Albert Pai",
+            "image": "http://i.imgur.com/N4VcUeJ.jpg",
+            "motto": "Another Motto; yaay."
+        }
+    ]
+}
