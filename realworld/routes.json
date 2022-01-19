@@ -2,6 +2,9 @@
     "": {
         "service": "home.ol"
     },
+    "test": {
+        "service": "test.ol"
+    },
     "articles/create": {
         "service": "create_article.ol"
     },
