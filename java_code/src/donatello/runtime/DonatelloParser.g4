@@ -267,6 +267,7 @@ id
  | Type
  | ParamVar
  | EndId
+ | ServiceId
  ;
 
 as
@@ -282,7 +283,8 @@ id2
  ;
 
 resource
- : Id
+ : ServiceId
+ | Id
  ;
 
 param_type

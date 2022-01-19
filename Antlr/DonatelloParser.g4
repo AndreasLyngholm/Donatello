@@ -1,7 +1,7 @@
 parser grammar DonatelloParser;
 
 options {
-  tokenVocab=NuxtLexer;
+  tokenVocab=DonatelloLexer;
 }
 
 parse
@@ -263,6 +263,7 @@ id
  | Type
  | ParamVar
  | EndId
+ | ServiceId
  ;
 
 as
@@ -278,7 +279,8 @@ id2
  ;
 
 resource
- : Id
+ : ServiceId
+ | Id
  ;
 
 param_type

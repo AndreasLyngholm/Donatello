@@ -17,50 +17,53 @@ type Params {
 }
 
 service Main( params:Params ) {
-	embed Runtime as Runtime
-	embed File as File
-	embed Console as Console 
+    embed Runtime as Runtime
+    embed File as File
+    embed Console as Console 
 
 
-	define operations {
-		document += "\n"
-document += "\n\n<h4>Test menu, param user = "
+    define operations {
+        document += "
+\n"
+document += "
+\n
+\n<h4>Test menu, param user = "
 document += user.name
 document += "</h4>"
 
-	}
+    }
 
-	execution { single }
+    execution { single }
 
-	inputPort Local {
-		location: "local"
-		interfaces: PageInterface
-	}
+    inputPort Local {
+        location: "local"
+        interfaces: PageInterface
+    }
 
-	outputPort Gateway {
+    outputPort Gateway {
         location: "socket://localhost:8000"
         protocol: http { format = "json" }
         interfaces: GatewayInterface
     }
 
-	outputPort Page {
-		interfaces: PageInterface
-	}
+    outputPort Page {
+        interfaces: PageInterface
+    }
 
-	init {
-		getLocalLocation@Runtime()(Page.location)
-		document = ""
-	}
+    init {
+        getLocalLocation@Runtime()(Page.location)
+        document = ""
+    }
 
-	main {
-		getDocument(request)(response) {
+    main {
+        getDocument(request)(response) {
 
-			user << params.user 
+            user << params.user 
 
-			
+            
 
-			operations
-			response = document
-		}
-	}
+            operations
+            response = document
+        }
+    }
 }

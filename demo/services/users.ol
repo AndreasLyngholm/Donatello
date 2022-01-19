@@ -15,60 +15,82 @@ type Params {
 }
 
 service Main( params:Params ) {
-	embed Runtime as Runtime
-	embed File as File
-	
+    embed Runtime as Runtime
+    embed File as File
+    
 
-	define operations {
-		document += "\n<!DOCTYPE html>\n<html>\n\t<head>\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n\t</head>\n\t<body>\n\t\t"
+    define operations {
+        document += "
+\n<!DOCTYPE html>
+\n<html>
+\n\t<head>
+\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />
+\n\t</head>
+\n\t<body>
+\n\t\t"
 document += layout_header.html 
-document += "\n\t\t<hr>\n\n\t\t<h1>List of all users...</h1>\n\n\t\t"
+document += "
+\n\t\t<hr>
+\n
+\n\t\t<h1>List of all users...</h1>
+\n
+\n\t\t"
 for ( user in data.users ) { 
-document += "\n\n\t\tGo to <a href=\"users/"
+document += "
+\n
+\n\t\tGo to <a href=\"users/"
 document += user.id
 document += "\">"
 document += user.name
-document += "</a>\n\t\t<br>\n\n\t\t"
+document += "</a>
+\n\t\t<br>
+\n
+\n\t\t"
 } 
-document += "\n\n\t\t<hr>\n\t\t"
+document += "
+\n
+\n\t\t<hr>
+\n\t\t"
 document += layout_footer.html 
-document += "\n\t</body>\n</html>"
+document += "
+\n\t</body>
+\n</html>"
 
-	}
+    }
 
-	execution { single }
+    execution { single }
 
-	inputPort Local {
-		location: "local"
-		interfaces: PageInterface
-	}
+    inputPort Local {
+        location: "local"
+        interfaces: PageInterface
+    }
 
-	outputPort Gateway {
+    outputPort Gateway {
         location: "socket://localhost:8000"
         protocol: http { format = "json" }
         interfaces: GatewayInterface
     }
 
-	outputPort Page {
-		interfaces: PageInterface
-	}
+    outputPort Page {
+        interfaces: PageInterface
+    }
 
-	init {
-		getLocalLocation@Runtime()(Page.location)
-		document = ""
-	}
+    init {
+        getLocalLocation@Runtime()(Page.location)
+        document = ""
+    }
 
-	main {
-		getDocument(request)(response) {
+    main {
+        getDocument(request)(response) {
 
-			
-			readFile@File( {filename = params.root + "data/users.json", format = "json"} )( data ) 
+            
+            readFile@File( {filename = params.root + "data/users.json", format = "json"} )( data ) 
 default@Gateway( {operation = "layout/header.html", compile = false} )( layout_header.html ) 
 default@Gateway( {operation = "layout/footer.html", compile = false} )( layout_footer.html ) 
 
 
-			operations
-			response = document
-		}
-	}
+            operations
+            response = document
+        }
+    }
 }

@@ -5,10 +5,10 @@ type CompileRequest: void {
 }
 
 interface DonatelloInterface {
-	RequestResponse: compile(CompileRequest)(string),
-	RequestResponse: getLastModified(string)(long)
+    RequestResponse: compile(CompileRequest)(string),
+    RequestResponse: getLastModified(string)(long)
 }
 
 outputPort Donatello {
-	interfaces: DonatelloInterface
+    interfaces: DonatelloInterface
 }

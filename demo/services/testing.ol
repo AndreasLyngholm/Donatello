@@ -16,82 +16,104 @@ type Params {
 }
 
 service Main( params:Params ) {
-	embed Runtime as Runtime
-	embed File as File
-	embed Time as Time 
+    embed Runtime as Runtime
+    embed File as File
+    embed Time as Time 
 
 
-	define operations {
-		document += "\n"
-document += "\n<!DOCTYPE html>\n<html>\n\t<head>\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n\t</head>\n\t<body>\n\t\t<!-- Testing comment... -->\n\t\t\n\t\t"
+    define operations {
+        document += "
+\n"
+document += "
+\n<!DOCTYPE html>
+\n<html>
+\n\t<head>
+\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />
+\n\t</head>
+\n\t<body>
+\n\t\t<!-- Testing comment... -->
+\n\t\t
+\n\t\t"
 getCurrentDateTime@Time()(time)
-document += "\n\t\t<h1>Welcome, "
+document += "
+\n\t\t<h1>Welcome, "
 document += user.name
-document += "</h1>\n\n\t\t"
+document += "</h1>
+\n
+\n\t\t"
 a=7
-document += "\n\t\t"
+document += "
+\n\t\t"
 b=3
-document += "\n\t\t<h1>"
+document += "
+\n\t\t<h1>"
 document += a
 document += " + "
 document += b
 document += " = "
 document += a+b
-document += "</h1>\n\t\t<h1>"
+document += "</h1>
+\n\t\t<h1>"
 document += a
 document += " / "
 document += b
 document += " = "
 document += a/b
-document += "</h1>\n\t\t<h1>"
+document += "</h1>
+\n\t\t<h1>"
 document += a
 document += " * "
 document += b
 document += " = "
 document += a*b
-document += "</h1>\n\t\t<h1>"
+document += "</h1>
+\n\t\t<h1>"
 document += a
 document += " - "
 document += b
 document += " = "
 document += a-b
-document += "</h1>\n\n\t\t<p>The time is: "
+document += "</h1>
+\n
+\n\t\t<p>The time is: "
 document += time
-document += "</p>\n\t</body>\n</html>"
+document += "</p>
+\n\t</body>
+\n</html>"
 
-	}
+    }
 
-	execution { single }
+    execution { single }
 
-	inputPort Local {
-		location: "local"
-		interfaces: PageInterface
-	}
+    inputPort Local {
+        location: "local"
+        interfaces: PageInterface
+    }
 
-	outputPort Gateway {
+    outputPort Gateway {
         location: "socket://localhost:8000"
         protocol: http { format = "json" }
         interfaces: GatewayInterface
     }
 
-	outputPort Page {
-		interfaces: PageInterface
-	}
+    outputPort Page {
+        interfaces: PageInterface
+    }
 
-	init {
-		getLocalLocation@Runtime()(Page.location)
-		document = ""
-	}
+    init {
+        getLocalLocation@Runtime()(Page.location)
+        document = ""
+    }
 
-	main {
-		getDocument(request)(response) {
+    main {
+        getDocument(request)(response) {
 
-			
-			readFile@File( {filename = params.root + "data/user.json", format = "json"} )( user ) 
+            
+            readFile@File( {filename = params.root + "data/user.json", format = "json"} )( user ) 
 
 
-			operations
-			response = document
-		}
-	}
+            operations
+            response = document
+        }
+    }
 }

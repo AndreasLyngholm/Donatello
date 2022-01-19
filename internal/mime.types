@@ -5,7 +5,7 @@
 # RFC 2045, 2046, 2047, 2048, and 2077.  The Internet media type
 # registry is at <ftp://ftp.iana.org/assignments/media-types/>.
 
-# MIME type			Extension
+# MIME type            Extension
 application/andrew-inset ez
 application/chemtool cht
 application/dicom dcm

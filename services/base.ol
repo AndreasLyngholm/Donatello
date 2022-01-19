@@ -15,44 +15,44 @@ type Params {
 }
 
 service Main( params:Params ) {
-	embed Runtime as Runtime
-	embed File as File
-	@embedings
+    embed Runtime as Runtime
+    embed File as File
+    @embedings
 
-	define operations {
-		@operations
-	}
+    define operations {
+        @operations
+    }
 
-	execution { single }
+    execution { single }
 
-	inputPort Local {
-		location: "local"
-		interfaces: PageInterface
-	}
+    inputPort Local {
+        location: "local"
+        interfaces: PageInterface
+    }
 
-	outputPort Gateway {
+    outputPort Gateway {
         location: "socket://localhost:8000"
         protocol: http { format = "json" }
         interfaces: GatewayInterface
     }
 
-	outputPort Page {
-		interfaces: PageInterface
-	}
+    outputPort Page {
+        interfaces: PageInterface
+    }
 
-	init {
-		getLocalLocation@Runtime()(Page.location)
-		document = ""
-	}
+    init {
+        getLocalLocation@Runtime()(Page.location)
+        document = ""
+    }
 
-	main {
-		getDocument(request)(response) {
+    main {
+        getDocument(request)(response) {
 
-			@init_params
-			@dataproviders
+            @init_params
+            @dataproviders
 
-			operations
-			response = document
-		}
-	}
+            operations
+            response = document
+        }
+    }
 }

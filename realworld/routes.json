@@ -1,33 +1,33 @@
 {
-	"": {
-		"service": "home.ol"
-	},
-	"articles/create": {
-		"service": "create_article.ol"
-	},
-	"settings": {
-		"service": "settings.ol"
-	},
-	"articles/{id}": {
-		"service": "article.ol",
-		"data": {
-			"identifier": "id",
-			"source": "data/articles.json",
-			"variable": "article"
-		},
-	},
-	"profiles/{id}": {
-		"service": "profile.ol",
-		"data": {
-			"identifier": "id",
-			"source": "data/users.json",
-			"variable": "user"
-		},
-	},
-	"login": {
-		"service": "login.ol"
-	},
-	"signup": {
-		"service": "signup.ol"
-	}
+    "": {
+        "service": "home.ol"
+    },
+    "articles/create": {
+        "service": "create_article.ol"
+    },
+    "settings": {
+        "service": "settings.ol"
+    },
+    "articles/{id}": {
+        "service": "article.ol",
+        "data": {
+            "identifier": "id",
+            "source": "data/articles.json",
+            "variable": "article"
+        },
+    },
+    "profiles/{id}": {
+        "service": "profile.ol",
+        "data": {
+            "identifier": "id",
+            "source": "data/users.json",
+            "variable": "user"
+        },
+    },
+    "login": {
+        "service": "login.ol"
+    },
+    "signup": {
+        "service": "signup.ol"
+    }
 }

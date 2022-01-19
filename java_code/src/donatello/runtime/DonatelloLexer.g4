@@ -180,6 +180,7 @@ mode IN_TAG;
    ;
 
   Id : ( Letter | '_' ) (Letter | '_' | '-' | '/' | Digit)*;
+  ServiceId : ( Letter | '_' | '.' ) (Letter | '_' | '-' | '/' | '.' | Digit)*;
   Type : [a-z] [a-zA-Z_0-9]*;
   ParamVar : [a-z] [a-zA-Z_0-9]* Col [a-z] [a-zA-Z_0-9]*;
   Filter : [a-z] [a-zA-Z_0-9]* Add [a-zA-Z_0-9]+;

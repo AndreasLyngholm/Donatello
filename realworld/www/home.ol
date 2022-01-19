@@ -1,6 +1,9 @@
 ${ include layouts/header.html }
 ${use service string_utils}
+${use service ..app.chuck }
 ${use json data/articles as data}
+${use json data/tags as tags}
+
 <div class="home-page">
 
     <div class="banner">
@@ -24,27 +27,6 @@ ${use json data/articles as data}
                         </li>
                     </ul>
                 </div>
-
-                ${ for article in data.articles }
-                    <div class="article-preview">
-                        <div class="article-meta">
-                            <a href="/profiles/{{ article.author.id }}"><img src="{{ article.author.image }}"/></a>
-                            <div class="info">
-                                <a href="/profiles/{{ article.author.id }}" class="author">{{ article.author.name }}</a>
-                                <span class="date">{{ article.date }}</span>
-                            </div>
-                            <button class="btn btn-outline-primary btn-sm pull-xs-right">
-                                <i class="ion-heart"></i> {{ article.likes }}
-                            </button>
-                        </div>
-                        <a href="/articles/{{ article.author.id }}" class="preview-link">
-                            <h1>{{ article.title }}</h1>
-                            <p>{{ article.content }}</p>
-                            <span>Read more...</span>
-                        </a>
-                    </div>
-                ${ endfor }
-
             </div>
 
             <div class="col-md-3">
@@ -52,19 +34,41 @@ ${use json data/articles as data}
                     <p>Popular Tags</p>
 
                     <div class="tag-list">
-                        <a href="?tags=${ if request.tags != null }{{ request.tags }},${ endif }programming" class="tag-pill tag-default">programming</a>
-                        <a href="?tags=${ if request.tags != null }{{ request.tags }},${ endif }javascript" class="tag-pill tag-default">javascript</a>
-                        <a href="?tags=${ if request.tags != null }{{ request.tags }},${ endif }emberjs" class="tag-pill tag-default">emberjs</a>
-                        <a href="?tags=${ if request.tags != null }{{ request.tags }},${ endif }angularjs" class="tag-pill tag-default">angularjs</a>
-                        <a href="?tags=${ if request.tags != null }{{ request.tags }},${ endif }react" class="tag-pill tag-default">react</a>
-                        <a href="?tags=${ if request.tags != null }{{ request.tags }},${ endif }mean" class="tag-pill tag-default">mean</a>
-                        <a href="?tags=${ if request.tags != null }{{ request.tags }},${ endif }node" class="tag-pill tag-default">node</a>
-                        <a href="?tags=${ if request.tags != null }{{ request.tags }},${ endif }rails" class="tag-pill tag-default">rails</a>
+                        ${ for tag in tags.tags }
+                            ${ if request.tags != null }
+                                ${ raw }
+                                    t = request.tags
+                                    t.substring = tag
+                                    contains@StringUtils( t )( is_selected )
+                                ${ endraw }
+                            ${ else }
+                                ${ is_selected = false }
+                            ${ endif }
+
+                            ${ if is_selected == false }
+                                <a href="?tags=${ if request.tags != null }{{ request.tags }},${ endif }{{ tag }}" class="tag-pill tag-default">{{ tag }}</a>
+                            ${ endif }
+                        ${ endfor }
                     </div>
                 </div>
 
                 ${ if request.tags != null }
-                    <b>Selected tags: {{ request.tags }}</b>
+                    <hr>
+                    <h4>Selected tags:</h4>
+                    ${ raw }
+                        split@StringUtils( request.tags {.regex = ","} )( tags )
+                    ${ endraw }
+
+                    ${ for tag in tags.result }
+
+                        ${ raw }
+                            replaceAll@StringUtils( request.tags {.regex = "," + tag, .replacement = ""} )( new_request )
+                        ${ endraw }
+
+                        <a href="?tags={{ new_request }}">{{ tag }}</a>
+                        <br>
+
+                    ${ endfor }
                 ${ endif }
             </div>
 

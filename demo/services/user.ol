@@ -17,56 +17,70 @@ type Params {
 }
 
 service Main( params:Params ) {
-	embed Runtime as Runtime
-	embed File as File
-	embed StringUtils as StringUtils 
+    embed Runtime as Runtime
+    embed File as File
+    embed StringUtils as StringUtils 
 
 
-	define operations {
-		document += "\n"
-document += "\n<!DOCTYPE html>\n<html>\n\t<head>\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"../style.css\" />\n\t</head>\n\t<body>\n\t\t"
+    define operations {
+        document += "
+\n"
+document += "
+\n<!DOCTYPE html>
+\n<html>
+\n\t<head>
+\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"../style.css\" />
+\n\t</head>
+\n\t<body>
+\n\t\t"
 document += menu.ol 
-document += "\n\t\t\n\t\t<h1>Welcome, "
+document += "
+\n\t\t
+\n\t\t<h1>Welcome, "
 toUpperCase@StringUtils(user.name)(print4065) 
 document += print4065 
-document += "</h1>\n\n\t\t<p>Your age is "
+document += "</h1>
+\n
+\n\t\t<p>Your age is "
 document += user.age
-document += "</p>\n\t</body>\n</html>"
+document += "</p>
+\n\t</body>
+\n</html>"
 
-	}
+    }
 
-	execution { single }
+    execution { single }
 
-	inputPort Local {
-		location: "local"
-		interfaces: PageInterface
-	}
+    inputPort Local {
+        location: "local"
+        interfaces: PageInterface
+    }
 
-	outputPort Gateway {
+    outputPort Gateway {
         location: "socket://localhost:8000"
         protocol: http { format = "json" }
         interfaces: GatewayInterface
     }
 
-	outputPort Page {
-		interfaces: PageInterface
-	}
+    outputPort Page {
+        interfaces: PageInterface
+    }
 
-	init {
-		getLocalLocation@Runtime()(Page.location)
-		document = ""
-	}
+    init {
+        getLocalLocation@Runtime()(Page.location)
+        document = ""
+    }
 
-	main {
-		getDocument(request)(response) {
+    main {
+        getDocument(request)(response) {
 
-			user << params.user 
+            user << params.user 
 
-			default@Gateway( {operation = "menu.ol", user << user, compile = false} )( menu.ol ) 
+            default@Gateway( {operation = "menu.ol", user << user, compile = false} )( menu.ol ) 
 
 
-			operations
-			response = document
-		}
-	}
+            operations
+            response = document
+        }
+    }
 }

@@ -1,3 +1,3 @@
 interface PageInterface {
-	RequestResponse: getDocument(undefined)(undefined)
+    RequestResponse: getDocument(undefined)(undefined)
 }
