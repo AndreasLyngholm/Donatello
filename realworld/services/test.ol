@@ -2,7 +2,7 @@ from GatewayInterfaceModule import GatewayInterface
 from runtime import Runtime
 from PageInterfaceModule import PageInterface
 from file import File
-from ..app.chuck import Chuck 
+from ..app.api import Api 
 
 
 type Params {
@@ -18,15 +18,24 @@ type Params {
 service Main( params:Params ) {
     embed Runtime as Runtime
     embed File as File
-    embed Chuck as Chuck 
+    embed Api as Api 
 
 
     define operations {
-        document += "\n\n"
-random@Chuck()(joke)
-document += "\n<h1>"
-document += joke
-document += "</h1>"
+        document += "\n\n<h1>Ping</h1>\n"
+ping@Api()(response)
+document += "\n<p>"
+document += response
+document += "</p>\n\n<hr>\n\n<h1>Login</h1>\n"
+
+	login@Api({ .email = "alp@pensopay.com", .password = "efg94pjd" })(token)
+document += "\n<p>"
+document += token
+document += "</p>\n\n<hr>\n\n<h1>User</h1>\n"
+me@Api()(user)
+document += "\n<p>"
+document += user
+document += "</p>"
 
     }
 
