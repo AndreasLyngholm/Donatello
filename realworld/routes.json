@@ -30,7 +30,13 @@
     "login": {
         "service": "login.ol"
     },
-    "signup": {
-        "service": "signup.ol"
-    }
+    "session": {
+        "service": "session.ol"
+    },
+    "register": {
+        "service": "register.ol"
+    },
+    "logout": {
+        "service": "logout.ol"
+    },
 }

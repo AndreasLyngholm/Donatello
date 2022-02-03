@@ -1,8 +1,6 @@
-${ include layouts/header.html }
+${ include header.ol header_cookies=params.cookies }
 ${use service string_utils}
-${use service ..app.chuck }
-${use json data/articles as data}
-${use json data/tags as tags}
+${use service ..app.api }
 
 <div class="home-page">
 
@@ -19,14 +17,25 @@ ${use json data/tags as tags}
             <div class="col-md-9">
                 <div class="feed-toggle">
                     <ul class="nav nav-pills outline-active">
+                        ${ isAuth@Api(params.cookies)(isAuth) }
+                        ${ if isAuth }
+                            <li class="nav-item">
+                                <a class='nav-link ${ if request.feed == "me" } active ${ endif }' href="?feed=me">Your Feed</a>
+                            </li>
+                        ${ endif }
                         <li class="nav-item">
-                            <a class="nav-link disabled" href="">Your Feed</a>
+                            <a class="nav-link ${ if request.feed == null and request.tag == null } active ${ endif }" href="/">Global Feed</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="">Global Feed</a>
-                        </li>
+                        ${ if request.tag != null }
+                            <li class="nav-item">
+                                <a class="nav-link active" href="?tag={{ request.tag }}">#{{ request.tag }}</a>
+                            </li>
+                        ${ endif }
                     </ul>
                 </div>
+
+                ${ include articles.ol feed=request.feed token=params.cookies.token tag=request.tag }
+
             </div>
 
             <div class="col-md-3">
@@ -34,42 +43,13 @@ ${use json data/tags as tags}
                     <p>Popular Tags</p>
 
                     <div class="tag-list">
-                        ${ for tag in tags.tags }
-                            ${ if request.tags != null }
-                                ${ raw }
-                                    t = request.tags
-                                    t.substring = tag
-                                    contains@StringUtils( t )( is_selected )
-                                ${ endraw }
-                            ${ else }
-                                ${ is_selected = false }
-                            ${ endif }
-
-                            ${ if is_selected == false }
-                                <a href="?tags=${ if request.tags != null }{{ request.tags }},${ endif }{{ tag }}" class="tag-pill tag-default">{{ tag }}</a>
-                            ${ endif }
-                        ${ endfor }
+                    ${ tags@Api()(response) }
+                    ${ for tag in response.tags }
+                        <a href="?tag={{ tag }}" class="tag-pill tag-default">{{ tag }}</a>
+                    ${ endfor }
+                        
                     </div>
                 </div>
-
-                ${ if request.tags != null }
-                    <hr>
-                    <h4>Selected tags:</h4>
-                    ${ raw }
-                        split@StringUtils( request.tags {.regex = ","} )( tags )
-                    ${ endraw }
-
-                    ${ for tag in tags.result }
-
-                        ${ raw }
-                            replaceAll@StringUtils( request.tags {.regex = "," + tag, .replacement = ""} )( new_request )
-                        ${ endraw }
-
-                        <a href="?tags={{ new_request }}">{{ tag }}</a>
-                        <br>
-
-                    ${ endfor }
-                ${ endif }
             </div>
 
         </div>

@@ -2,6 +2,8 @@ from GatewayInterfaceModule import GatewayInterface
 from runtime import Runtime
 from PageInterfaceModule import PageInterface
 from file import File
+from json_utils import JsonUtils
+from console import Console
 @includes
 
 type Params {
@@ -11,12 +13,15 @@ type Params {
     servicesDir:string
     defaultPage:string
     routes:string
+    cookies? {?}
     @params
 }
 
 service Main( params:Params ) {
     embed Runtime as Runtime
     embed File as File
+    embed JsonUtils as JsonUtils
+    embed Console as Console
     @embedings
 
     define operations {

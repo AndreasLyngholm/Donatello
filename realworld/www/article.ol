@@ -1,4 +1,4 @@
-${ include layouts/header.html }
+${ include header.ol header_cookies=params.cookies }
 ${param article{?}}
 <div class="article-page">
 

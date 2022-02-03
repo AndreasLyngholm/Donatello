@@ -1,4 +1,5 @@
 ${ use service ..app.api }
+${param header_cookies{?}}
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,28 +23,32 @@ ${ use service ..app.api }
                 <!-- Add "active" class when you're on that page" -->
                 <a class="nav-link active" href="/">Home</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/articles/create">
-                    <i class="ion-compose"></i>&nbsp;New Article
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/settings">
-                    <i class="ion-gear-a"></i>&nbsp;Settings
-                </a>
-            </li>
-            ${ isAuth@Api()(isAuth) }
-            ${ if isAuth }
+            ${ isAuth@Api(header_cookies)(isAuth) }
+            ${ if isAuth == false }
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Sign in</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/signup">Sign up</a>
+                    <a class="nav-link" href="/register">Sign up</a>
                 </li>
             ${else}
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
+                    <a class="nav-link" href="/articles/create">
+                        <i class="ion-compose"></i>&nbsp;New Article
+                    </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/settings">
+                        <i class="ion-gear-a"></i>&nbsp;Settings
+                    </a>
+                </li>
+                ${ me@Api(header_cookies.token)(user) }
+                <li class="nav-item">
+                    <a class="nav-link ng-binding" href="/settings">
+                      <img class="user-pic" src="{{ user.user.image }}">
+                      {{ user.user.username }}
+                    </a>
+                  </li>
             ${endif}
         </ul>
     </div>

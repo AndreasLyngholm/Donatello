@@ -17,6 +17,7 @@ type Params {
     servicesDir:string
     defaultPage:string
     routes:string
+    cookies? {?}
 
     /// configuration parameters for the HTTP input port
     httpConfig? {
@@ -180,7 +181,6 @@ service Gateway( params:Params ) {
         undef(params.data)
         undef(params.requestUri)
         undef(params.operation)
-        undef(params.cookies)
         undef(params.userAgent)
         undef(params.compile)
     }

@@ -87,7 +87,7 @@ public class Mylistener extends DonatelloParserBaseListener {
     
     @Override public void enterIf_tag(DonatelloParser.If_tagContext ctx) {
         //System.out.println("Entered if tag; Open brackets");
-        Compiler.code.append(String.format("if (%s) { \n", ctx.getChild(2).getText()));
+        Compiler.code.append(String.format("if (%s) { \n", ctx.getChild(2).getText().replace("and", " && ")));
     }
     
     @Override public void enterElseif_tag(DonatelloParser.Elseif_tagContext ctx) {

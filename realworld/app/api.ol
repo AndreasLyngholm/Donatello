@@ -1,5 +1,6 @@
-from console import Console
 from json_utils import JsonUtils
+from file import File
+from console import Console
 
 type LoginRequest: void {
   email: string
@@ -10,17 +11,31 @@ type MeResponse {
   ?
 }
 
+type TagsResponse {
+    tags*:string
+}
+
+type ArticlesResponse {?}
+
 interface ApiInterface {
-    RequestResponse: login( LoginRequest )( string )
     RequestResponse: ping( void )( string )
-    RequestResponse: me( void )( undefined )
+    RequestResponse: login( LoginRequest )( string )
+    RequestResponse: register( LoginRequest )( string )
+    RequestResponse: logout( void )( void )
+    RequestResponse: me( undefined )( undefined )
+    RequestResponse: isAuth( undefined )( bool )
+
+    RequestResponse: tags( void )( TagsResponse )
+    RequestResponse: articles( undefined )( ArticlesResponse )
+    RequestResponse: myArticles( undefined )( ArticlesResponse )
 }
 
 service Api() {
     execution: concurrent
 
-    embed Console as Console
     embed JsonUtils as JsonUtils
+    embed File as File
+    embed Console as Console
 
     inputPort IP {
     	location: "local"
@@ -29,21 +44,61 @@ service Api() {
     }
 
     outputPort ApiPort {
-        location: "socket://shipping.pensopay.dev:443/"
+        location: "socket://api.realworld.io:443/api/"
         protocol: https {
             osc << {
-                ping << { alias = "v1/ping" method = "get" }
-            	login << { alias = "v1/sanctum/token" method = "post" }
-                me << { alias = "v1/user" method = "get" }
+                ping << { alias = "ping" }
+                register << { alias = "users" method = "post" }
+            	login << { alias = "users/login" method = "post" }
+                me << { alias = "user" method = "get" }
+                tags << { alias = "tags" method = "get" }
+                articles << { alias = "articles" method = "get" }
+                myArticles << { alias = "articles/feed" method = "get" }
             }
         }
         interfaces: ApiInterface
     }
 
     main {
+        [ logout ( request )( response ) {
+            ApiPort.protocol.addHeader.header << null
+            global.isAuth = false
+        } ]
+
+        [ isAuth ( cookies )( response ) {
+
+            response = cookies.token != null
+
+        } ]
+
         [ ping ( request )( response ) {
 
-            ping@ApiPort()(response)
+            response = "pong"
+
+        } ]
+
+        [ tags ( request )( response ) {
+
+            tags@ApiPort()(response)
+
+        } ]
+
+        [ articles ( tag )( response ) {
+
+            if( tag != null) {
+                request.tag = tag
+                articles@ApiPort(request)(response)
+            } else {
+                articles@ApiPort()(response)
+            }
+
+        } ]
+
+        [ myArticles ( cookie )( response ) {
+
+            ApiPort.protocol.addHeader.header << "Authorization" { value = "Bearer " + cookie }
+
+            myArticles@ApiPort()(response)
 
         } ]
 
@@ -54,14 +109,11 @@ service Api() {
 
         } ]
 
-        [ me ( request )( response ) {
+        [ me ( cookie )( response ) {
 
-            ApiPort.protocol.addHeader.header << "Authorization" { value = "Bearer 7|Zp6p4UtWaw23h6G0b5FhWvVnLfPErEUuY59LJOhO" }
+            ApiPort.protocol.addHeader.header << "Authorization" { value = "Bearer " + cookie }
 
-            me@ApiPort()(json_string)
-
-            getJsonString@JsonUtils( json_string )( response )
-
+            me@ApiPort()(response)
         } ]
     }
 

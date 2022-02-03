@@ -1,4 +1,4 @@
-${ include layouts/header.html }
+${ include header.ol header_cookies=params.cookies }
 <div class="editor-page">
     <div class="container page">
         <div class="row">
