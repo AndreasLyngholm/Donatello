@@ -10,6 +10,10 @@ ${use service ..app.api }
                     <a href="register">Need an account?</a>
                 </p>
 
+                ${ if request.error != null }
+                    <i class="error-messages">{{ params.cookies.error }}</i>
+                ${ endif }
+
                 <form name="login-form">
                     <fieldset class="form-group">
                         <input id="email" class="form-control form-control-lg" type="text" placeholder="Email">
@@ -35,7 +39,13 @@ $( document ).ready( function() {
             .done(function( data ) {
                 document.cookie = "token=" + data.user.token;
                 window.location.replace("/");
-        });
+            }).fail(function($xhr) {
+                $.each($xhr.responseJSON.errors, function(key,value){
+                    document.cookie = "error=" + key + " " + value[0];
+                    console.log(key + " " + value[0]);
+                    window.location.replace("?error=true");
+                });
+            });
   })
 });
 </script>
