@@ -17,6 +17,8 @@ type TagsResponse {
 
 type ArticlesResponse {?}
 
+type ArticleResponse {?}
+
 interface ApiInterface {
     RequestResponse: ping( void )( string )
     RequestResponse: login( LoginRequest )( string )
@@ -27,6 +29,7 @@ interface ApiInterface {
 
     RequestResponse: tags( void )( TagsResponse )
     RequestResponse: articles( undefined )( ArticlesResponse )
+    RequestResponse: article( undefined )( ArticleResponse )
     RequestResponse: myArticles( undefined )( ArticlesResponse )
 }
 
@@ -53,6 +56,7 @@ service Api() {
                 me << { alias = "user" method = "get" }
                 tags << { alias = "tags" method = "get" }
                 articles << { alias = "articles" method = "get" }
+                article << { alias = "articles/{slug}" method = "get" }
                 myArticles << { alias = "articles/feed" method = "get" }
             }
         }
@@ -71,15 +75,19 @@ service Api() {
 
         } ]
 
-        [ ping ( request )( response ) {
-
-            response = "pong"
-
-        } ]
-
         [ tags ( request )( response ) {
 
             tags@ApiPort()(response)
+
+        } ]
+
+        [ article ( slug )( response ) {
+
+            ApiPort.protocol.osc.article.alias = "articles/" + slug
+
+            article@ApiPort()(article_response)
+
+            response << article_response.article
 
         } ]
 

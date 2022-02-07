@@ -1,5 +1,8 @@
+${use service ..app.api }
+${param slug:string}
+${ article@Api(slug)(article) }
+
 ${ include header.ol header_cookies=params.cookies }
-${param article{?}}
 <div class="article-page">
 
     <div class="banner">

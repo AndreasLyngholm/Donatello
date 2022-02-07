@@ -156,18 +156,23 @@ service Gateway( params:Params ) {
 
                 if(is_defined(routes.(route).data)) {
 
-                    readFile@File( {
-                        filename = params.root + routes.(route).data.source
-                        format = "json"
-                    } )( jd )
+                    if(is_defined(routes.(route).data.source)) {
+                        readFile@File( {
+                            filename = params.root + routes.(route).data.source
+                            format = "json"
+                        } )( jd )
 
-                    foreach( d : jd ) {
-                        for( u in jd.(d) ) {
-                            if(u.(routes.(route).data.identifier) == id) {
-                                params.(routes.(route).data.variable) << u
+                        foreach( d : jd ) {
+                            for( u in jd.(d) ) {
+                                if(u.(routes.(route).data.identifier) == id) {
+                                    params.(routes.(route).data.variable) << u
+                                }
                             }
                         }
+                    } else if(is_defined(routes.(route).data.variable)) { 
+                        params.(routes.(route).data.variable) << id
                     }
+
                 }
             }
         }

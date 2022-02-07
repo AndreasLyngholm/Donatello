@@ -14,9 +14,7 @@
     "articles/{id}": {
         "service": "article.ol",
         "data": {
-            "identifier": "id",
-            "source": "data/articles.json",
-            "variable": "article"
+            "variable": "slug"
         },
     },
     "profiles/{id}": {
