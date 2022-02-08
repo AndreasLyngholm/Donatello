@@ -136,8 +136,6 @@ mode IN_TAG;
 
   CaptureStart : 'capture';
   CaptureEnd   : 'endcapture';
-  CommentStart : 'comment';
-  CommentEnd   : 'endcomment';
   RawStart     : 'raw' WhitespaceChar* '}' -> pushMode(IN_RAW);
   ParamStart   : 'param' WhitespaceChar* Type WhitespaceChar* '{' -> pushMode(IN_PARAM);
   IfStart      : 'if';

@@ -26,7 +26,6 @@ atom
 tag
  : use_tag
  | raw_tag
- | comment_tag
  | if_tag
  | unless_tag
  | case_tag
@@ -76,10 +75,6 @@ raw_tag
 
 raw_body
  : OtherRaw*
- ;
-
-comment_tag
- : tagStart CommentStart TagEnd .*? tagStart CommentEnd TagEnd
  ;
 
 other_than_tag_start
@@ -234,8 +229,6 @@ id
  : Id
  | CaptureStart
  | CaptureEnd
- | CommentStart
- | CommentEnd
  | ParamStart
  | ParamEnd
  | RawStart
