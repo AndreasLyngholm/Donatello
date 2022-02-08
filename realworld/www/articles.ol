@@ -31,6 +31,14 @@ ${ for article in response.articles }
             <h1>{{ article.title }}</h1>
             <p>{{ article.description }}</p>
             <span>Read more...</span>
+
+            <ul class="tag-list">
+                ${ for tag in article.tagList }
+                    <li class="tag-default tag-pill tag-outline">
+                        {{ tag }}
+                    </li>
+                ${ endfor }
+            </ul>
         </a>
     </div>
 ${ endfor }
