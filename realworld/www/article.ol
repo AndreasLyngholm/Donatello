@@ -40,7 +40,7 @@ ${ include header.ol token=token }
                         <i class="ion-edit"></i> Edit Article
                     </a>
 
-                    <button class="btn btn-outline-danger btn-sm">
+                    <button onClick="deleteArticle('{{ article.slug }}')" class="btn btn-outline-danger btn-sm">
                         <i class="ion-trash-a"></i> Delete Article
                     </button>
 
@@ -98,7 +98,7 @@ ${ include header.ol token=token }
                         <i class="ion-edit"></i> Edit Article
                     </a>
 
-                    <button class="btn btn-outline-danger btn-sm">
+                    <button onClick="deleteArticle('{{ article.slug }}')" class="btn btn-outline-danger btn-sm">
                         <i class="ion-trash-a"></i> Delete Article
                     </button>
 
@@ -152,6 +152,21 @@ $( document ).ready( function() {
         });
   })
 });
+
+function deleteArticle(slug) {
+    $.ajax({
+        url: "https://api.realworld.io/api/articles/" + slug,
+        headers: {
+            'Authorization': 'Bearer {{ token }}'
+        },
+        method: "DELETE"
+    }).done(function( data ) {
+        window.location.replace("/");
+    }).fail(function($xhr) {
+        document.cookie = "error=" + $xhr.responseJSON.message;
+        window.location.replace("?error=true")
+    });
+}
 </script>
 
 ${ include layouts/footer.html }

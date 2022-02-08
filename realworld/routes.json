@@ -34,6 +34,19 @@
             }
         ]
     },
+    "editor/{id}": {
+        "service": "edit_article.ol",
+        "data": [
+            {
+                "variable": "slug"
+            },
+            {
+                "identifier": "token",
+                "source": "cookie",
+                "variable": "token"
+            }
+        ]
+    },
     "settings": {
         "service": "settings.ol",
         "data": [

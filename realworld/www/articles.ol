@@ -10,8 +10,7 @@ ${ if feed == null }
 ${ endif }
 
 ${ if feed == "me" }
-    ${request.token = token}
-    ${ feed@Api(request)(response) }
+    ${ feed@Api(token)(response) }
 ${ endif }
 
 
