@@ -135,7 +135,8 @@ public class Mylistener extends DonatelloParserBaseListener {
         Compiler.params.append(param + "\n    ");
         
         String[] init_param = param.split(":");
-        Compiler.init_params.append(String.format("%s = params.%s \n", init_param[0], init_param[0]));
+        String init_param_name = init_param[0].replace("?", "");
+        Compiler.init_params.append(String.format("%s = params.%s \n", init_param_name, init_param_name));
     }
     
     @Override public void enterFilter(DonatelloParser.FilterContext ctx) {

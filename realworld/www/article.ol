@@ -1,8 +1,10 @@
-${use service ..app.api }
+${param token?:undefined}
 ${param slug:string}
+
+${use service ..app.api }
 ${ article@Api(slug)(article) }
 
-${ include header.ol header_cookies=params.cookies }
+${ include header.ol token=token }
 <div class="article-page">
 
     <div class="banner">

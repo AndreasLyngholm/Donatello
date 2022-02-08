@@ -1,6 +1,13 @@
 {
     "": {
-        "service": "home.ol"
+        "service": "home.ol",
+        "data": [
+            {
+                "identifier": "token",
+                "source": "cookie",
+                "variable": "token"
+            }
+        ]
     },
     "test": {
         "service": "test.ol",
@@ -21,13 +28,25 @@
         "service": "create_article.ol"
     },
     "settings": {
-        "service": "settings.ol"
+        "service": "settings.ol",
+        "data": [
+            {
+                "identifier": "token",
+                "source": "cookie",
+                "variable": "token"
+            }
+        ]
     },
     "articles/{id}": {
         "service": "article.ol",
         "data": [
             {
                 "variable": "slug"
+            },
+            {
+                "identifier": "token",
+                "source": "cookie",
+                "variable": "token"
             }
         ]
     },
@@ -38,6 +57,11 @@
                 "identifier": "id",
                 "source": "data/users.json",
                 "variable": "user"
+            },
+            {
+                "identifier": "token",
+                "source": "cookie",
+                "variable": "token"
             }
         ]
     },

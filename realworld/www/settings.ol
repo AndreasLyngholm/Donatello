@@ -1,6 +1,8 @@
-${ include header.ol header_cookies=params.cookies }
+${ param token?:undefined }
+${ include header.ol token=token }
+
 ${use service ..app.api }
-${ me@Api(params.cookies.token)(user) }
+${ me@Api(token)(user) }
 <div class="settings-page">
     <div class="container page">
         <div class="row">
@@ -50,7 +52,7 @@ $( document ).ready( function() {
         $.ajax({
             url: "https://api.realworld.io/api/user",
             headers: {
-                'Authorization': 'Bearer {{ params.cookies.token }}'
+                'Authorization': 'Bearer {{ token }}'
             },
             method: "PUT",
             data: { user: { email: $("#email").val(), username: $("#username").val(), bio: $("#bio").val(), image: $("#image").val() } }

@@ -69,9 +69,9 @@ service Api() {
             global.isAuth = false
         } ]
 
-        [ isAuth ( cookies )( response ) {
+        [ isAuth ( token )( response ) {
 
-            response = cookies.token != null
+            response = token != null
 
         } ]
 

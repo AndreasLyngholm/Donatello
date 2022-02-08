@@ -1,4 +1,4 @@
-${ include header.ol header_cookies=params.cookies }
+${ include header.ol }
 ${use service ..app.api }
 <div class="auth-page">
     <div class="container page">

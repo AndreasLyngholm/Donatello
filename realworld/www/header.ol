@@ -1,5 +1,5 @@
 ${ use service ..app.api }
-${param header_cookies{?}}
+${param token?:undefined}
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +23,7 @@ ${param header_cookies{?}}
                 <!-- Add "active" class when you're on that page" -->
                 <a class="nav-link active" href="/">Home</a>
             </li>
-            ${ isAuth@Api(header_cookies)(isAuth) }
+            ${ isAuth@Api(token)(isAuth) }
             ${ if isAuth == false }
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Sign in</a>
@@ -42,7 +42,7 @@ ${param header_cookies{?}}
                         <i class="ion-gear-a"></i>&nbsp;Settings
                     </a>
                 </li>
-                ${ me@Api(header_cookies.token)(user) }
+                ${ me@Api(token)(user) }
                 <li class="nav-item">
                     <a class="nav-link ng-binding" href="/settings">
                       <img class="user-pic" src="{{ user.user.image }}">

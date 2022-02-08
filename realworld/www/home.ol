@@ -1,4 +1,5 @@
-${ include header.ol header_cookies=params.cookies }
+${ param token?:undefined }
+${ include header.ol token=token }
 ${use service string_utils}
 ${use service ..app.api }
 
@@ -17,7 +18,7 @@ ${use service ..app.api }
             <div class="col-md-9">
                 <div class="feed-toggle">
                     <ul class="nav nav-pills outline-active">
-                        ${ isAuth@Api(params.cookies)(isAuth) }
+                        ${ isAuth@Api(token)(isAuth) }
                         ${ if isAuth }
                             <li class="nav-item">
                                 <a class='nav-link ${ if request.feed == "me" } active ${ endif }' href="?feed=me">Your Feed</a>
@@ -34,7 +35,7 @@ ${use service ..app.api }
                     </ul>
                 </div>
 
-                ${ include articles.ol feed=request.feed token=params.cookies.token tag=request.tag }
+                ${ include articles.ol feed=request.feed token=token tag=request.tag }
 
             </div>
 
