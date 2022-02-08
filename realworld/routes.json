@@ -24,8 +24,15 @@
             }
         ]
     },
-    "articles/create": {
-        "service": "create_article.ol"
+    "editor": {
+        "service": "create_article.ol",
+        "data": [
+            {
+                "identifier": "token",
+                "source": "cookie",
+                "variable": "token"
+            }
+        ]
     },
     "settings": {
         "service": "settings.ol",
@@ -37,7 +44,7 @@
             }
         ]
     },
-    "articles/{id}": {
+    "article/{id}": {
         "service": "article.ol",
         "data": [
             {

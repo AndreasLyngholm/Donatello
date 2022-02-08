@@ -33,7 +33,7 @@ ${param token?:undefined}
                 </li>
             ${else}
                 <li class="nav-item">
-                    <a class="nav-link" href="/articles/create">
+                    <a class="nav-link" href="/editor">
                         <i class="ion-compose"></i>&nbsp;New Article
                     </a>
                 </li>
@@ -45,8 +45,8 @@ ${param token?:undefined}
                 ${ me@Api(token)(user) }
                 <li class="nav-item">
                     <a class="nav-link ng-binding" href="/settings">
-                      <img class="user-pic" src="{{ user.user.image }}">
-                      {{ user.user.username }}
+                      <img class="user-pic" src="{{ user.image }}">
+                      {{ user.username }}
                     </a>
                   </li>
             ${endif}

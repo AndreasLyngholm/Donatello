@@ -3,6 +3,9 @@ ${param slug:string}
 
 ${use service ..app.api }
 ${ article@Api(slug)(article) }
+${ if token != null}
+    ${ me@Api(token)(auth) }
+${ endif }
 
 ${ include header.ol token=token }
 <div class="article-page">
@@ -13,21 +16,22 @@ ${ include header.ol token=token }
             <h1>{{ article.title }}</h1>
 
             <div class="article-meta">
-                <a href="/profiles/{{ article.author.id }}"><img src="{{ article.author.image }}"/></a>
+                <a href="/profiles/{{ article.author.username }}"><img src="{{ article.author.image }}"/></a>
                 <div class="info">
-                    <a href="/profiles/{{ article.author.id }}"></a>
-                    <span class="date">{{ article.date }}</span>
+                    <a href="/profiles/{{ article.author.username }}"></a>
+                    <span class="date">{{ article.createdAt }}</span>
                 </div>
+                
                 <button class="btn btn-sm btn-outline-secondary">
                     <i class="ion-plus-round"></i>
                     &nbsp;
-                    Follow {{ article.author.name }} <span class="counter">(10)</span>
+                    Follow {{ article.author.username }}
                 </button>
-                &nbsp;&nbsp;
+                &nbsp;
                 <button class="btn btn-sm btn-outline-primary">
                     <i class="ion-heart"></i>
                     &nbsp;
-                    Favorite Post <span class="counter">(29)</span>
+                    Favorite Post <span class="counter">({{ article.favoritesCount }})</span>
                 </button>
             </div>
 
@@ -39,7 +43,7 @@ ${ include header.ol token=token }
         <div class="row article-content">
             <div class="col-md-12">
                 <p>
-                    {{ article.content }}
+                    {{ article.body }}
                 </p>
             </div>
         </div>
@@ -48,22 +52,22 @@ ${ include header.ol token=token }
 
         <div class="article-actions">
             <div class="article-meta">
-                <a href="/profiles/{{ article.author.id }}"><img src="{{ article.author.image }}"/></a>
+                <a href="/profiles/{{ article.author.username }}"><img src="{{ article.author.image }}"/></a>
                 <div class="info">
-                    <a href="/profiles/{{ article.author.id }}" class="author">{{ article.author.name }}</a>
-                    <span class="date">{{ article.date }}</span>
+                    <a href="/profiles/{{ article.author.username }}" class="author">{{ article.author.username }}</a>
+                    <span class="date">{{ article.created_at }}</span>
                 </div>
 
                 <button class="btn btn-sm btn-outline-secondary">
                     <i class="ion-plus-round"></i>
                     &nbsp;
-                    Follow Eric Simons
+                    Follow {{ article.author.username }}
                 </button>
                 &nbsp;
                 <button class="btn btn-sm btn-outline-primary">
                     <i class="ion-heart"></i>
                     &nbsp;
-                    Favorite Post <span class="counter">(29)</span>
+                    Favorite Post <span class="counter">({{ article.favoritesCount }})</span>
                 </button>
             </div>
         </div>
@@ -74,47 +78,17 @@ ${ include header.ol token=token }
 
                 <form class="card comment-form">
                     <div class="card-block">
-                        <textarea class="form-control" placeholder="Write a comment..." rows="3"></textarea>
+                        <textarea id="comment" class="form-control" placeholder="Write a comment..." rows="3"></textarea>
                     </div>
                     <div class="card-footer">
-                        <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img"/>
+                        <img src="{{ auth.image }}" class="comment-author-img"/>
                         <button class="btn btn-sm btn-primary">
                             Post Comment
                         </button>
                     </div>
                 </form>
 
-                <div class="card">
-                    <div class="card-block">
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="" class="comment-author">
-                            <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img"/>
-                        </a>
-                        &nbsp;
-                        <a href="" class="comment-author">Jacob Schmidt</a>
-                        <span class="date-posted">Dec 29th</span>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-block">
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="" class="comment-author">
-                            <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img"/>
-                        </a>
-                        &nbsp;
-                        <a href="" class="comment-author">Jacob Schmidt</a>
-                        <span class="date-posted">Dec 29th</span>
-                        <span class="mod-options">
-              <i class="ion-edit"></i>
-              <i class="ion-trash-a"></i>
-            </span>
-                    </div>
-                </div>
+                ${ include comments.ol slug=slug token=token }
 
             </div>
 

@@ -13,16 +13,16 @@ ${ me@Api(token)(user) }
                 <form name="update-form">
                     <fieldset>
                         <fieldset class="form-group">
-                            <input id="image" value="{{ user.user.image }}" class="form-control" type="text" placeholder="URL of profile picture">
+                            <input id="image" value="{{ user.image }}" class="form-control" type="text" placeholder="URL of profile picture">
                         </fieldset>
                         <fieldset class="form-group">
-                            <input id="username" value="{{ user.user.username }}" class="form-control form-control-lg" type="text" placeholder="Your Name">
+                            <input id="username" value="{{ user.username }}" class="form-control form-control-lg" type="text" placeholder="Your Name">
                         </fieldset>
                         <fieldset class="form-group">
-                            <textarea id="bio" class="form-control form-control-lg" rows="8" placeholder="Short bio about you">{{ user.user.bio }}</textarea>
+                            <textarea id="bio" class="form-control form-control-lg" rows="8" placeholder="Short bio about you">{{ user.bio }}</textarea>
                         </fieldset>
                         <fieldset class="form-group">
-                            <input id="email" value="{{ user.user.email }}" class="form-control form-control-lg" type="text" placeholder="Email">
+                            <input id="email" value="{{ user.email }}" class="form-control form-control-lg" type="text" placeholder="Email">
                         </fieldset>
 
                         ${ if request.error != null }

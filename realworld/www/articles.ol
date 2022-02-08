@@ -1,14 +1,17 @@
 ${use service ..app.api }
 ${param feed:undefined }
-${param token?:undefined }
-${param tag:undefined }
+${param token?:string }
+${param tag?:undefined }
 
 ${ if feed == null }
-    ${ articles@Api(tag)(response) }
+    ${request.tag = tag}
+    ${request.token = token}
+    ${ articles@Api(request)(response) }
 ${ endif }
 
 ${ if feed == "me" }
-    ${ myArticles@Api(token)(response) }
+    ${request.token = token}
+    ${ feed@Api(request)(response) }
 ${ endif }
 
 
@@ -24,7 +27,7 @@ ${ for article in response.articles }
                 <i class="ion-heart"></i> {{ article.favoritesCount }}
             </button>
         </div>
-        <a href="/articles/{{ article.slug }}" class="preview-link">
+        <a href="/article/{{ article.slug }}" class="preview-link">
             <h1>{{ article.title }}</h1>
             <p>{{ article.description }}</p>
             <span>Read more...</span>

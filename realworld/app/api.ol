@@ -15,6 +15,16 @@ type TagsResponse {
     tags*:string
 }
 
+type ArticlesRequest {
+    tag?:undefined
+    token?:string
+}
+
+type CommentsRequest {
+    slug?:string
+    token?:string
+}
+
 type ArticlesResponse {?}
 
 type ArticleResponse {?}
@@ -28,9 +38,10 @@ interface ApiInterface {
     RequestResponse: isAuth( undefined )( bool )
 
     RequestResponse: tags( void )( TagsResponse )
-    RequestResponse: articles( undefined )( ArticlesResponse )
+    RequestResponse: articles( ArticlesRequest )( ArticlesResponse )
     RequestResponse: article( undefined )( ArticleResponse )
-    RequestResponse: myArticles( undefined )( ArticlesResponse )
+    RequestResponse: comments( CommentsRequest )( ArticleResponse )
+    RequestResponse: feed( undefined )( ArticlesResponse )
 }
 
 service Api() {
@@ -57,7 +68,8 @@ service Api() {
                 tags << { alias = "tags" method = "get" }
                 articles << { alias = "articles" method = "get" }
                 article << { alias = "articles/{slug}" method = "get" }
-                myArticles << { alias = "articles/feed" method = "get" }
+                feed << { alias = "articles/feed" method = "get" }
+                comments << { alias = "articles/{slug}/comments" method = "get" }
             }
         }
         interfaces: ApiInterface
@@ -91,10 +103,13 @@ service Api() {
 
         } ]
 
-        [ articles ( tag )( response ) {
+        [ articles ( request )( response ) {
 
-            if( tag != null) {
-                request.tag = tag
+            if(request.token != null) {
+                ApiPort.protocol.addHeader.header << "Authorization" { value = "Bearer " + request.token }
+            }
+
+            if(request.tag != null) {
                 articles@ApiPort(request)(response)
             } else {
                 articles@ApiPort()(response)
@@ -102,11 +117,23 @@ service Api() {
 
         } ]
 
-        [ myArticles ( cookie )( response ) {
+        [ comments ( request )( response ) {
 
-            ApiPort.protocol.addHeader.header << "Authorization" { value = "Bearer " + cookie }
+            if(request.token != null) {
+                ApiPort.protocol.addHeader.header << "Authorization" { value = "Bearer " + request.token }
+            }
 
-            myArticles@ApiPort()(response)
+            ApiPort.protocol.osc.comments.alias = "articles/" + request.slug + "/comments"
+
+            comments@ApiPort()(response)
+
+        } ]
+
+        [ feed ( token )( response ) {
+
+            ApiPort.protocol.addHeader.header << "Authorization" { value = "Bearer " + token }
+
+            feed@ApiPort()(response)
 
         } ]
 
@@ -121,7 +148,9 @@ service Api() {
 
             ApiPort.protocol.addHeader.header << "Authorization" { value = "Bearer " + cookie }
 
-            me@ApiPort()(response)
+            me@ApiPort()(user)
+
+            response << user.user
         } ]
     }
 
