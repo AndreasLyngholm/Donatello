@@ -1,5 +1,7 @@
 ${ use service ..app.api }
+${param token:string}
 
 <h1>Ping</h1>
-${ me@Api(cookies.token)(response) }
+<h1>{{ token }}</h1>
+${ me@Api(token)(response) }
 <p>{{ response }}</p>

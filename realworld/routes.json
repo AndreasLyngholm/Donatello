@@ -3,7 +3,19 @@
         "service": "home.ol"
     },
     "test": {
-        "service": "test.ol"
+        "service": "test.ol",
+        "data": [
+            {
+                "identifier": "token",
+                "source": "cookie",
+                "variable": "token"
+            },
+            {
+                "identifier": "token",
+                "source": "cookie",
+                "variable": "token_test"
+            }
+        ]
     },
     "articles/create": {
         "service": "create_article.ol"
@@ -13,17 +25,21 @@
     },
     "articles/{id}": {
         "service": "article.ol",
-        "data": {
-            "variable": "slug"
-        },
+        "data": [
+            {
+                "variable": "slug"
+            }
+        ]
     },
     "profiles/{id}": {
         "service": "profile.ol",
-        "data": {
-            "identifier": "id",
-            "source": "data/users.json",
-            "variable": "user"
-        },
+        "data": [
+            {
+                "identifier": "id",
+                "source": "data/users.json",
+                "variable": "user"
+            }
+        ]
     },
     "login": {
         "service": "login.ol"

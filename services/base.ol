@@ -13,7 +13,6 @@ type Params {
     servicesDir:string
     defaultPage:string
     routes:string
-    cookies? {?}
     @params
 }
 

@@ -17,7 +17,6 @@ type Params {
     servicesDir:string
     defaultPage:string
     routes:string
-    cookies? {?}
 
     /// configuration parameters for the HTTP input port
     httpConfig? {
@@ -156,21 +155,29 @@ service Gateway( params:Params ) {
 
                 if(is_defined(routes.(route).data)) {
 
-                    if(is_defined(routes.(route).data.source)) {
-                        readFile@File( {
-                            filename = params.root + routes.(route).data.source
-                            format = "json"
-                        } )( jd )
+                    for (data in routes.(route).data) {
 
-                        foreach( d : jd ) {
-                            for( u in jd.(d) ) {
-                                if(u.(routes.(route).data.identifier) == id) {
-                                    params.(routes.(route).data.variable) << u
+                        if(is_defined(data.source)) {
+                            if(data.source == "cookie") {
+                                params.(data.variable) << request.cookies.(data.identifier)
+                            } else {
+                                readFile@File( {
+                                    filename = params.root + data.source
+                                    format = "json"
+                                } )( jd )
+
+                                foreach( d : jd ) {
+                                    for( u in jd.(d) ) {
+                                        if(u.(data.identifier) == id) {
+                                            params.(data.variable) << u
+                                        }
+                                    }
                                 }
                             }
+                        } else if(is_defined(data.variable)) { 
+                            params.(data.variable) << id
                         }
-                    } else if(is_defined(routes.(route).data.variable)) { 
-                        params.(routes.(route).data.variable) << id
+
                     }
 
                 }
@@ -188,6 +195,7 @@ service Gateway( params:Params ) {
         undef(params.operation)
         undef(params.userAgent)
         undef(params.compile)
+        undef(params.cookies)
     }
 
     init {
