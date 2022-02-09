@@ -2,7 +2,9 @@ ${param token?:undefined}
 ${param slug:string}
 
 ${use service ..app.api }
-${ article@Api(slug)(article) }
+${ parameter.slug = slug }
+${ parameter.token = token }
+${ article@Api(parameter)(article) }
 ${ if token != null }
     ${ me@Api(token)(auth) }
 ${ endif }
@@ -23,17 +25,33 @@ ${ include header.ol token=token }
                 </div>
                 
                 ${ if article.author.username != auth.username and token != null }
-                    <button class="btn btn-sm btn-outline-secondary">
-                        <i class="ion-plus-round"></i>
-                        &nbsp;
-                        Follow {{ article.author.username }}
-                    </button>
+                    ${ if article.author.following }
+                        <button onClick="unfollow('{{ article.author.username }}')" class="btn btn-sm action-btn btn-secondary">
+                            <i class="ion-heart"></i>
+                            &nbsp;
+                            Unfollow {{ article.author.username }}
+                        </button>
+                    ${ else }
+                        <button onClick="follow('{{ article.author.username }}')" class="btn btn-sm action-btn btn-outline-secondary">
+                            <i class="ion-plus-round"></i>
+                            &nbsp;
+                            Follow {{ article.author.username }}
+                        </button>
+                    ${ endif }
                     &nbsp;
-                    <button class="btn btn-sm btn-outline-primary">
-                        <i class="ion-heart"></i>
-                        &nbsp;
-                        Favorite Post <span class="counter">({{ article.favoritesCount }})</span>
-                    </button>
+                    ${ if article.favorited }
+                        <button onClick="dislike('{{ slug }}')" class="btn btn-sm btn-primary">
+                            <i class="ion-heart"></i>
+                            &nbsp;
+                            Unfavorite Post <span class="counter">({{ article.favoritesCount }})</span>
+                        </button>
+                    ${ else }
+                        <button onClick="like('{{ slug }}')" class="btn btn-sm btn-outline-primary">
+                            <i class="ion-heart"></i>
+                            &nbsp;
+                            Favorite Post <span class="counter">({{ article.favoritesCount }})</span>
+                        </button>
+                    ${ endif }
                 ${ elseif token != null }
 
                     <a class="btn btn-outline-secondary btn-sm" href="/editor/{{ article.slug }}">
@@ -81,17 +99,33 @@ ${ include header.ol token=token }
                 </div>
 
                 ${ if article.author.username != auth.username and token != null }
-                    <button class="btn btn-sm btn-outline-secondary">
-                        <i class="ion-plus-round"></i>
-                        &nbsp;
-                        Follow {{ article.author.username }}
-                    </button>
+                    ${ if article.author.following }
+                        <button onClick="unfollow('{{ article.author.username }}')" class="btn btn-sm action-btn btn-secondary">
+                            <i class="ion-heart"></i>
+                            &nbsp;
+                            Unfollow {{ article.author.username }}
+                        </button>
+                    ${ else }
+                        <button onClick="follow('{{ article.author.username }}')" class="btn btn-sm action-btn btn-outline-secondary">
+                            <i class="ion-plus-round"></i>
+                            &nbsp;
+                            Follow {{ article.author.username }}
+                        </button>
+                    ${ endif }
                     &nbsp;
-                    <button class="btn btn-sm btn-outline-primary">
-                        <i class="ion-heart"></i>
-                        &nbsp;
-                        Favorite Post <span class="counter">({{ article.favoritesCount }})</span>
-                    </button>
+                    ${ if article.favorited }
+                        <button onClick="dislike('{{ slug }}')" class="btn btn-sm btn-outline-primary">
+                            <i class="ion-heart"></i>
+                            &nbsp;
+                            Unfavorite Post <span class="counter">({{ article.favoritesCount }})</span>
+                        </button>
+                    ${ else }
+                        <button onClick="like('{{ slug }}')" class="btn btn-sm btn-outline-primary">
+                            <i class="ion-heart"></i>
+                            &nbsp;
+                            Favorite Post <span class="counter">({{ article.favoritesCount }})</span>
+                        </button>
+                    ${ endif }
                 ${ elseif token != null }
 
                     <a class="btn btn-outline-secondary btn-sm" href="/editor/{{ article.slug }}">
@@ -167,6 +201,67 @@ function deleteArticle(slug) {
         window.location.replace("?error=true")
     });
 }
+
+function like(slug) {
+    $.ajax({
+        url: "https://api.realworld.io/api/articles/" + slug + "/favorite",
+        headers: {
+            'Authorization': 'Bearer {{ token }}'
+        },
+        method: "POST"
+    }).done(function( data ) {
+        location.reload();
+    }).fail(function($xhr) {
+        document.cookie = "error=" + $xhr.responseJSON.message;
+        window.location.replace("?error=true")
+    });
+}
+
+function dislike(slug) {
+    $.ajax({
+        url: "https://api.realworld.io/api/articles/" + slug + "/favorite",
+        headers: {
+            'Authorization': 'Bearer {{ token }}'
+        },
+        method: "DELETE"
+    }).done(function( data ) {
+        location.reload();
+    }).fail(function($xhr) {
+        document.cookie = "error=" + $xhr.responseJSON.message;
+        window.location.replace("?error=true")
+    });
+}
+
+function follow(username) {
+    $.ajax({
+        url: "https://api.realworld.io/api/profiles/" + username + "/follow",
+        headers: {
+            'Authorization': 'Bearer {{ token }}'
+        },
+        method: "POST"
+    }).done(function( data ) {
+        location.reload();
+    }).fail(function($xhr) {
+        document.cookie = "error=" + $xhr.responseJSON.message;
+        window.location.replace("?error=true")
+    });
+}
+
+function unfollow(username) {
+    $.ajax({
+        url: "https://api.realworld.io/api/profiles/" + username + "/follow",
+        headers: {
+            'Authorization': 'Bearer {{ token }}'
+        },
+        method: "DELETE"
+    }).done(function( data ) {
+        location.reload();
+    }).fail(function($xhr) {
+        document.cookie = "error=" + $xhr.responseJSON.message;
+        window.location.replace("?error=true")
+    });
+}
+
 </script>
 
 ${ include layouts/footer.html }

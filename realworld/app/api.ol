@@ -39,7 +39,7 @@ interface ApiInterface {
 
     RequestResponse: tags( void )( TagsResponse )
     RequestResponse: articles( ArticlesRequest )( ArticlesResponse )
-    RequestResponse: article( undefined )( ArticleResponse )
+    RequestResponse: article( CommentsRequest )( ArticleResponse )
     RequestResponse: comments( CommentsRequest )( ArticleResponse )
     RequestResponse: feed( undefined )( ArticlesResponse )
 }
@@ -93,9 +93,13 @@ service Api() {
 
         } ]
 
-        [ article ( slug )( response ) {
+        [ article ( request )( response ) {
 
-            ApiPort.protocol.osc.article.alias = "articles/" + slug
+            if(request.token != null) {
+                ApiPort.protocol.addHeader.header << "Authorization" { value = "Bearer " + request.token }
+            }
+
+            ApiPort.protocol.osc.article.alias = "articles/" + request.slug
 
             article@ApiPort()(article_response)
 
