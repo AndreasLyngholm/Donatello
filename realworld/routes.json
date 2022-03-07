@@ -72,7 +72,7 @@
             }
         ]
     },
-    "profiles/{username}": {
+    "profile/{username}": {
         "service": "profile.ol",
         "data": [
             {

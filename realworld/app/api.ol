@@ -25,9 +25,16 @@ type CommentsRequest {
     token?:string
 }
 
+type ProfileRequest {
+    username?:string
+    token?:string
+}
+
 type ArticlesResponse {?}
 
 type ArticleResponse {?}
+
+type ProfileResponse {?}
 
 interface ApiInterface {
     RequestResponse: ping( void )( string )
@@ -40,6 +47,7 @@ interface ApiInterface {
     RequestResponse: tags( void )( TagsResponse )
     RequestResponse: articles( ArticlesRequest )( ArticlesResponse )
     RequestResponse: article( CommentsRequest )( ArticleResponse )
+    RequestResponse: profile( ProfileRequest )( ProfileResponse )
     RequestResponse: comments( CommentsRequest )( ArticleResponse )
     RequestResponse: feed( undefined )( ArticlesResponse )
 }
@@ -70,6 +78,7 @@ service Api() {
                 article << { alias = "articles/{slug}" method = "get" }
                 feed << { alias = "articles/feed" method = "get" }
                 comments << { alias = "articles/{slug}/comments" method = "get" }
+                profile << { alias = "profiles/{username}" method = "get" }
             }
         }
         interfaces: ApiInterface
@@ -130,6 +139,20 @@ service Api() {
             ApiPort.protocol.osc.comments.alias = "articles/" + request.slug + "/comments"
 
             comments@ApiPort()(response)
+
+        } ]
+
+        [ profile ( request )( response ) {
+
+            if(request.token != null) {
+                ApiPort.protocol.addHeader.header << "Authorization" { value = "Bearer " + request.token }
+            }
+
+            ApiPort.protocol.osc.profile.alias = "profiles/" + request.username
+
+            profile@ApiPort()(data)
+
+            response << data.profile
 
         } ]
 

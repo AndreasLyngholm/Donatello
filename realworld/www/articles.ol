@@ -19,7 +19,7 @@ ${ for article in response.articles }
         <div class="article-meta">
             <a href="profile.html"><img src="{{ article.author.image }}"/></a>
             <div class="info">
-                <a href="/profiles/{{ article.author.username }}" class="author">{{ article.author.username }}</a>
+                <a href="/profile/{{ article.author.username }}" class="author">{{ article.author.username }}</a>
                 <span class="date">{{ article.created_at }}</span>
             </div>
             ${ if article.favorited }

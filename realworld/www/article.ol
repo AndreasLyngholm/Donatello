@@ -18,9 +18,9 @@ ${ include header.ol token=token }
             <h1>{{ article.title }}</h1>
 
             <div class="article-meta">
-                <a href="/profiles/{{ article.author.username }}"><img src="{{ article.author.image }}"/></a>
+                <a href="/profile/{{ article.author.username }}"><img src="{{ article.author.image }}"/></a>
                 <div class="info">
-                    <a href="/profiles/{{ article.author.username }}">{{ article.author.username }}</a>
+                    <a href="/profile/{{ article.author.username }}">{{ article.author.username }}</a>
                     <span class="date">{{ article.createdAt }}</span>
                 </div>
                 
@@ -92,9 +92,9 @@ ${ include header.ol token=token }
 
         <div class="article-actions">
             <div class="article-meta">
-                <a href="/profiles/{{ article.author.username }}"><img src="{{ article.author.image }}"/></a>
+                <a href="/profile/{{ article.author.username }}"><img src="{{ article.author.image }}"/></a>
                 <div class="info">
-                    <a href="/profiles/{{ article.author.username }}" class="author">{{ article.author.username }}</a>
+                    <a href="/profile/{{ article.author.username }}" class="author">{{ article.author.username }}</a>
                     <span class="date">{{ article.created_at }}</span>
                 </div>
 

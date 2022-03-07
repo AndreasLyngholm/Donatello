@@ -22,7 +22,7 @@ ${ for comment in response.comments }
                 <img src="{{ comment.author.image }}" class="comment-author-img"/>
             </a>
             &nbsp;
-            <a href="/profiles/{{ comment.author.username }}" class="comment-author">{{ comment.author.username }}</a>
+            <a href="/profile/{{ comment.author.username }}" class="comment-author">{{ comment.author.username }}</a>
             <span class="date-posted">{{ comment.createdAt }}</span>
 
             ${ if token != null and auth.username == comment.author.username }
