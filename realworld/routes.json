@@ -34,10 +34,11 @@
             }
         ]
     },
-    "editor/{id}": {
+    "editor/{slug}": {
         "service": "edit_article.ol",
         "data": [
             {
+                "identifier": "slug",
                 "variable": "slug"
             },
             {
@@ -57,10 +58,11 @@
             }
         ]
     },
-    "article/{id}": {
+    "article/{slug}": {
         "service": "article.ol",
         "data": [
             {
+                "identifier": "slug",
                 "variable": "slug"
             },
             {
@@ -70,13 +72,12 @@
             }
         ]
     },
-    "profiles/{id}": {
+    "profiles/{username}": {
         "service": "profile.ol",
         "data": [
             {
-                "identifier": "id",
-                "source": "data/users.json",
-                "variable": "user"
+                "identifier": "username",
+                "variable": "username"
             },
             {
                 "identifier": "token",
@@ -96,5 +97,5 @@
     },
     "logout": {
         "service": "logout.ol"
-    },
+    }
 }

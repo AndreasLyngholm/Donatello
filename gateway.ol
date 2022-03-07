@@ -7,6 +7,7 @@ from runtime import Runtime
 from file import File
 from console import Console
 from string_utils import StringUtils
+from json_utils import JsonUtils
 from uri_templates import UriTemplates
 
 /// Configuration parameters
@@ -34,6 +35,7 @@ service Gateway( params:Params ) {
     embed Console as Console
     embed StringUtils as StringUtils
     embed UriTemplates as UriTemplates
+    embed JsonUtils as JsonUtils
 
     inputPort GatewayPort {
         location: params.location
@@ -148,10 +150,12 @@ service Gateway( params:Params ) {
             if(response) {
                 path = routes.(route).service
 
-                f.template = route
-                expand@UriTemplates(f)(expansion)
+                split@StringUtils( route {.regex = "/"} )( template_split )
+                split@StringUtils( request.operation {.regex = "/"} )( url_split )
 
-                replaceFirst@StringUtils(request.operation {.regex = expansion, .replacement = ""})(id)
+                for ( i = 0, i < #template_split.result, i++ ) {
+                    variables.(template_split.result[i]) = url_split.result[i]
+                }
 
                 if(is_defined(routes.(route).data)) {
 
@@ -168,14 +172,14 @@ service Gateway( params:Params ) {
 
                                 foreach( d : jd ) {
                                     for( u in jd.(d) ) {
-                                        if(u.(data.identifier) == id) {
+                                        if(u.(data.identifier) == data.identifier) {
                                             params.(data.variable) << u
                                         }
                                     }
                                 }
                             }
-                        } else if(is_defined(data.variable)) { 
-                            params.(data.variable) << id
+                        } else if(is_defined(data.variable)) {
+                            params.(data.variable) << variables.("{" + data.identifier + "}")
                         }
 
                     }
