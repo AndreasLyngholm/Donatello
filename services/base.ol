@@ -27,7 +27,7 @@ service Main( params:Params ) {
         @operations
     }
 
-    execution { concurrent }
+    execution { single }
 
     inputPort Local {
         location: "local"
