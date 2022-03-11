@@ -1,8 +1,10 @@
-${ param token:string }
 ${ param slug:string }
+${ param token:string }
 
 ${use service ..app.api }
-${ article@Api(slug)(article) }
+${ data.slug = slug }
+${ data.token = token }
+${ article@Api(data)(article) }
 ${ if token != null }
     ${ me@Api(token)(auth) }
 ${ endif }
