@@ -154,32 +154,32 @@ service Gateway( params:Params ) {
                 split@StringUtils( request.operation {.regex = "/"} )( url_split )
 
                 for ( i = 0, i < #template_split.result, i++ ) {
-                    variables.(template_split.result[i]) = url_split.result[i]
+                    parameters.(template_split.result[i]) = url_split.result[i]
                 }
 
-                if(is_defined(routes.(route).data)) {
+                if(is_defined(routes.(route).parameters)) {
 
-                    for (data in routes.(route).data) {
+                    for (parameter in routes.(route).parameters) {
 
-                        if(is_defined(data.source)) {
-                            if(data.source == "cookie") {
-                                params.(data.variable) << request.cookies.(data.identifier)
+                        if(is_defined(parameter.source)) {
+                            if(parameter.source == "cookie") {
+                                params.(parameter.param) << request.cookies.(parameter.identifier)
                             } else {
                                 readFile@File( {
-                                    filename = params.root + data.source
+                                    filename = params.root + parameter.source
                                     format = "json"
                                 } )( jd )
 
                                 foreach( d : jd ) {
                                     for( u in jd.(d) ) {
-                                        if(u.(data.identifier) == data.identifier) {
-                                            params.(data.variable) << u
+                                        if(u.(parameter.identifier) == parameter.identifier) {
+                                            params.(parameter.param) << u
                                         }
                                     }
                                 }
                             }
-                        } else if(is_defined(data.variable)) {
-                            params.(data.variable) << variables.("{" + data.identifier + "}")
+                        } else if(is_defined(parameter.param)) {
+                            params.(parameter.param) << parameters.("{" + parameter.identifier + "}")
                         }
 
                     }

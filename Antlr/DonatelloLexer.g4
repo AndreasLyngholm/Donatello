@@ -185,6 +185,12 @@ mode IN_RAW;
 
   OtherRaw : . ;
 
+mode IN_COMMENT;
+
+  CommentEnd : '${' WhitespaceChar* 'endcomment' -> popMode;
+
+  OtherRaw : . ;
+
 mode IN_PARAM;
 
   ParamEnd : '}' -> popMode;
