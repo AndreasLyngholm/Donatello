@@ -28,7 +28,6 @@ service Launcher (config : DonatelloConfig ) {
         if( !is_defined( config.defaultPage ) ) config.defaultPage = "index.ol"
         if( !is_defined( config.routes      ) ) config.routes      = config.root + "routes.json"
 
-        loadLibrary@runtime( home + sep + "lib" + sep + "donatello.jar" )()
         loadEmbeddedService@runtime( {
             filepath = home + sep + "gateway.ol"
             service = "Gateway"
