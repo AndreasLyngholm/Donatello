@@ -1,6 +1,0 @@
-{ 
- "root": "/home/vagrant/Coding/thesis/donatello/demo/",
- "contentDir": "/home/vagrant/Coding/thesis/donatello/demo/www/",
- "servicesDir": "/home/vagrant/Coding/thesis/donatello/demo/services/",
- "routes" : "/home/vagrant/Coding/thesis/donatello/demo/routes.json"
-}
