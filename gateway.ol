@@ -68,12 +68,12 @@ service Gateway( params:Params ) {
 
     define loadDonatello {
         loadEmbeddedService@Runtime( {
-            filepath = "donatello.runtime.Compiler"
+            filepath = "dk.simpleconcept.donatello.Compiler"
             type = "Java"
         } )( Donatello.location )
 
         loadEmbeddedService@Runtime( {
-            filepath = "donatello.runtime.FileUtils"
+            filepath = "dk.simpleconcept.donatello.FileUtils"
             type = "Java"
         } )( FileUtils.location )
     }

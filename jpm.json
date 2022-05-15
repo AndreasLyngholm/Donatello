@@ -16,7 +16,7 @@
    "bin": {
       "donatello": "./launcher.ol"
    },
-   "distJar": "donatello-1.0.2.jar",
+   "distJar": "donatello-1.0.3.jar",
    "dependencies": {
       "mvn": {
          "com.github.rjeschke:txtmark": "0.13",
