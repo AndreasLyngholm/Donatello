@@ -208,9 +208,7 @@ service Gateway( params:Params ) {
             filename = params.routes
             format = "json"
         } )( routes )
-    }
-
-    init {
+        
         loadDonatello
 
         getFileSeparator@File()( sep )
