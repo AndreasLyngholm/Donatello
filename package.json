@@ -1,14 +1,7 @@
 {
   "name": "@simpleconcept/donatello",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "A dynamic web server written in Jolie.",
-  "main": "launcher.ol",
-  "directories": {
-    "lib": "lib"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AndreasLyngholm/Donatello.git"
