@@ -3,20 +3,24 @@
 from runtime import Runtime
 from file import File
 
-type DonatelloConfig: void {
-  location?: string
-  root?: string
-  contentDir?: string
-  servicesDir?: string
-  defaultPage?: string
-  routes?: string
-}
+// type DonatelloConfig: void {
+//   location?: string
+//   root?: string
+//   contentDir?: string
+//   servicesDir?: string
+//   defaultPage?: string
+//   routes?: string
+// }
 
-service Launcher (config : DonatelloConfig ) {
+service Launcher () { // config : DonatelloConfig
     embed Runtime as runtime
     embed File as file
 
     init {
+
+        if(#args > 0) {
+            readFile@file( {filename = args[0], format = "json"} )( config )
+        }
     
         getRealServiceDirectory@file()( home )
         getFileSeparator@file()( sep )

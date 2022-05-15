@@ -1,3 +1,5 @@
+#!/usr/bin/env jolie
+
 from runtime import Runtime
 from file import File
 from console import Console
