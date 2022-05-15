@@ -1,6 +1,6 @@
 {
   "name": "@simpleconcept/donatello",
-  "version": "1.2.0",
+  "version": "1.2.3",
   "description": "A dynamic web server written in Jolie.",
   "repository": {
     "type": "git",

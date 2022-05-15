@@ -4,6 +4,7 @@ from runtime import Runtime
 from file import File
 from console import Console
 from string_utils import StringUtils
+from json_utils import JsonUtils
 
 type InitConfig: void {
   location?: string
@@ -14,6 +15,7 @@ service Launcher (config : InitConfig ) {
     embed File as File
     embed Console as Console
     embed StringUtils as StringUtils
+    embed JsonUtils as JsonUtils
 
     init {
         getRealServiceDirectory@File()( home )
@@ -60,6 +62,26 @@ service Launcher (config : InitConfig ) {
                 servicesDir = services
                 routes = root + "routes.json"
             }
+        } )()
+
+        getJsonValue@JsonUtils( "{
+            \"name\": \"Donatello Project\",
+            \"description\": \"\",
+            \"author\": \"\",
+            \"version\": \"1.0.0\",
+            \"license\": \"ISC\",
+            \"dependencies\": {
+                \"npm\" : {
+                    \"@simpleconcept/donatello\": \"1.2.3\"
+                }
+            },
+            }" )( jpm);
+
+        // Config
+        writeFile@File( {
+            filename = root + "jpm.json"
+            format = "json"
+            content << jpm
         } )()
 
         println@Console( "Donatello was initialized at " + root )()
