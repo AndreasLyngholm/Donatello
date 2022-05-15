@@ -22,7 +22,7 @@ service Launcher (config : DonatelloConfig ) {
         getFileSeparator@file()( sep )
 
         if( !is_defined( config.location    ) ) config.location    = "socket://localhost:8000"
-        if( !is_defined( config.root        ) ) config.root        = home
+        if( !is_defined( config.root        ) ) config.root        = home + sep
         if( !is_defined( config.contentDir  ) ) config.contentDir  = config.root + "www" + sep
         if( !is_defined( config.servicesDir ) ) config.servicesDir = config.root + "services" + sep
         if( !is_defined( config.defaultPage ) ) config.defaultPage = "index.ol"

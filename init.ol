@@ -1,6 +1,7 @@
 from runtime import Runtime
 from file import File
 from console import Console
+from string_utils import StringUtils
 
 type InitConfig: void {
   location?: string
@@ -10,15 +11,9 @@ service Launcher (config : InitConfig ) {
     embed Runtime as Runtime
     embed File as File
     embed Console as Console
+    embed StringUtils as StringUtils
 
     init {
-
-        install( DirExsits =>
-                /* this fault handler will be executed last */
-            println@Console( "There already exists a folder at this location!" )()
-            halt@Runtime()()
-        )
-
         getRealServiceDirectory@File()( home )
         getFileSeparator@File()( sep )
 
@@ -26,11 +21,11 @@ service Launcher (config : InitConfig ) {
             root = home + sep + "donatello" + sep
         } else {
             root = args[0]
-        }
 
-        exists@File( root )( root_exists )
-        if(root_exists) {
-            throw( DirExsits )
+            endsWith@StringUtils( root {.suffix = sep})( response )
+            if(! root) {
+                root = root + sep
+            }
         }
 
         www = root + "www" + sep

@@ -13,6 +13,7 @@
       "microservices",
       "web server"
    ],
+   "main": "launcher.ol",
    "distJar": "donatello-1.0.3.jar",
    "dependencies": {
       "mvn": {
