@@ -172,8 +172,8 @@ service Gateway( params:Params ) {
 
                                 foreach( d : jd ) {
                                     for( u in jd.(d) ) {
-                                        if(u.(parameter.identifier) == parameter.identifier) {
-                                            params.(parameter.param) << u
+                                        if(u.(data.identifier) == variables.("{" + data.identifier + "}")) {
+                                            params.(data.variable) << u
                                         }
                                     }
                                 }
@@ -194,6 +194,7 @@ service Gateway( params:Params ) {
     }
 
     define unsetParams {
+        params.url << params.operation
         undef(params.data)
         undef(params.requestUri)
         undef(params.operation)
@@ -207,9 +208,7 @@ service Gateway( params:Params ) {
             filename = params.routes
             format = "json"
         } )( routes )
-    }
-
-    init {
+        
         loadDonatello
 
         getFileSeparator@File()( sep )
@@ -246,6 +245,13 @@ service Gateway( params:Params ) {
                 endsWithReq = path
                 endsWithReq.suffix = ".markdown"
                 endsWith@StringUtils(endsWithReq)(isMarkdown)
+
+                if ( ! isMarkdown) {
+                    // Check file ending
+                    endsWithReq = path
+                    endsWithReq.suffix = ".md"
+                    endsWith@StringUtils(endsWithReq)(isMarkdown)
+                }
 
                 params << request
                 

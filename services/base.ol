@@ -13,6 +13,7 @@ type Params {
     servicesDir:string
     defaultPage:string
     routes:string
+    url:string
     @params
 }
 
