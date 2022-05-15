@@ -1,0 +1,28 @@
+{
+  "name": "@simpleconcept/donatello",
+  "version": "1.0.4",
+  "description": "A dynamic web server written in Jolie.",
+  "main": "launcher.ol",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndreasLyngholm/Donatello.git"
+  },
+  "keywords": [
+    "jolie",
+    "microservices",
+    "web",
+    "server"
+  ],
+  "author": "Andreas Lyngholm Poulsen",
+  "license": "LGPL-2.1-only",
+  "bugs": {
+    "url": "https://github.com/AndreasLyngholm/Donatello/issues"
+  },
+  "homepage": "https://github.com/AndreasLyngholm/Donatello#readme"
+}
