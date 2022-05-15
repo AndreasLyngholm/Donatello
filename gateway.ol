@@ -1,6 +1,6 @@
-from GatewayInterfaceModule import GatewayInterface
-from PageInterfaceModule import PageInterface
-from DonatelloInterfaceModule import DonatelloInterface
+from @simpleconcept.donatello.GatewayInterfaceModule import GatewayInterface
+from @simpleconcept.donatello.PageInterfaceModule import PageInterface
+from @simpleconcept.donatello.DonatelloInterfaceModule import DonatelloInterface
 from types.Binding import Binding
 
 from runtime import Runtime
@@ -122,7 +122,10 @@ service Gateway( params:Params ) {
                 readFile@File(file)(data.contents)
 
                 if(isService) {
-                    base.filename = "services/base.ol"
+                    getRealServiceDirectory@File()( home )
+                    getFileSeparator@File()( sep )
+
+                    base.filename = home + sep + "services/base.ol"
                     readFile@File(base)(data.base)
 
                     data.type = "service"
