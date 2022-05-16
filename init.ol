@@ -22,7 +22,8 @@ service Launcher (config : InitConfig ) {
         getFileSeparator@File()( sep )
 
         if(#args < 1) {
-            root = home + sep + "donatello" + sep
+            println@Console( "Please declare a path for your project: donatello-init some/path" )()
+            halt@Runtime()()
         } else {
             root = args[0]
 
@@ -52,15 +53,18 @@ service Launcher (config : InitConfig ) {
             }
         } )()
 
+        toAbsolutePath@File( root )( root_path )
+        toAbsolutePath@File( www )( www_path )
+        toAbsolutePath@File( services )( services_path )
         // Config
         writeFile@File( {
             filename = root + "config.json"
             format = "json"
             content << {
-                root = root
-                contentDir = www
-                servicesDir = services
-                routes = root + "routes.json"
+                root = root_path
+                contentDir = www_path
+                servicesDir = services_path
+                routes = root_path + sep + "routes.json"
             }
         } )()
 

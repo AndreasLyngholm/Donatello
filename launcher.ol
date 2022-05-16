@@ -3,16 +3,7 @@
 from runtime import Runtime
 from file import File
 
-// type DonatelloConfig: void {
-//   location?: string
-//   root?: string
-//   contentDir?: string
-//   servicesDir?: string
-//   defaultPage?: string
-//   routes?: string
-// }
-
-service Launcher () { // config : DonatelloConfig
+service Launcher () {
     embed Runtime as runtime
     embed File as file
 
