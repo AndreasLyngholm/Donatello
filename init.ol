@@ -61,9 +61,9 @@ service Launcher (config : InitConfig ) {
             filename = root + "config.json"
             format = "json"
             content << {
-                root = root_path
-                contentDir = www_path
-                servicesDir = services_path
+                root = root_path + sep
+                contentDir = www_path + sep
+                servicesDir = services_path + sep
                 routes = root_path + sep + "routes.json"
             }
         } )()
@@ -76,7 +76,7 @@ service Launcher (config : InitConfig ) {
             \"license\": \"ISC\",
             \"dependencies\": {
                 \"npm\" : {
-                    \"@simpleconcept/donatello\": \"1.2.5\"
+                    \"@simpleconcept/donatello\": \"1.2.6\"
                 }
             },
             }" )( jpm);
