@@ -56,6 +56,7 @@ service Launcher (config : InitConfig ) {
         toAbsolutePath@File( root )( root_path )
         toAbsolutePath@File( www )( www_path )
         toAbsolutePath@File( services )( services_path )
+
         // Config
         writeFile@File( {
             filename = root + "config.json"
@@ -68,6 +69,7 @@ service Launcher (config : InitConfig ) {
             }
         } )()
 
+        // JPM file
         getJsonValue@JsonUtils( "{
             \"name\": \"Donatello Project\",
             \"description\": \"\",
@@ -76,12 +78,12 @@ service Launcher (config : InitConfig ) {
             \"license\": \"ISC\",
             \"dependencies\": {
                 \"npm\" : {
-                    \"@simpleconcept/donatello\": \"1.2.6\"
+                    \"@simpleconcept/donatello\": \"1.2.7\"
                 }
             },
-            }" )( jpm);
+            }" )(jpm);
 
-        // Config
+        // JPM
         writeFile@File( {
             filename = root + "jpm.json"
             format = "json"
