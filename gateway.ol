@@ -173,7 +173,7 @@ service Gateway( params:Params ) {
                                 foreach( d : jd ) {
                                     for( u in jd.(d) ) {
                                         if(u.(data.identifier) == variables.("{" + data.identifier + "}")) {
-                                            params.(data.variable) << u
+                                            params.(data.param) << u
                                         }
                                     }
                                 }

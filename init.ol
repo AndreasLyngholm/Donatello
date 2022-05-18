@@ -78,7 +78,7 @@ service Launcher (config : InitConfig ) {
             \"license\": \"ISC\",
             \"dependencies\": {
                 \"npm\" : {
-                    \"@simpleconcept/donatello\": \"1.2.7\"
+                    \"@simpleconcept/donatello\": \"1.2.8\"
                 }
             },
             }" )(jpm);
